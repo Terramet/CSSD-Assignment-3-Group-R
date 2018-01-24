@@ -31,7 +31,7 @@ public class CSSD_Assignment_3 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Hello World");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -45,7 +45,7 @@ public class CSSD_Assignment_3 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(145, 145, 145)
                 .addComponent(jButton1)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
