@@ -27,14 +27,33 @@ public class CSSD_Assignment_3 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnAdminLogin = new javax.swing.JButton();
+        btnTopup = new javax.swing.JButton();
+        btnStationTerminal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Hello World");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdminLogin.setText("Admin Login");
+        btnAdminLogin.setName("btnAdminLogin"); // NOI18N
+        btnAdminLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAdminLoginActionPerformed(evt);
+            }
+        });
+
+        btnTopup.setText("Top Up");
+        btnTopup.setName("btnTopup"); // NOI18N
+        btnTopup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTopupActionPerformed(evt);
+            }
+        });
+
+        btnStationTerminal.setText("Station Terminal");
+        btnStationTerminal.setName("btnStationTerminal"); // NOI18N
+        btnStationTerminal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStationTerminalActionPerformed(evt);
             }
         });
 
@@ -43,24 +62,48 @@ public class CSSD_Assignment_3 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(145, 145, 145)
-                .addComponent(jButton1)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnStationTerminal)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(btnTopup))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAdminLogin)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addComponent(jButton1)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btnAdminLogin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTopup)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnStationTerminal)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println("Hello World");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnAdminLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminLoginActionPerformed
+        this.setVisible(false);
+        new LoginForm().setVisible(true);
+    }//GEN-LAST:event_btnAdminLoginActionPerformed
+
+    private void btnTopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTopupActionPerformed
+        this.setVisible(false);
+        new TopUpForm().setVisible(true);
+    }//GEN-LAST:event_btnTopupActionPerformed
+
+    private void btnStationTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStationTerminalActionPerformed
+        this.setVisible(false);
+        new StationTerminalForm().setVisible(true);
+    }//GEN-LAST:event_btnStationTerminalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -101,6 +144,8 @@ public class CSSD_Assignment_3 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAdminLogin;
+    private javax.swing.JButton btnStationTerminal;
+    private javax.swing.JButton btnTopup;
     // End of variables declaration//GEN-END:variables
 }
