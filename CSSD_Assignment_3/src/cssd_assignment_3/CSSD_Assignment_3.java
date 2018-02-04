@@ -102,7 +102,7 @@ public class CSSD_Assignment_3 extends javax.swing.JFrame {
 
     private void btnStationTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStationTerminalActionPerformed
         this.setVisible(false);
-        new StationTerminalForm().setVisible(true);
+        new StationTerminalLoginForm().setVisible(true);
     }//GEN-LAST:event_btnStationTerminalActionPerformed
 
     /**
