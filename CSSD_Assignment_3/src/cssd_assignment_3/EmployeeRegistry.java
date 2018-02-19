@@ -5,16 +5,24 @@
  */
 package cssd_assignment_3;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
 /**
  *
  * @author Ascendant
  */
-public class EmployeeRegistry {
+public class EmployeeRegistry implements Serializable{
     /*
     I made this class into a singleton because it didn't make sense to ever have more than one registry in a system.
-    It also made managing the class easier so why not
+    It also made managing the class easier so why not.
+    
+    Now serializes the class so that it keeps the data between runs.
     */
     
     private static EmployeeRegistry Registry = null;
@@ -25,17 +33,40 @@ public class EmployeeRegistry {
     }
     
     public static EmployeeRegistry getRegistry() {
-        if (Registry == null) {
-            List<Employee> list =  new ArrayList<>();
-            list.add(new Employee("Admin", "Admin", 7));
-            Registry = new EmployeeRegistry(list);
-            
+        if(Registry == null) {
+            try {
+                ObjectInputStream inRegistry = new ObjectInputStream(new FileInputStream("Registry.ser"));
+                Registry = (EmployeeRegistry) inRegistry.readObject(); 
+            } catch(ClassNotFoundException c) {
+                System.out.println("Error:" + c);
+            } catch (IOException e) {
+                System.out.println("Error: " + e);
+            }
+                if(Registry == null) {
+                    List<Employee> list =  new ArrayList<>();
+                    list.add(new Employee("Admin", "Admin", 7));
+                    list.add(new Employee("Bob", "UselessBob", 0));
+                    Registry = new EmployeeRegistry(list);
+                }
         }
         return Registry;
+    }
+
+    public void saveRegistry() {
+        try {
+            ObjectOutputStream outRegistry = new ObjectOutputStream(new FileOutputStream("Registry.ser"));
+            outRegistry.writeObject(this);
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
     }
     
     public void add(Employee e) {
         employees.add(e);
+    }
+    
+    public List<Employee> getAccountList() {
+        return employees;
     }
     
     public Employee getEmployee(String name) {

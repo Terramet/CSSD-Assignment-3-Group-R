@@ -121,7 +121,7 @@ public class LoginForm extends javax.swing.JFrame {
         if(EUI.login(txtUsername.getText(), pass)) {
             lblInvalidLogin.setVisible(false);
             this.setVisible(false);
-            new AdminGUI().setVisible(true);
+            new AdminGUI(EUI).setVisible(true);
         } else {
             lblInvalidLogin.setVisible(true);
         }

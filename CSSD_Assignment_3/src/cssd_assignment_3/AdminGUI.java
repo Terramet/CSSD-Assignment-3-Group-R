@@ -5,17 +5,36 @@
  */
 package cssd_assignment_3;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 /**
  *
  * @author Ascendant
  */
 public class AdminGUI extends javax.swing.JFrame {
 
+    static EmployeeUserInterface EUI = null;
     /**
-     * Creates new form StationTerminalForm
+     * Creates new form AdminGUI
+     * @param EUIp
      */
-    public AdminGUI() {
+    public AdminGUI(EmployeeUserInterface EUIp) {
         initComponents();
+        EUI = EUIp;
+        listAccounts.setListData(EUI.getAccountList().toArray());
+        System.out.println(EUI.getActiveIsAdmin());
+        if(!EUI.getActiveIsAdmin()) {
+            tabsHomePage.setEnabledAt(1, false);
+        }
+        
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EUI.saveAccounts();
+            }
+
+        });
     }
 
     /**
@@ -30,6 +49,9 @@ public class AdminGUI extends javax.swing.JFrame {
         tabsHomePage = new javax.swing.JTabbedPane();
         pnlNews = new javax.swing.JPanel();
         pnlAccount = new javax.swing.JPanel();
+        scrAccounts = new javax.swing.JScrollPane();
+        listAccounts = new javax.swing.JList();
+        lblCurrentAccounts = new javax.swing.JLabel();
         pnlReports = new javax.swing.JPanel();
         tabsReports = new javax.swing.JTabbedPane();
         pnlMaintenance = new javax.swing.JPanel();
@@ -62,14 +84,14 @@ public class AdminGUI extends javax.swing.JFrame {
         txtIncidentReports = new javax.swing.JTextField();
         lblDriversAccidentReports = new javax.swing.JLabel();
         txtDriversAccidentReports = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnGetDriversReport = new javax.swing.JButton();
         pnlFareEvasion = new javax.swing.JPanel();
         txtNumberOfEvadersCaught = new javax.swing.JTextField();
         txtRevenueRecovered = new javax.swing.JTextField();
         txtRevenueLost = new javax.swing.JTextField();
         lblRevenueLost = new javax.swing.JLabel();
         lblRevenueRecovered = new javax.swing.JLabel();
-        lblOfBusesFull1 = new javax.swing.JLabel();
+        lblNumEvadeCaught = new javax.swing.JLabel();
         btnPrintFareEvasionReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,15 +111,37 @@ public class AdminGUI extends javax.swing.JFrame {
 
         tabsHomePage.addTab("News", pnlNews);
 
+        listAccounts.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        scrAccounts.setViewportView(listAccounts);
+
+        lblCurrentAccounts.setText("Accounts");
+
         javax.swing.GroupLayout pnlAccountLayout = new javax.swing.GroupLayout(pnlAccount);
         pnlAccount.setLayout(pnlAccountLayout);
         pnlAccountLayout.setHorizontalGroup(
             pnlAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 398, Short.MAX_VALUE)
+            .addGroup(pnlAccountLayout.createSequentialGroup()
+                .addGroup(pnlAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAccountLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(scrAccounts, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAccountLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(lblCurrentAccounts)))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
         pnlAccountLayout.setVerticalGroup(
             pnlAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 303, Short.MAX_VALUE)
+            .addGroup(pnlAccountLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(lblCurrentAccounts)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrAccounts, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tabsHomePage.addTab("Accounts", pnlAccount);
@@ -290,7 +334,7 @@ public class AdminGUI extends javax.swing.JFrame {
 
         lblDriversAccidentReports.setText("Drivers Accident Reports");
 
-        jButton1.setText("Get drivers report");
+        btnGetDriversReport.setText("Get drivers report");
 
         javax.swing.GroupLayout pnlIncidentsLayout = new javax.swing.GroupLayout(pnlIncidents);
         pnlIncidents.setLayout(pnlIncidentsLayout);
@@ -302,7 +346,7 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addGroup(pnlIncidentsLayout.createSequentialGroup()
                         .addComponent(txtDriversAccidentReports)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btnGetDriversReport))
                     .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblDriversAccidentReports)
                         .addComponent(lblUnsociableReports)
@@ -331,7 +375,7 @@ public class AdminGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDriversAccidentReports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnGetDriversReport))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPrintIncidentsReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
@@ -355,7 +399,7 @@ public class AdminGUI extends javax.swing.JFrame {
 
         lblRevenueRecovered.setText("Revenue Recovered");
 
-        lblOfBusesFull1.setText("Number Of Evaders Caught");
+        lblNumEvadeCaught.setText("Number Of Evaders Caught");
 
         btnPrintFareEvasionReport.setText("PRINT REPORT");
         btnPrintFareEvasionReport.addActionListener(new java.awt.event.ActionListener() {
@@ -380,7 +424,7 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addComponent(txtRevenueLost, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblOfBusesFull1)
+                    .addComponent(lblNumEvadeCaught)
                     .addComponent(lblRevenueRecovered)
                     .addComponent(lblRevenueLost))
                 .addGap(48, 48, 48))
@@ -391,7 +435,7 @@ public class AdminGUI extends javax.swing.JFrame {
                 .addContainerGap(68, Short.MAX_VALUE)
                 .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumberOfEvadersCaught, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblOfBusesFull1))
+                    .addComponent(lblNumEvadeCaught))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRevenueRecovered, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,7 +455,7 @@ public class AdminGUI extends javax.swing.JFrame {
         pnlReports.setLayout(pnlReportsLayout);
         pnlReportsLayout.setHorizontalGroup(
             pnlReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabsReports, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+            .addComponent(tabsReports)
         );
         pnlReportsLayout.setVerticalGroup(
             pnlReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -441,7 +485,7 @@ public class AdminGUI extends javax.swing.JFrame {
     private void btnPrintFareEvasionReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintFareEvasionReportActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPrintFareEvasionReportActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -473,32 +517,34 @@ public class AdminGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminGUI().setVisible(true);
+                new AdminGUI(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGetDriversReport;
     private javax.swing.JButton btnPrintCapacityReport;
     private javax.swing.JButton btnPrintFareEvasionReport;
     private javax.swing.JButton btnPrintFinanceReport;
     private javax.swing.JButton btnPrintIncidentsReport;
     private javax.swing.JButton btnPrintMaintenanceReport;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblBreakdownCosts;
     private javax.swing.JLabel lblCheapestVehicles;
+    private javax.swing.JLabel lblCurrentAccounts;
     private javax.swing.JLabel lblDriversAccidentReports;
     private javax.swing.JLabel lblIncidentReports;
     private javax.swing.JLabel lblMaintenanceCosts;
     private javax.swing.JLabel lblMostExpensiveVehicles;
+    private javax.swing.JLabel lblNumEvadeCaught;
     private javax.swing.JLabel lblOfBusesFull;
-    private javax.swing.JLabel lblOfBusesFull1;
     private javax.swing.JLabel lblOfTrainsFull;
     private javax.swing.JLabel lblOfTramsFull;
     private javax.swing.JLabel lblProfitLoss;
     private javax.swing.JLabel lblRevenueLost;
     private javax.swing.JLabel lblRevenueRecovered;
     private javax.swing.JLabel lblUnsociableReports;
+    private javax.swing.JList listAccounts;
     private javax.swing.JPanel pnlAccount;
     private javax.swing.JPanel pnlCapacity;
     private javax.swing.JPanel pnlFareEvasion;
@@ -507,6 +553,7 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JPanel pnlMaintenance;
     private javax.swing.JPanel pnlNews;
     private javax.swing.JPanel pnlReports;
+    private javax.swing.JScrollPane scrAccounts;
     private javax.swing.JTabbedPane tabsHomePage;
     private javax.swing.JTabbedPane tabsReports;
     private javax.swing.JTextField txtBreakCosts;

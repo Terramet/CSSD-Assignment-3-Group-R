@@ -5,6 +5,8 @@
  */
 package cssd_assignment_3;
 
+import java.util.*;
+
 /**
  *
  * @author Ascendant
@@ -20,7 +22,7 @@ public class AccountManager {
     private String userName;
     private String password;
     private Employee activeUser;
-    private EmployeeRegistry Registry;
+    private final EmployeeRegistry Registry;
     
     public AccountManager() {
        this.Registry = EmployeeRegistry.getRegistry();       
@@ -39,5 +41,17 @@ public class AccountManager {
             } 
         }
         return false;
+    }
+    
+    public List<Employee> getAccountList() {
+        return Registry.getAccountList();
+    }
+    
+    public boolean getActiveIsAdmin() {
+        return activeUser.isEmployeeAdmin(activeUser);
+    }
+    
+    public void saveAccounts() {
+        Registry.saveRegistry();
     }
 }

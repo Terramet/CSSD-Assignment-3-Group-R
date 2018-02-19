@@ -5,11 +5,16 @@
  */
 package cssd_assignment_3;
 
+import java.util.*;
+
 /**
  *
  * @author Ascendant
  */
 public class EmployeeUserInterface {
+    /*
+    
+    */
     private String password;
     private String encrpytedPassword;
     private String name;
@@ -21,5 +26,17 @@ public class EmployeeUserInterface {
     
     public boolean login(String name, String password) {
         return manager.login(name, password);
+    }
+    
+    public List<Employee> getAccountList() {
+        return manager.getAccountList();
+    }
+    
+    public boolean getActiveIsAdmin() {
+        return manager.getActiveIsAdmin();
+    }
+    
+    public void saveAccounts() {
+        manager.saveAccounts();
     }
 }

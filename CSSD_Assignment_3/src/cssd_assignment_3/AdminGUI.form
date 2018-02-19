@@ -74,15 +74,62 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="398" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="scrAccounts" min="-2" pref="158" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="lblCurrentAccounts" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="234" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="303" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                      <Component id="lblCurrentAccounts" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="scrAccounts" pref="287" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JScrollPane" name="scrAccounts">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JList" name="listAccounts">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                      <StringArray count="5">
+                        <StringItem index="0" value="Item 1"/>
+                        <StringItem index="1" value="Item 2"/>
+                        <StringItem index="2" value="Item 3"/>
+                        <StringItem index="3" value="Item 4"/>
+                        <StringItem index="4" value="Item 5"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JLabel" name="lblCurrentAccounts">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Accounts"/>
+              </Properties>
+            </Component>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="pnlReports">
           <Constraints>
@@ -96,7 +143,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="tabsReports" alignment="0" pref="398" max="32767" attributes="0"/>
+                  <Component id="tabsReports" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -417,7 +464,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="txtDriversAccidentReports" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnGetDriversReport" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="lblDriversAccidentReports" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -452,7 +499,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtDriversAccidentReports" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnGetDriversReport" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnPrintIncidentsReport" min="-2" pref="50" max="-2" attributes="0"/>
@@ -488,7 +535,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDriversAccidentReports">
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton1">
+                    <Component class="javax.swing.JButton" name="btnGetDriversReport">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Get drivers report"/>
                       </Properties>
@@ -521,7 +568,7 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblOfBusesFull1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNumEvadeCaught" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblRevenueRecovered" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblRevenueLost" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -535,7 +582,7 @@
                               <EmptySpace pref="68" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtNumberOfEvadersCaught" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblOfBusesFull1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNumEvadeCaught" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -586,7 +633,7 @@
                         <Property name="text" type="java.lang.String" value="Revenue Recovered"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblOfBusesFull1">
+                    <Component class="javax.swing.JLabel" name="lblNumEvadeCaught">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Number Of Evaders Caught"/>
                       </Properties>

@@ -5,11 +5,13 @@
  */
 package cssd_assignment_3;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ascendant
  */
-public class Employee {
+public class Employee implements Serializable {
     /*
     Rather than just changing to classes I thought I would write the changes down so that we can add this to the report
     This class has no unique identifier and the collection class is trying to find an employee class by name
@@ -36,5 +38,10 @@ public class Employee {
     
     public boolean isEmployeeAdmin(Employee e) {
         return e.securityLevel == 7;
+    }
+    
+    @Override
+    public String toString() {
+        return name;
     }
 }
