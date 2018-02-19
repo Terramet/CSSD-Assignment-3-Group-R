@@ -10,12 +10,16 @@ package cssd_assignment_3;
  * @author Ascendant
  */
 public class LoginForm extends javax.swing.JFrame {
+    
+    EmployeeUserInterface EUI = null;
 
     /**
      * Creates new form LoginForm
      */
     public LoginForm() {
         initComponents();
+        lblInvalidLogin.setVisible(false);
+        EUI = new EmployeeUserInterface();
     }
 
     /**
@@ -113,7 +117,8 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if(txtUsername.getText().equals("hello")) {
+        String pass = new String(pwfPassword.getPassword());
+        if(EUI.login(txtUsername.getText(), pass)) {
             lblInvalidLogin.setVisible(false);
             this.setVisible(false);
             new AdminGUI().setVisible(true);

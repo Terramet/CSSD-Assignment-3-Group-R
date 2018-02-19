@@ -298,9 +298,9 @@ public class AdminGUI extends javax.swing.JFrame {
             pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlIncidentsLayout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(pnlIncidentsLayout.createSequentialGroup()
-                        .addComponent(txtDriversAccidentReports, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDriversAccidentReports)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,7 +309,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addComponent(txtUnsociableReports, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblIncidentReports)
                         .addComponent(txtIncidentReports, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
             .addGroup(pnlIncidentsLayout.createSequentialGroup()
                 .addGap(136, 136, 136)
                 .addComponent(btnPrintIncidentsReport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -334,7 +334,7 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPrintIncidentsReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         tabsReports.addTab("Incidents", pnlIncidents);
