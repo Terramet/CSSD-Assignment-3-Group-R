@@ -5,17 +5,84 @@
  */
 package cssd_assignment_3;
 
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+import java.util.ArrayList;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JFrame;
+
+
+interface RoutesRegistry{};
+interface ListOfRoutes{};
+interface FaresStructure{};
+interface ListOfFares{};
+interface Route{};
+
 /**
  *
  * @author Ascendant
  */
-public class StationTerminalForm extends javax.swing.JFrame {
 
+public class StationTerminalForm extends javax.swing.JFrame {
+    physicalPOS terminal = new physicalPOS("1");
+    private JPanel cards = new JPanel(new CardLayout());
+    private ButtonGroup langRadios = new ButtonGroup();
+    private ButtonGroup travelRadios = new ButtonGroup();
+    private ButtonGroup paymentRadios = new ButtonGroup();
+    
+    String language = "english";
+    PromotionalCoupon coupon;
+    RoutesRegistry routes;
+    FaresStructure fares;
+    String couponID;
+    double credits;
+    double travelCost;
     /**
      * Creates new form StationTerminalForm
      */
     public StationTerminalForm() {
         initComponents();
+        
+        langRadios.add(jRadioEnglish);
+        langRadios.add(jRadioFrench);
+        langRadios.add(jRadioGerman);
+        travelRadios.add(jRadioOneWay);
+        travelRadios.add(jRadioReturn);
+        travelRadios.add(jRadioOpenReturn);
+        paymentRadios.add(radioCash);
+        paymentRadios.add(radioCard);
+        
+        cards.add(homePanel, "home");
+        cards.add(languagePanel, "language");
+        cards.add(timetablePanel, "timetable");
+        cards.add(searchPanel, "search");
+        cards.add(paymentSuccesfulPanel, "paySucc");
+        cards.add(cashPaymentPanel, "cash");
+        cards.add(cardPaymentPanel, "card");
+        cards.add(confirmBookingPanel, "booking");
+        cards.add(searchResultsPanel, "searchResults");
+        mainPanel.add(cards);
+        
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, "home");
+//        mainPanel.add(homePanel);
+//        mainPanel.removeAll();
+//        mainPanel.revalidate();
+//        mainPanel.repaint();
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                String string = new SimpleDateFormat("HH:mm:ss").format(new Date());
+                timeLabel.setText(string);
+            }
+        }, 0, 1000);
     }
 
     /**
@@ -93,7 +160,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
         bookingAdvance = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        cardPayementPanel = new javax.swing.JPanel();
+        cardPaymentPanel = new javax.swing.JPanel();
         cardReturnDay = new javax.swing.JLabel();
         cardStation = new javax.swing.JLabel();
         cardDepartureDay = new javax.swing.JLabel();
@@ -108,7 +175,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
         cardNumber = new javax.swing.JTextField();
         cardSecurityCode = new javax.swing.JTextField();
         cardConfirmButton = new javax.swing.JButton();
-        cashPayementPanel = new javax.swing.JPanel();
+        cashPaymentPanel = new javax.swing.JPanel();
         cashReturnDay = new javax.swing.JLabel();
         cashStation = new javax.swing.JLabel();
         cashDepartureDay = new javax.swing.JLabel();
@@ -140,7 +207,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
         dueTextPane = new javax.swing.JTextPane();
         expectedScrollPane = new javax.swing.JScrollPane();
         expectedTextPane = new javax.swing.JTextPane();
-        payementSuccesfulPanel = new javax.swing.JPanel();
+        paymentSuccesfulPanel = new javax.swing.JPanel();
         paymentReturnDate = new javax.swing.JLabel();
         paymentStation = new javax.swing.JLabel();
         paymentDepartureDate = new javax.swing.JLabel();
@@ -158,17 +225,19 @@ public class StationTerminalForm extends javax.swing.JFrame {
         destination8 = new javax.swing.JButton();
         destination7 = new javax.swing.JButton();
         destination9 = new javax.swing.JButton();
-        homePanel1 = new javax.swing.JPanel();
+        testPanel = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
         homeButtonPanel = new javax.swing.JPanel();
-        homeLable = new javax.swing.JLabel();
-        timePanel = new javax.swing.JPanel();
-        Time = new javax.swing.JLabel();
-        homeButtonsPanel = new javax.swing.JPanel();
-        languageButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        optionPanel = new javax.swing.JPanel();
+        langaugeButton = new javax.swing.JButton();
         timetableButton = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        timePanel = new javax.swing.JPanel();
+        timeLabel = new javax.swing.JLabel();
+        spacerPanel = new javax.swing.JPanel();
+        mainPanel = new javax.swing.JPanel();
 
-        languagePanel.setPreferredSize(new java.awt.Dimension(690, 517));
+        languagePanel.setPreferredSize(new java.awt.Dimension(688, 517));
 
         jRadioEnglish.setSelected(true);
         jRadioEnglish.setText("English");
@@ -178,6 +247,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
         jRadioGerman.setText("German");
 
         loadLangButton.setText("Load Language");
+        loadLangButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadLangButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout languagePanelLayout = new javax.swing.GroupLayout(languagePanel);
         languagePanel.setLayout(languagePanelLayout);
@@ -209,7 +283,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        searchPanel.setPreferredSize(new java.awt.Dimension(690, 517));
+        searchPanel.setPreferredSize(new java.awt.Dimension(688, 517));
 
         jLabel2.setText("Departure Date");
 
@@ -258,6 +332,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
         destinationLabel.setText("#Destination");
 
         searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
@@ -330,9 +409,14 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGap(79, 79, 79))
         );
 
-        searchResultsPanel.setPreferredSize(new java.awt.Dimension(690, 517));
+        searchResultsPanel.setPreferredSize(new java.awt.Dimension(688, 517));
 
         resultsPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        resultsPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resultsPanel2MouseClicked(evt);
+            }
+        });
 
         rpanelPrice2.setText("Price");
 
@@ -377,6 +461,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
         );
 
         resultsPanel4.setBackground(new java.awt.Color(204, 204, 204));
+        resultsPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resultsPanel4MouseClicked(evt);
+            }
+        });
 
         rpanelPrice4.setText("Price");
 
@@ -421,6 +510,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
         );
 
         resultsPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        resultsPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resultsPanel1MouseClicked(evt);
+            }
+        });
 
         rpanelDestination1.setText("Destination");
 
@@ -465,6 +559,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
         );
 
         resultsPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        resultsPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resultsPanel3MouseClicked(evt);
+            }
+        });
 
         rpanelPrice3.setText("Price");
 
@@ -508,6 +607,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
         );
 
         resultsPanel5.setBackground(new java.awt.Color(204, 204, 204));
+        resultsPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resultsPanel5MouseClicked(evt);
+            }
+        });
 
         rpanelPrice5.setText("Price");
 
@@ -552,6 +656,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
         );
 
         resultsPanel6.setBackground(new java.awt.Color(204, 204, 204));
+        resultsPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resultsPanel6MouseClicked(evt);
+            }
+        });
 
         rpanelPrice6.setText("Price");
 
@@ -652,9 +761,20 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
         radioCard.setText("Card");
 
+        couponTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                couponTextFieldActionPerformed(evt);
+            }
+        });
+
         jLabel13.setText("Coupon Code");
 
         bookingAdvance.setText("Advance");
+        bookingAdvance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookingAdvanceActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(255, 52, 52));
         jPanel3.setEnabled(false);
@@ -760,7 +880,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGap(43, 43, 43))
         );
 
-        cardPayementPanel.setPreferredSize(new java.awt.Dimension(690, 517));
+        cardPaymentPanel.setPreferredSize(new java.awt.Dimension(690, 517));
 
         cardReturnDay.setText("Return Day/Time");
 
@@ -789,55 +909,60 @@ public class StationTerminalForm extends javax.swing.JFrame {
         });
 
         cardConfirmButton.setText("Confirm Payment");
+        cardConfirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cardConfirmButtonActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout cardPayementPanelLayout = new javax.swing.GroupLayout(cardPayementPanel);
-        cardPayementPanel.setLayout(cardPayementPanelLayout);
-        cardPayementPanelLayout.setHorizontalGroup(
-            cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cardPayementPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout cardPaymentPanelLayout = new javax.swing.GroupLayout(cardPaymentPanel);
+        cardPaymentPanel.setLayout(cardPaymentPanelLayout);
+        cardPaymentPanelLayout.setHorizontalGroup(
+            cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardPaymentPanelLayout.createSequentialGroup()
                 .addGap(73, 73, 73)
-                .addGroup(cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel39)
-                    .addGroup(cardPayementPanelLayout.createSequentialGroup()
-                        .addGroup(cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cardPaymentPanelLayout.createSequentialGroup()
+                        .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel38)
                             .addComponent(jLabel36)
                             .addComponent(jLabel40)
                             .addComponent(jLabel41))
                         .addGap(64, 64, 64)
-                        .addGroup(cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cardPrice)
                             .addComponent(cardName, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                             .addComponent(cardNumber)
                             .addComponent(cardSecurityCode))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardPayementPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardPaymentPanelLayout.createSequentialGroup()
                 .addContainerGap(195, Short.MAX_VALUE)
-                .addGroup(cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardPayementPanelLayout.createSequentialGroup()
-                        .addGroup(cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(cardPayementPanelLayout.createSequentialGroup()
+                .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardPaymentPanelLayout.createSequentialGroup()
+                        .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(cardPaymentPanelLayout.createSequentialGroup()
                                 .addGap(87, 87, 87)
                                 .addComponent(cardStation))
-                            .addGroup(cardPayementPanelLayout.createSequentialGroup()
+                            .addGroup(cardPaymentPanelLayout.createSequentialGroup()
                                 .addComponent(cardDepartureDay)
                                 .addGap(126, 126, 126)
                                 .addComponent(cardReturnDay))
-                            .addGroup(cardPayementPanelLayout.createSequentialGroup()
+                            .addGroup(cardPaymentPanelLayout.createSequentialGroup()
                                 .addGap(92, 92, 92)
                                 .addComponent(cardVia)))
                         .addGap(191, 191, 191))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardPayementPanelLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardPaymentPanelLayout.createSequentialGroup()
                         .addComponent(cardConfirmButton)
                         .addGap(84, 84, 84))))
         );
-        cardPayementPanelLayout.setVerticalGroup(
-            cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cardPayementPanelLayout.createSequentialGroup()
+        cardPaymentPanelLayout.setVerticalGroup(
+            cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardPaymentPanelLayout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addComponent(cardStation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cardDepartureDay)
                     .addComponent(cardReturnDay))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -845,19 +970,19 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGap(92, 92, 92)
                 .addComponent(jLabel39)
                 .addGap(18, 18, 18)
-                .addGroup(cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel38)
                     .addComponent(cardPrice))
                 .addGap(35, 35, 35)
-                .addGroup(cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36)
                     .addComponent(cardName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
-                .addGroup(cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel40)
                     .addComponent(cardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addGroup(cardPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel41)
                     .addComponent(cardSecurityCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
@@ -865,7 +990,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        cashPayementPanel.setPreferredSize(new java.awt.Dimension(690, 517));
+        cashPaymentPanel.setPreferredSize(new java.awt.Dimension(690, 517));
 
         cashReturnDay.setText("Return Day/Time");
 
@@ -906,47 +1031,47 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout cashPayementPanelLayout = new javax.swing.GroupLayout(cashPayementPanel);
-        cashPayementPanel.setLayout(cashPayementPanelLayout);
-        cashPayementPanelLayout.setHorizontalGroup(
-            cashPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cashPayementPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout cashPaymentPanelLayout = new javax.swing.GroupLayout(cashPaymentPanel);
+        cashPaymentPanel.setLayout(cashPaymentPanelLayout);
+        cashPaymentPanelLayout.setHorizontalGroup(
+            cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cashPaymentPanelLayout.createSequentialGroup()
                 .addGap(94, 94, 94)
-                .addGroup(cashPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel31)
-                    .addGroup(cashPayementPanelLayout.createSequentialGroup()
+                    .addGroup(cashPaymentPanelLayout.createSequentialGroup()
                         .addComponent(jLabel34)
                         .addGap(59, 59, 59)
                         .addComponent(cashInserted))
-                    .addGroup(cashPayementPanelLayout.createSequentialGroup()
+                    .addGroup(cashPaymentPanelLayout.createSequentialGroup()
                         .addComponent(jLabel32)
                         .addGap(76, 76, 76)
                         .addComponent(cashPrice)))
                 .addContainerGap(434, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPayementPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPaymentPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(cashPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(cashPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(cashPayementPanelLayout.createSequentialGroup()
+                    .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(cashPaymentPanelLayout.createSequentialGroup()
                             .addGap(87, 87, 87)
                             .addComponent(cashStation))
-                        .addGroup(cashPayementPanelLayout.createSequentialGroup()
+                        .addGroup(cashPaymentPanelLayout.createSequentialGroup()
                             .addComponent(cashDepartureDay)
                             .addGap(126, 126, 126)
                             .addComponent(cashReturnDay))
-                        .addGroup(cashPayementPanelLayout.createSequentialGroup()
+                        .addGroup(cashPaymentPanelLayout.createSequentialGroup()
                             .addGap(92, 92, 92)
                             .addComponent(cashVia))))
                 .addGap(191, 191, 191))
         );
-        cashPayementPanelLayout.setVerticalGroup(
-            cashPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cashPayementPanelLayout.createSequentialGroup()
+        cashPaymentPanelLayout.setVerticalGroup(
+            cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cashPaymentPanelLayout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addComponent(cashStation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(cashPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cashDepartureDay)
                     .addComponent(cashReturnDay))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -956,17 +1081,17 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addComponent(jLabel31)
                 .addGap(18, 18, 18)
-                .addGroup(cashPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32)
                     .addComponent(cashPrice))
                 .addGap(53, 53, 53)
-                .addGroup(cashPayementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel34)
                     .addComponent(cashInserted))
                 .addContainerGap(226, Short.MAX_VALUE))
         );
 
-        timetablePanel.setPreferredSize(new java.awt.Dimension(690, 517));
+        timetablePanel.setPreferredSize(new java.awt.Dimension(688, 517));
 
         jLabel27.setText("Platform");
 
@@ -1124,7 +1249,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                         .addContainerGap())))
         );
 
-        payementSuccesfulPanel.setPreferredSize(new java.awt.Dimension(690, 517));
+        paymentSuccesfulPanel.setPreferredSize(new java.awt.Dimension(690, 517));
 
         paymentReturnDate.setText("Return Day/Time");
 
@@ -1157,38 +1282,38 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout payementSuccesfulPanelLayout = new javax.swing.GroupLayout(payementSuccesfulPanel);
-        payementSuccesfulPanel.setLayout(payementSuccesfulPanelLayout);
-        payementSuccesfulPanelLayout.setHorizontalGroup(
-            payementSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, payementSuccesfulPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout paymentSuccesfulPanelLayout = new javax.swing.GroupLayout(paymentSuccesfulPanel);
+        paymentSuccesfulPanel.setLayout(paymentSuccesfulPanelLayout);
+        paymentSuccesfulPanelLayout.setHorizontalGroup(
+            paymentSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentSuccesfulPanelLayout.createSequentialGroup()
                 .addContainerGap(195, Short.MAX_VALUE)
-                .addGroup(payementSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(payementSuccesfulPanelLayout.createSequentialGroup()
+                .addGroup(paymentSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paymentSuccesfulPanelLayout.createSequentialGroup()
                         .addComponent(paymentDepartureDate)
                         .addGap(126, 126, 126)
                         .addComponent(paymentReturnDate))
-                    .addGroup(payementSuccesfulPanelLayout.createSequentialGroup()
+                    .addGroup(paymentSuccesfulPanelLayout.createSequentialGroup()
                         .addGap(92, 92, 92)
                         .addComponent(paymentVia))
-                    .addGroup(payementSuccesfulPanelLayout.createSequentialGroup()
+                    .addGroup(paymentSuccesfulPanelLayout.createSequentialGroup()
                         .addGap(84, 84, 84)
-                        .addGroup(payementSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(paymentSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(printTicketButton)
                             .addComponent(paymentStation))))
                 .addGap(191, 191, 191))
-            .addGroup(payementSuccesfulPanelLayout.createSequentialGroup()
+            .addGroup(paymentSuccesfulPanelLayout.createSequentialGroup()
                 .addGap(230, 230, 230)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        payementSuccesfulPanelLayout.setVerticalGroup(
-            payementSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(payementSuccesfulPanelLayout.createSequentialGroup()
+        paymentSuccesfulPanelLayout.setVerticalGroup(
+            paymentSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paymentSuccesfulPanelLayout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addComponent(paymentStation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(payementSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(paymentSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(paymentDepartureDate)
                     .addComponent(paymentReturnDate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1278,6 +1403,25 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGap(44, 44, 44))
         );
 
+        jLabel10.setText("TEst");
+
+        javax.swing.GroupLayout testPanelLayout = new javax.swing.GroupLayout(testPanel);
+        testPanel.setLayout(testPanelLayout);
+        testPanelLayout.setHorizontalGroup(
+            testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel10)
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+        testPanelLayout.setVerticalGroup(
+            testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testPanelLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel10)
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         homePanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -1296,6 +1440,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
         homeButtonPanel.setBackground(new java.awt.Color(184, 241, 184));
         homeButtonPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        homeButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeButtonPanelMouseClicked(evt);
+            }
+        });
 
         homeLable.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         homeLable.setText("Home");
@@ -1312,70 +1461,94 @@ public class StationTerminalForm extends javax.swing.JFrame {
         homeButtonPanelLayout.setVerticalGroup(
             homeButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homeButtonPanelLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(homeLable)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
+        optionPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        langaugeButton.setText("Language");
+        langaugeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                langaugeButtonActionPerformed(evt);
+            }
+        });
+
+        timetableButton.setText("Timetable");
+        timetableButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timetableButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout optionPanelLayout = new javax.swing.GroupLayout(optionPanel);
+        optionPanel.setLayout(optionPanelLayout);
+        optionPanelLayout.setHorizontalGroup(
+            optionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(optionPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(optionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(langaugeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                    .addComponent(timetableButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        optionPanelLayout.setVerticalGroup(
+            optionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(optionPanelLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(langaugeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addComponent(timetableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         timePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        Time.setText("Time");
+        timeLabel.setText("Time");
 
         javax.swing.GroupLayout timePanelLayout = new javax.swing.GroupLayout(timePanel);
         timePanel.setLayout(timePanelLayout);
         timePanelLayout.setHorizontalGroup(
             timePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(timePanelLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(Time)
+                .addGap(26, 26, 26)
+                .addComponent(timeLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         timePanelLayout.setVerticalGroup(
             timePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(timePanelLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(Time)
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-
-        homeButtonsPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        languageButton.setText("Language");
-
-        timetableButton.setText("Timetable");
-
-        javax.swing.GroupLayout homeButtonsPanelLayout = new javax.swing.GroupLayout(homeButtonsPanel);
-        homeButtonsPanel.setLayout(homeButtonsPanelLayout);
-        homeButtonsPanelLayout.setHorizontalGroup(
-            homeButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeButtonsPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(homeButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(timetableButton)
-                    .addComponent(languageButton))
-                .addGap(22, 22, 22))
-        );
-        homeButtonsPanelLayout.setVerticalGroup(
-            homeButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homeButtonsPanelLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(languageButton)
-                .addGap(116, 116, 116)
-                .addComponent(timetableButton)
+                .addComponent(timeLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        spacerPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout spacerPanelLayout = new javax.swing.GroupLayout(spacerPanel);
+        spacerPanel.setLayout(spacerPanelLayout);
+        spacerPanelLayout.setHorizontalGroup(
+            spacerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 686, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        spacerPanelLayout.setVerticalGroup(
+            spacerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 81, Short.MAX_VALUE)
+        );
+
+        mainPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        mainPanel.setPreferredSize(new java.awt.Dimension(688, 517));
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 686, Short.MAX_VALUE)
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 515, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1384,13 +1557,8 @@ public class StationTerminalForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(homeButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(timePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(homeButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(homePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(spacerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1404,8 +1572,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(timePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+                    .addComponent(spacerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -1443,6 +1610,172 @@ public class StationTerminalForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_destination1ActionPerformed
 
+    private void homeButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonPanelMouseClicked
+            
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, "home");
+//        mainPanel.removeAll();
+//        mainPanel.revalidate();
+//        mainPanel.repaint();
+//        mainPanel.add(homePanel);
+//        mainPanel.revalidate();
+//        mainPanel.repaint();
+    }//GEN-LAST:event_homeButtonPanelMouseClicked
+
+    private void langaugeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langaugeButtonActionPerformed
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, "language");
+    }//GEN-LAST:event_langaugeButtonActionPerformed
+
+    private void timetableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timetableButtonActionPerformed
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, "timetable");
+    }//GEN-LAST:event_timetableButtonActionPerformed
+
+    private void loadLangButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadLangButtonActionPerformed
+        if (jRadioEnglish.isSelected()){
+            terminal.loadLanguageFile("English");
+        } 
+        else if (jRadioGerman.isSelected()){
+            terminal.loadLanguageFile("German");
+        } 
+        else if (jRadioFrench.isSelected()){
+            terminal.loadLanguageFile("French");
+        }
+        
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, "home");
+    }//GEN-LAST:event_loadLangButtonActionPerformed
+
+    private void cardConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardConfirmButtonActionPerformed
+        String cardNameStr = cardName.getText();
+        String cardNumberStr = cardNumber.getText();
+        String securityNumberStr = cardSecurityCode.getText();
+        if ((!cardNameStr.isEmpty()) & (!cardNumberStr.isEmpty()) & (!securityNumberStr.isEmpty())){
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, "paySucc");
+        } else {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Please fill all required fields");
+        }
+    }//GEN-LAST:event_cardConfirmButtonActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        String ticketType;
+        String departureDate;
+        String returnDate;
+        if (jRadioReturn.isSelected()){
+            ticketType = "Return";
+        } 
+        else if (jRadioOneWay.isSelected()){
+            ticketType = "One Way";
+        } 
+        else if (jRadioOpenReturn.isSelected()){
+            ticketType = "Open Return";
+        } else {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Please fill all required fields");
+            ticketType = "";
+        }
+        
+        departureDate = departureDay + ", " + departureMonth + ", " + departureYear;
+        returnDate = returnDay + ", " + returnMonth + ", " + returnYear;
+        
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, "searchResults");
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void couponTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_couponTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_couponTextFieldActionPerformed
+
+    private void bookingAdvanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingAdvanceActionPerformed
+        String purchaseType;
+        if (jRadioReturn.isSelected()){
+            CardLayout cl = (CardLayout)(cards.getLayout());
+            cl.show(cards, "card");
+        } 
+        else if (jRadioOneWay.isSelected()){
+            CardLayout cl = (CardLayout)(cards.getLayout());
+            cl.show(cards, "cash");
+        } else {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "Please fill all required fields");
+            purchaseType = "";
+        }
+    }//GEN-LAST:event_bookingAdvanceActionPerformed
+
+    private void resultsPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resultsPanel1MouseClicked
+
+    private void resultsPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resultsPanel2MouseClicked
+
+    private void resultsPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resultsPanel3MouseClicked
+
+    private void resultsPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resultsPanel4MouseClicked
+
+    private void resultsPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel5MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resultsPanel5MouseClicked
+
+    private void resultsPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resultsPanel6MouseClicked
+      public void loadLanguageFile(String lang){
+    language = lang;
+    JFrame frame = new JFrame("Language Changed");
+    JLabel label = new JLabel("Let's pretend the language is now " + language + ", okay?");
+    frame.add(label, BorderLayout.CENTER);
+    frame.pack();
+    frame.setVisible(true);
+    }
+    public ListOfRoutes displayTimeTables(RoutesRegistry routes){
+        return null;
+    }
+    
+    public ListOfRoutes displayRoutesByDate(RoutesRegistry routes, String departureDate,String returnDate){
+        return null;
+    }
+    
+    public ListOfFares displayAllFares(RoutesRegistry routes, FaresStructure fares){
+        return null;
+    }
+    
+    public boolean hasPromotionalCoupon(){
+        return false;
+    }
+    
+    public void inputCouponDetails(String couponID){
+    
+    }
+    
+    public boolean isCashEnteredSufficient(int cashTally, int newCash){
+        return ((cashTally+newCash) == travelCost);
+    }
+    
+    public void getUserEnteredAccount(String accountID){
+    
+    }
+    
+    public void choosePaymentMethod(){
+    
+    }
+    
+    public void printRecipt(){
+        
+    }
+    
+    public void chooseTokenType(){
+    
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1490,7 +1823,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JLabel cardDepartureDay;
     private javax.swing.JTextField cardName;
     private javax.swing.JTextField cardNumber;
-    private javax.swing.JPanel cardPayementPanel;
+    private javax.swing.JPanel cardPaymentPanel;
     private javax.swing.JLabel cardPrice;
     private javax.swing.JLabel cardReturnDay;
     private javax.swing.JTextField cardSecurityCode;
@@ -1498,7 +1831,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JLabel cardVia;
     private javax.swing.JLabel cashDepartureDay;
     private javax.swing.JLabel cashInserted;
-    private javax.swing.JPanel cashPayementPanel;
+    private javax.swing.JPanel cashPaymentPanel;
     private javax.swing.JLabel cashPrice;
     private javax.swing.JLabel cashReturnDay;
     private javax.swing.JLabel cashStation;
@@ -1532,7 +1865,8 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JPanel homeButtonsPanel;
     private javax.swing.JLabel homeLable;
     private javax.swing.JPanel homePanel;
-    private javax.swing.JPanel homePanel1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
@@ -1558,20 +1892,21 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JRadioButton jRadioEnglish;
     private javax.swing.JRadioButton jRadioFrench;
     private javax.swing.JRadioButton jRadioGerman;
     private javax.swing.JRadioButton jRadioOneWay;
     private javax.swing.JRadioButton jRadioOpenReturn;
     private javax.swing.JRadioButton jRadioReturn;
-    private javax.swing.JButton languageButton;
+    private javax.swing.JButton langaugeButton;
     private javax.swing.JPanel languagePanel;
     private javax.swing.JButton loadLangButton;
-    private javax.swing.JPanel payementSuccesfulPanel;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel optionPanel;
     private javax.swing.JLabel paymentDepartureDate;
     private javax.swing.JLabel paymentReturnDate;
     private javax.swing.JLabel paymentStation;
+    private javax.swing.JPanel paymentSuccesfulPanel;
     private javax.swing.JLabel paymentVia;
     private javax.swing.JPanel platformPanel;
     private javax.swing.JScrollPane platformScrollPane;
@@ -1615,11 +1950,38 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JButton searchButton;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel searchResultsPanel;
-    private javax.swing.JLabel timeLabel1;
+    private javax.swing.JPanel spacerPanel;
+    private javax.swing.JPanel testPanel;
+    private javax.swing.JLabel timeLabel;
     private javax.swing.JPanel timePanel;
-    private javax.swing.JPanel timePanel1;
     private javax.swing.JButton timetableButton;
     private javax.swing.JPanel timetablePanel;
     private javax.swing.JPanel viewTicketsPanel;
     // End of variables declaration//GEN-END:variables
+}
+
+class physicalPOS extends StationTerminalForm{
+    private final String machineID;
+    
+    physicalPOS(String id){
+        machineID = id;
+    }
+    
+    public void refundCash(){
+    credits = 0;
+    }
+    
+    public void enterCash(int cash){
+    credits += cash;
+    }
+    
+    public String getMachineID(){
+        return machineID;
+    }
+}
+
+class OnlinePOS extends StationTerminalForm{
+    public void secureLogin(){
+    //probably will be unused
+    }
 }
