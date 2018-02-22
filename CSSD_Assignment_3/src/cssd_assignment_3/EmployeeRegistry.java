@@ -35,7 +35,7 @@ public class EmployeeRegistry implements Serializable{
     public static EmployeeRegistry getRegistry() {
         if(Registry == null) {
             try {
-                ObjectInputStream inRegistry = new ObjectInputStream(new FileInputStream("Registry.ser"));
+                ObjectInputStream inRegistry = new ObjectInputStream(new FileInputStream("EmployeeRegistry.ser"));
                 Registry = (EmployeeRegistry) inRegistry.readObject(); 
             } catch(ClassNotFoundException c) {
                 System.out.println("Error:" + c);
