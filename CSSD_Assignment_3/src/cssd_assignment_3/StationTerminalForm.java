@@ -48,7 +48,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
      */
     public StationTerminalForm() {
         initComponents();
-        
+      
         langRadios.add(jRadioEnglish);
         langRadios.add(jRadioFrench);
         langRadios.add(jRadioGerman);
@@ -1775,7 +1775,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
     public void chooseTokenType(){
     
     }
-    
+
     /**
      * @param args the command line arguments
      */
