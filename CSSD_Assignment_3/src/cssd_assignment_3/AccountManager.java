@@ -17,7 +17,15 @@ public class AccountManager {
     It has a connection to the EmployeeRegistry class but didn't actually have a variable to access it, so I added a funciton to get the
     registry, when the class is created, and a variable to store it
     
-    There is also no way to add new accounts so there will only ever be the Admin account with the current setup
+    There is also no way to add new accounts so there will only ever be the Admin account with the current setup.
+    
+    Why does this have access to the RouteController but does nothing with it?
+    
+    Why does this have an assignVehicle, when it has no access to vehicle?
+    I also have no idea what assignVehicle does? What does it change? What class does it change? 
+    
+    Does it only affect a report? 
+    Why does the report have to assign a vehicle, if so?
     */
     private String userName;
     private String password;
