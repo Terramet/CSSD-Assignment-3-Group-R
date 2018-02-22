@@ -54,4 +54,8 @@ public class AccountManager {
     public void saveAccounts() {
         Registry.saveRegistry();
     }
+    
+    public void addUser(Employee e) {
+        Registry.add(e);
+    }
 }

@@ -39,4 +39,8 @@ public class EmployeeUserInterface {
     public void saveAccounts() {
         manager.saveAccounts();
     }
+    
+    public void addUser(Employee e) {
+        manager.addUser(e);
+    }
 }

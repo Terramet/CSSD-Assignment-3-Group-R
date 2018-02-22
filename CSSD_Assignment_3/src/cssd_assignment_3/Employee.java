@@ -37,7 +37,7 @@ public class Employee implements Serializable {
     }
     
     public boolean isEmployeeAdmin(Employee e) {
-        return e.securityLevel == 7;
+        return e.securityLevel >= 7;
     }
     
     @Override

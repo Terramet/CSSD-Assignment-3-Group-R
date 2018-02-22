@@ -5,8 +5,14 @@
  */
 package cssd_assignment_3;
 
+import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -23,7 +29,6 @@ public class AdminGUI extends javax.swing.JFrame {
         initComponents();
         EUI = EUIp;
         listAccounts.setListData(EUI.getAccountList().toArray());
-        System.out.println(EUI.getActiveIsAdmin());
         if(!EUI.getActiveIsAdmin()) {
             tabsHomePage.setEnabledAt(1, false);
         }
@@ -46,12 +51,14 @@ public class AdminGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        optAddUser = new javax.swing.JOptionPane();
         tabsHomePage = new javax.swing.JTabbedPane();
         pnlNews = new javax.swing.JPanel();
         pnlAccount = new javax.swing.JPanel();
         scrAccounts = new javax.swing.JScrollPane();
         listAccounts = new javax.swing.JList();
         lblCurrentAccounts = new javax.swing.JLabel();
+        btnAddUser = new javax.swing.JButton();
         pnlReports = new javax.swing.JPanel();
         tabsReports = new javax.swing.JTabbedPane();
         pnlMaintenance = new javax.swing.JPanel();
@@ -120,6 +127,13 @@ public class AdminGUI extends javax.swing.JFrame {
 
         lblCurrentAccounts.setText("Accounts");
 
+        btnAddUser.setText("Add User");
+        btnAddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddUserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlAccountLayout = new javax.swing.GroupLayout(pnlAccount);
         pnlAccount.setLayout(pnlAccountLayout);
         pnlAccountLayout.setHorizontalGroup(
@@ -128,19 +142,26 @@ public class AdminGUI extends javax.swing.JFrame {
                 .addGroup(pnlAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAccountLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(scrAccounts, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(scrAccounts, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAddUser))
                     .addGroup(pnlAccountLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(lblCurrentAccounts)))
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         pnlAccountLayout.setVerticalGroup(
             pnlAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAccountLayout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(lblCurrentAccounts)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrAccounts, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAccountLayout.createSequentialGroup()
+                .addGroup(pnlAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlAccountLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAddUser))
+                    .addGroup(pnlAccountLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(lblCurrentAccounts)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scrAccounts, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -485,6 +506,40 @@ public class AdminGUI extends javax.swing.JFrame {
     private void btnPrintFareEvasionReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintFareEvasionReportActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPrintFareEvasionReportActionPerformed
+
+    private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUserActionPerformed
+        // TODO add your handling code here:
+        JTextField username = new JTextField();
+        JPasswordField password = new JPasswordField();
+        JTextField securityLevel = new JTextField();
+        JPanel myPanel = new JPanel();
+        myPanel.setLayout(new GridLayout(3,2));
+        myPanel.add(new JLabel("Username:"));
+        myPanel.add(username);
+        myPanel.add(new JLabel("Password:"));
+        myPanel.add(password);
+        myPanel.add(new JLabel("Security Level:"));
+        myPanel.add(securityLevel);
+        
+        
+        int result = JOptionPane.showConfirmDialog(null, myPanel, 
+               "Please Enter the User Details", JOptionPane.OK_CANCEL_OPTION);
+        if(result != JOptionPane.OK_CANCEL_OPTION) {
+            String pass = new String(password.getPassword());
+            if(username.getText().equals(""))
+                optAddUser.showMessageDialog(null, "Please enter a username");
+            else if(pass.equals(""))
+                optAddUser.showMessageDialog(null, "Please enter a password");
+            else if(securityLevel.getText().equals(""))
+                optAddUser.showMessageDialog(null, "Please enter a security level");
+            else {
+                Employee newEmployee = new Employee(username.getText(), pass, Integer.parseInt(securityLevel.getText()));
+                EUI.addUser(newEmployee);
+                listAccounts.setListData(EUI.getAccountList().toArray());
+                listAccounts.repaint();
+            }
+        } else return;
+    }//GEN-LAST:event_btnAddUserActionPerformed
     
     /**
      * @param args the command line arguments
@@ -523,6 +578,7 @@ public class AdminGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnGetDriversReport;
     private javax.swing.JButton btnPrintCapacityReport;
     private javax.swing.JButton btnPrintFareEvasionReport;
@@ -545,6 +601,7 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblRevenueRecovered;
     private javax.swing.JLabel lblUnsociableReports;
     private javax.swing.JList listAccounts;
+    private javax.swing.JOptionPane optAddUser;
     private javax.swing.JPanel pnlAccount;
     private javax.swing.JPanel pnlCapacity;
     private javax.swing.JPanel pnlFareEvasion;
