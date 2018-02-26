@@ -23,7 +23,7 @@ public class BankAccountInterface {
     }
     
     public boolean takePayment(String Name, int acc, int sort, int sec, int ammount){
-        return false;
+        return true;
     }
 }
 
@@ -32,10 +32,7 @@ class CorporateAccountInterface extends BankAccountInterface{
     private float corporateDiscountValue;
     
     public CorporateAccountInterface(int sort, int acc, int sec, String newName, float corpDisc, String VAT){
-        this.sortCode = sort;
-        this.accountNo = acc;
-        this.securityNo = sec;
-        this.name = newName;
+        super(sort, acc, sec, newName);
         this.corporateDiscountValue = corpDisc;
         this.VATno = VAT;
     }
