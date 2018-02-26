@@ -14,9 +14,7 @@ import java.util.List;
  * @author Ascendant
  */
 public class LocationList implements Serializable  {
-    /*
-        Changed from a singleton to being jsut a list 
-    */
+
     private List<Location> locations = null;
     
     public LocationList(List<Location> list){
