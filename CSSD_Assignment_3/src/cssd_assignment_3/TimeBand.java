@@ -28,4 +28,12 @@ public class TimeBand implements Serializable {
     public int getID() {
         return this.timeBandID;
     }
+    
+    public LocalTime getStart(){
+        return timeStart;
+    }
+    
+    public LocalTime getEnd(){
+        return timeEnd;
+    }
 }

@@ -27,7 +27,23 @@ public class Location implements Serializable  {
         this.y = y;
     }
     
+    public double DistanceTo(Location to) {
+        double x2 = Math.pow(x, 2);
+        double y2 = Math.pow(y, 2);
+        double distance = Math.sqrt(x2 + y2);
+        return distance;
+    }
+    
     public String getID(){
         return this.locID;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    @Override
+    public String toString(){
+        return name;
     }
 }

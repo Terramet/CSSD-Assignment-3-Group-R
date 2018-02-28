@@ -17,10 +17,10 @@ public class PromotionalCoupon {
     Date expiryDate;
     boolean used;
     boolean expired;
-    float value;
+    double value;
     List<Route> validRoutes;
     
-    PromotionalCoupon(String ID, Date expiry, float newValue, List<Route> routes){
+    PromotionalCoupon(String ID, Date expiry, double newValue, List<Route> routes){
     this.used = false;
     this.expired = false;
     
@@ -36,6 +36,10 @@ public class PromotionalCoupon {
     
     private void markCouponUsed(){
     used = true;
+    }
+    
+    public String getID(){
+        return couponID;
     }
         
     private boolean validateCoupon(Date useDate){

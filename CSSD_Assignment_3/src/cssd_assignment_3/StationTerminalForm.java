@@ -9,13 +9,17 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.ListModel;
 
 //Delete these when merged to the rest of the project, they're just to make the nasty red lines go away
 interface FaresStructures{};
@@ -28,12 +32,12 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
 
     // added from POS, we've only implemented one type of ConsumerUserInterface.
-    private String machineID;
-    private Location location;
+    private final String machineID = "0";
+    private final Location location = new Location("Sheffield","1",0,0);
     
     // refund a users cash.
     private void refundCash() {
-        
+        credits = 0;
     }
 
     // enter cash for a user.
@@ -41,18 +45,22 @@ public class StationTerminalForm extends javax.swing.JFrame {
         
     }
     
-    private JPanel cards = new JPanel(new CardLayout());
+    //private JPanel cards = new JPanel();
+    
     private ButtonGroup langRadios = new ButtonGroup();
     private ButtonGroup travelRadios = new ButtonGroup();
     private ButtonGroup paymentRadios = new ButtonGroup();
     
     String language = "english";
     PromotionalCoupon coupon;
-    RouteRegistry routes;
+    List<Route> routes;
+    RouteController controller = new RouteController();
     FaresStructures fares;
     String couponID;
     double credits;
     double travelCost;
+    Location destination;
+    Route routeToUse;
     /**
      * Creates new form StationTerminalForm
      */
@@ -67,24 +75,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
         travelRadios.add(jRadioOpenReturn);
         paymentRadios.add(radioCash);
         paymentRadios.add(radioCard);
+
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "home");
+        routes = controller.getRoutes(location, location);
+        jListDestinations.setListData(routes.toArray());
+        coupon = new PromotionalCoupon("HZCPN",(new Date(86400000)),0.50,routes);
         
-        cards.add(homePanel, "home");
-        cards.add(languagePanel, "language");
-        cards.add(timetablePanel, "timetable");
-        cards.add(searchPanel, "search");
-        cards.add(paymentSuccesfulPanel, "paySucc");
-        cards.add(cashPaymentPanel, "cash");
-        cards.add(cardPaymentPanel, "card");
-        cards.add(confirmBookingPanel, "booking");
-        cards.add(searchResultsPanel, "searchResults");
-        mainPanel.add(cards);
-        
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.show(cards, "home");
-//        mainPanel.add(homePanel);
-//        mainPanel.removeAll();
-//        mainPanel.revalidate();
-//        mainPanel.repaint();
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -104,6 +101,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mainPanel = new javax.swing.JPanel();
         languagePanel = new javax.swing.JPanel();
         jRadioEnglish = new javax.swing.JRadioButton();
         jRadioFrench = new javax.swing.JRadioButton();
@@ -111,38 +109,39 @@ public class StationTerminalForm extends javax.swing.JFrame {
         loadLangButton = new javax.swing.JButton();
         searchResultsPanel = new javax.swing.JPanel();
         resultsPanel2 = new javax.swing.JPanel();
-        rpanelPrice2 = new javax.swing.JLabel();
-        rpanelReturn2 = new javax.swing.JLabel();
-        rpanelDepart2 = new javax.swing.JLabel();
-        rpanelDestination2 = new javax.swing.JLabel();
+        rpanelPrice7 = new javax.swing.JLabel();
+        rpanelReturn7 = new javax.swing.JLabel();
+        rpanelDepart7 = new javax.swing.JLabel();
+        rpanelDestination7 = new javax.swing.JLabel();
         resultsPanel4 = new javax.swing.JPanel();
-        rpanelPrice4 = new javax.swing.JLabel();
-        rpanelReturn4 = new javax.swing.JLabel();
-        rpanelDepart4 = new javax.swing.JLabel();
-        rpanelDestination4 = new javax.swing.JLabel();
+        rpanelPrice8 = new javax.swing.JLabel();
+        rpanelReturn8 = new javax.swing.JLabel();
+        rpanelDepart8 = new javax.swing.JLabel();
+        rpanelDestination8 = new javax.swing.JLabel();
         resultsPanel1 = new javax.swing.JPanel();
-        rpanelDestination1 = new javax.swing.JLabel();
-        rpanelDepart1 = new javax.swing.JLabel();
-        rpanelPrice1 = new javax.swing.JLabel();
-        rpanelReturn1 = new javax.swing.JLabel();
+        rpanelDestination9 = new javax.swing.JLabel();
+        rpanelDepart9 = new javax.swing.JLabel();
+        rpanelPrice9 = new javax.swing.JLabel();
+        rpanelReturn9 = new javax.swing.JLabel();
         resultsPanel3 = new javax.swing.JPanel();
-        rpanelPrice3 = new javax.swing.JLabel();
-        rpanelReturn3 = new javax.swing.JLabel();
-        rpanelDepart3 = new javax.swing.JLabel();
-        rpanelDestination3 = new javax.swing.JLabel();
+        rpanelPrice10 = new javax.swing.JLabel();
+        rpanelReturn10 = new javax.swing.JLabel();
+        rpanelDepart10 = new javax.swing.JLabel();
+        rpanelDestination10 = new javax.swing.JLabel();
         resultsPanel5 = new javax.swing.JPanel();
-        rpanelPrice5 = new javax.swing.JLabel();
-        rpanelReturn5 = new javax.swing.JLabel();
-        rpanelDepart5 = new javax.swing.JLabel();
-        rpanelDestination5 = new javax.swing.JLabel();
+        rpanelPrice11 = new javax.swing.JLabel();
+        rpanelReturn11 = new javax.swing.JLabel();
+        rpanelDepart11 = new javax.swing.JLabel();
+        rpanelDestination11 = new javax.swing.JLabel();
         resultsPanel6 = new javax.swing.JPanel();
-        rpanelPrice6 = new javax.swing.JLabel();
-        rpanelReturn6 = new javax.swing.JLabel();
-        rpanelDepart6 = new javax.swing.JLabel();
-        rpanelDestination6 = new javax.swing.JLabel();
+        rpanelPrice12 = new javax.swing.JLabel();
+        rpanelReturn12 = new javax.swing.JLabel();
+        rpanelDepart12 = new javax.swing.JLabel();
+        rpanelDestination12 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         searchPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         departureDay = new javax.swing.JTextField();
         departureMonth = new javax.swing.JTextField();
         departureYear = new javax.swing.JTextField();
@@ -158,29 +157,29 @@ public class StationTerminalForm extends javax.swing.JFrame {
         bookingStation = new javax.swing.JLabel();
         bookingDepartureDate = new javax.swing.JLabel();
         bookingReturnDate = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        confirmTicketType = new javax.swing.JLabel();
         bookingPrice = new javax.swing.JLabel();
         bookingVia = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         radioCash = new javax.swing.JRadioButton();
         radioCard = new javax.swing.JRadioButton();
         couponTextField = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         bookingAdvance = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        couponInvalidPanel = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
         cardPaymentPanel = new javax.swing.JPanel();
         cardReturnDay = new javax.swing.JLabel();
         cardStation = new javax.swing.JLabel();
         cardDepartureDay = new javax.swing.JLabel();
         cardVia = new javax.swing.JLabel();
         cardPrice = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
+        cardTicketType = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
         cardName = new javax.swing.JTextField();
         cardNumber = new javax.swing.JTextField();
         cardSecurityCode = new javax.swing.JTextField();
@@ -190,24 +189,25 @@ public class StationTerminalForm extends javax.swing.JFrame {
         cashStation = new javax.swing.JLabel();
         cashDepartureDay = new javax.swing.JLabel();
         cashVia = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
         cashPrice = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
         cashInserted = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        cashReturnButton = new javax.swing.JButton();
         timetablePanel = new javax.swing.JPanel();
         platformPanel = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
         destinationPanel = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
         expecedPanel = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
         viewTicketsPanel = new javax.swing.JPanel();
-        jLabel30 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
         duePanel = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
         exampleViewButton = new javax.swing.JButton();
         destinationScrollPane = new javax.swing.JScrollPane();
         destinationTextPane = new javax.swing.JTextPane();
@@ -217,28 +217,24 @@ public class StationTerminalForm extends javax.swing.JFrame {
         dueTextPane = new javax.swing.JTextPane();
         expectedScrollPane = new javax.swing.JScrollPane();
         expectedTextPane = new javax.swing.JTextPane();
+        jButton1 = new javax.swing.JButton();
         homePanel = new javax.swing.JPanel();
-        destination1 = new javax.swing.JButton();
-        destination3 = new javax.swing.JButton();
-        destination2 = new javax.swing.JButton();
-        destination5 = new javax.swing.JButton();
-        destination4 = new javax.swing.JButton();
-        destination6 = new javax.swing.JButton();
-        destination8 = new javax.swing.JButton();
-        destination7 = new javax.swing.JButton();
-        destination9 = new javax.swing.JButton();
+        jScrollDestinations = new javax.swing.JScrollPane();
+        jListDestinations = new javax.swing.JList();
+        jLabel20 = new javax.swing.JLabel();
+        confirmDestButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollVia = new javax.swing.JScrollPane();
+        jListVia = new javax.swing.JList();
         paymentSuccesfulPanel = new javax.swing.JPanel();
         paymentReturnDate = new javax.swing.JLabel();
         paymentStation = new javax.swing.JLabel();
         paymentDepartureDate = new javax.swing.JLabel();
         paymentVia = new javax.swing.JLabel();
         printTicketButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        testPanel = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        mainPanel = new javax.swing.JPanel();
-        homeButtonPanel14 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        homeButtonPanel = new javax.swing.JPanel();
         homeLable14 = new javax.swing.JLabel();
         optionPanel = new javax.swing.JPanel();
         langaugeButton = new javax.swing.JButton();
@@ -246,6 +242,12 @@ public class StationTerminalForm extends javax.swing.JFrame {
         timePanel = new javax.swing.JPanel();
         timeLabel = new javax.swing.JLabel();
         spacerPanel = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        mainPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        mainPanel.setPreferredSize(new java.awt.Dimension(688, 517));
+        mainPanel.setLayout(new java.awt.CardLayout());
 
         languagePanel.setPreferredSize(new java.awt.Dimension(688, 517));
 
@@ -273,7 +275,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                     .addComponent(jRadioGerman)
                     .addComponent(jRadioFrench)
                     .addComponent(jRadioEnglish))
-                .addContainerGap(504, Short.MAX_VALUE))
+                .addContainerGap(502, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, languagePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(loadLangButton)
@@ -288,10 +290,12 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addComponent(jRadioFrench)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioGerman)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
                 .addComponent(loadLangButton)
                 .addContainerGap())
         );
+
+        mainPanel.add(languagePanel, "language");
 
         searchResultsPanel.setPreferredSize(new java.awt.Dimension(688, 517));
 
@@ -302,13 +306,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelPrice2.setText("Price");
+        rpanelPrice7.setText("Price");
 
-        rpanelReturn2.setText("Return Date/Time");
+        rpanelReturn7.setText("Return Date/Time");
 
-        rpanelDepart2.setText("Departure Date/Time");
+        rpanelDepart7.setText("Departure Date/Time");
 
-        rpanelDestination2.setText("Destination");
+        rpanelDestination7.setText("Destination");
 
         javax.swing.GroupLayout resultsPanel2Layout = new javax.swing.GroupLayout(resultsPanel2);
         resultsPanel2.setLayout(resultsPanel2Layout);
@@ -318,29 +322,29 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(resultsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel2Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination2)
+                        .addComponent(rpanelDestination7)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel2Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice2)
+                        .addComponent(rpanelPrice7)
                         .addContainerGap())))
             .addGroup(resultsPanel2Layout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addGroup(resultsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rpanelReturn2)
-                    .addComponent(rpanelDepart2))
+                    .addComponent(rpanelReturn7)
+                    .addComponent(rpanelDepart7))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         resultsPanel2Layout.setVerticalGroup(
             resultsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination2)
+                .addComponent(rpanelDestination7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart2)
+                .addComponent(rpanelDepart7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn2)
+                .addComponent(rpanelReturn7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice2)
+                .addComponent(rpanelPrice7)
                 .addContainerGap())
         );
 
@@ -351,13 +355,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelPrice4.setText("Price");
+        rpanelPrice8.setText("Price");
 
-        rpanelReturn4.setText("Return Date/Time");
+        rpanelReturn8.setText("Return Date/Time");
 
-        rpanelDepart4.setText("Departure Date/Time");
+        rpanelDepart8.setText("Departure Date/Time");
 
-        rpanelDestination4.setText("Destination");
+        rpanelDestination8.setText("Destination");
 
         javax.swing.GroupLayout resultsPanel4Layout = new javax.swing.GroupLayout(resultsPanel4);
         resultsPanel4.setLayout(resultsPanel4Layout);
@@ -367,29 +371,29 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(resultsPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel4Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination4)
+                        .addComponent(rpanelDestination8)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel4Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice4)
+                        .addComponent(rpanelPrice8)
                         .addContainerGap())))
             .addGroup(resultsPanel4Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addGroup(resultsPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rpanelReturn4)
-                    .addComponent(rpanelDepart4))
+                    .addComponent(rpanelReturn8)
+                    .addComponent(rpanelDepart8))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         resultsPanel4Layout.setVerticalGroup(
             resultsPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination4)
+                .addComponent(rpanelDestination8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart4)
+                .addComponent(rpanelDepart8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn4)
+                .addComponent(rpanelReturn8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice4)
+                .addComponent(rpanelPrice8)
                 .addContainerGap())
         );
 
@@ -400,13 +404,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelDestination1.setText("Destination");
+        rpanelDestination9.setText("Destination");
 
-        rpanelDepart1.setText("Departure Date/Time");
+        rpanelDepart9.setText("Departure Date/Time");
 
-        rpanelPrice1.setText("Price");
+        rpanelPrice9.setText("Price");
 
-        rpanelReturn1.setText("Return Date/Time");
+        rpanelReturn9.setText("Return Date/Time");
 
         javax.swing.GroupLayout resultsPanel1Layout = new javax.swing.GroupLayout(resultsPanel1);
         resultsPanel1.setLayout(resultsPanel1Layout);
@@ -416,29 +420,29 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(resultsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel1Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination1)
+                        .addComponent(rpanelDestination9)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel1Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice1)
+                        .addComponent(rpanelPrice9)
                         .addContainerGap())))
             .addGroup(resultsPanel1Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addGroup(resultsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rpanelReturn1)
-                    .addComponent(rpanelDepart1))
+                    .addComponent(rpanelReturn9)
+                    .addComponent(rpanelDepart9))
                 .addGap(0, 75, Short.MAX_VALUE))
         );
         resultsPanel1Layout.setVerticalGroup(
             resultsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination1)
+                .addComponent(rpanelDestination9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart1)
+                .addComponent(rpanelDepart9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn1)
+                .addComponent(rpanelReturn9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice1)
+                .addComponent(rpanelPrice9)
                 .addContainerGap())
         );
 
@@ -449,13 +453,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelPrice3.setText("Price");
+        rpanelPrice10.setText("Price");
 
-        rpanelReturn3.setText("Return Date/Time");
+        rpanelReturn10.setText("Return Date/Time");
 
-        rpanelDepart3.setText("Departure Date/Time");
+        rpanelDepart10.setText("Departure Date/Time");
 
-        rpanelDestination3.setText("Destination");
+        rpanelDestination10.setText("Destination");
 
         javax.swing.GroupLayout resultsPanel3Layout = new javax.swing.GroupLayout(resultsPanel3);
         resultsPanel3.setLayout(resultsPanel3Layout);
@@ -465,28 +469,28 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(76, Short.MAX_VALUE)
                 .addGroup(resultsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel3Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination3)
+                        .addComponent(rpanelDestination10)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel3Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice3)
+                        .addComponent(rpanelPrice10)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel3Layout.createSequentialGroup()
                         .addGroup(resultsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rpanelReturn3)
-                            .addComponent(rpanelDepart3))
+                            .addComponent(rpanelReturn10)
+                            .addComponent(rpanelDepart10))
                         .addGap(71, 71, 71))))
         );
         resultsPanel3Layout.setVerticalGroup(
             resultsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination3)
+                .addComponent(rpanelDestination10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart3)
+                .addComponent(rpanelDepart10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn3)
+                .addComponent(rpanelReturn10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice3)
+                .addComponent(rpanelPrice10)
                 .addContainerGap())
         );
 
@@ -497,13 +501,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelPrice5.setText("Price");
+        rpanelPrice11.setText("Price");
 
-        rpanelReturn5.setText("Return Date/Time");
+        rpanelReturn11.setText("Return Date/Time");
 
-        rpanelDepart5.setText("Departure Date/Time");
+        rpanelDepart11.setText("Departure Date/Time");
 
-        rpanelDestination5.setText("Destination");
+        rpanelDestination11.setText("Destination");
 
         javax.swing.GroupLayout resultsPanel5Layout = new javax.swing.GroupLayout(resultsPanel5);
         resultsPanel5.setLayout(resultsPanel5Layout);
@@ -513,29 +517,29 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(resultsPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel5Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination5)
+                        .addComponent(rpanelDestination11)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel5Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice5)
+                        .addComponent(rpanelPrice11)
                         .addContainerGap())))
             .addGroup(resultsPanel5Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addGroup(resultsPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rpanelReturn5)
-                    .addComponent(rpanelDepart5))
+                    .addComponent(rpanelReturn11)
+                    .addComponent(rpanelDepart11))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         resultsPanel5Layout.setVerticalGroup(
             resultsPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination5)
+                .addComponent(rpanelDestination11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart5)
+                .addComponent(rpanelDepart11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn5)
+                .addComponent(rpanelReturn11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice5)
+                .addComponent(rpanelPrice11)
                 .addContainerGap())
         );
 
@@ -546,13 +550,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelPrice6.setText("Price");
+        rpanelPrice12.setText("Price");
 
-        rpanelReturn6.setText("Return Date/Time");
+        rpanelReturn12.setText("Return Date/Time");
 
-        rpanelDepart6.setText("Departure Date/Time");
+        rpanelDepart12.setText("Departure Date/Time");
 
-        rpanelDestination6.setText("Destination");
+        rpanelDestination12.setText("Destination");
 
         javax.swing.GroupLayout resultsPanel6Layout = new javax.swing.GroupLayout(resultsPanel6);
         resultsPanel6.setLayout(resultsPanel6Layout);
@@ -562,31 +566,38 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(resultsPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel6Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination6)
+                        .addComponent(rpanelDestination12)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel6Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice6)
+                        .addComponent(rpanelPrice12)
                         .addContainerGap())))
             .addGroup(resultsPanel6Layout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addGroup(resultsPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rpanelReturn6)
-                    .addComponent(rpanelDepart6))
+                    .addComponent(rpanelReturn12)
+                    .addComponent(rpanelDepart12))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         resultsPanel6Layout.setVerticalGroup(
             resultsPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination6)
+                .addComponent(rpanelDestination12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart6)
+                .addComponent(rpanelDepart12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn6)
+                .addComponent(rpanelReturn12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice6)
+                .addComponent(rpanelPrice12)
                 .addContainerGap())
         );
+
+        jButton2.setText("Test Continue");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout searchResultsPanelLayout = new javax.swing.GroupLayout(searchResultsPanel);
         searchResultsPanel.setLayout(searchResultsPanelLayout);
@@ -604,6 +615,10 @@ public class StationTerminalForm extends javax.swing.JFrame {
                     .addComponent(resultsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(resultsPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(68, 68, 68))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchResultsPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(58, 58, 58))
         );
         searchResultsPanelLayout.setVerticalGroup(
             searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -620,14 +635,18 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGroup(searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(resultsPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(resultsPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43))
+                .addGap(9, 9, 9)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
+
+        mainPanel.add(searchResultsPanel, "searchResults");
 
         searchPanel.setPreferredSize(new java.awt.Dimension(688, 517));
 
-        jLabel2.setText("Departure Date");
+        jLabel4.setText("Departure Date");
 
-        jLabel3.setText("Return Date");
+        jLabel11.setText("Return Date");
 
         departureDay.setText("DD");
         departureDay.addActionListener(new java.awt.event.ActionListener() {
@@ -647,9 +666,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
         departureYear.setText("YYYY");
 
         returnYear.setText("YYYY");
+        returnYear.setEnabled(false);
 
         returnMonth.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         returnMonth.setText("MM");
+        returnMonth.setEnabled(false);
         returnMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 returnMonthActionPerformed(evt);
@@ -657,6 +678,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
         });
 
         returnDay.setText("DD");
+        returnDay.setEnabled(false);
         returnDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 returnDayActionPerformed(evt);
@@ -664,6 +686,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
         });
 
         jRadioReturn.setText("Return");
+        jRadioReturn.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRadioReturnStateChanged(evt);
+            }
+        });
 
         jRadioOneWay.setText("One Way");
 
@@ -698,7 +725,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(searchPanelLayout.createSequentialGroup()
                         .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
                             .addGroup(searchPanelLayout.createSequentialGroup()
                                 .addComponent(departureDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -707,7 +734,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                                 .addComponent(departureYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
                         .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
+                            .addComponent(jLabel11)
                             .addGroup(searchPanelLayout.createSequentialGroup()
                                 .addComponent(returnDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -728,8 +755,8 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addComponent(destinationLabel)
                 .addGap(18, 18, 18)
                 .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(departureDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -749,6 +776,8 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGap(79, 79, 79))
         );
 
+        mainPanel.add(searchPanel, "search");
+
         confirmBookingPanel.setPreferredSize(new java.awt.Dimension(690, 517));
 
         bookingStation.setText("Station - Destination");
@@ -757,15 +786,15 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
         bookingReturnDate.setText("Return Day/Time");
 
-        jLabel8.setText("Payment Information");
+        jLabel14.setText("Payment Information");
 
-        jLabel9.setText("Ticket Type");
+        confirmTicketType.setText("Ticket Type");
 
         bookingPrice.setText("Price");
 
         bookingVia.setText("Via Locations");
 
-        jLabel12.setText("Payment Method:");
+        jLabel16.setText("Payment Method:");
 
         radioCash.setText("Cash");
 
@@ -777,7 +806,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setText("Coupon Code");
+        jLabel17.setText("Coupon Code");
 
         bookingAdvance.setText("Advance");
         bookingAdvance.addActionListener(new java.awt.event.ActionListener() {
@@ -786,25 +815,25 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(255, 52, 52));
-        jPanel3.setEnabled(false);
+        couponInvalidPanel.setBackground(new java.awt.Color(255, 52, 52));
+        couponInvalidPanel.setEnabled(false);
 
-        jLabel7.setText("Coupon Code Invalid!");
+        jLabel18.setText("Coupon Code Invalid!");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout couponInvalidPanelLayout = new javax.swing.GroupLayout(couponInvalidPanel);
+        couponInvalidPanel.setLayout(couponInvalidPanelLayout);
+        couponInvalidPanelLayout.setHorizontalGroup(
+            couponInvalidPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(couponInvalidPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel7)
+                .addComponent(jLabel18)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        couponInvalidPanelLayout.setVerticalGroup(
+            couponInvalidPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(couponInvalidPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
+                .addComponent(jLabel18)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -825,11 +854,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, confirmBookingPanelLayout.createSequentialGroup()
                                 .addGap(106, 106, 106)
                                 .addGroup(confirmBookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel16)
                                     .addGroup(confirmBookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel14)
                                         .addGroup(confirmBookingPanelLayout.createSequentialGroup()
-                                            .addComponent(jLabel9)
+                                            .addComponent(confirmTicketType)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(bookingPrice))))))
                         .addGap(126, 126, 126)
@@ -845,10 +874,10 @@ public class StationTerminalForm extends javax.swing.JFrame {
                     .addGroup(confirmBookingPanelLayout.createSequentialGroup()
                         .addGap(97, 97, 97)
                         .addGroup(confirmBookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
+                            .addComponent(jLabel17)
                             .addComponent(couponTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(couponInvalidPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(165, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, confirmBookingPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -867,13 +896,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bookingVia)
                 .addGap(35, 35, 35)
-                .addComponent(jLabel8)
+                .addComponent(jLabel14)
                 .addGap(27, 27, 27)
                 .addGroup(confirmBookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
+                    .addComponent(confirmTicketType)
                     .addComponent(bookingPrice))
                 .addGap(28, 28, 28)
-                .addComponent(jLabel12)
+                .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(radioCash)
                 .addGap(18, 18, 18)
@@ -881,14 +910,16 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(confirmBookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, confirmBookingPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
+                        .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(couponTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(couponInvalidPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(bookingAdvance)
                 .addGap(43, 43, 43))
         );
+
+        mainPanel.add(confirmBookingPanel, "confirmBook");
 
         cardPaymentPanel.setPreferredSize(new java.awt.Dimension(690, 517));
 
@@ -902,15 +933,15 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
         cardPrice.setText("PRICE");
 
-        jLabel38.setText("Ticket Type");
+        cardTicketType.setText("Ticket Type");
 
-        jLabel39.setText("Payment Information");
+        jLabel43.setText("Payment Information");
 
-        jLabel36.setText("Card Name");
+        jLabel37.setText("Card Name");
 
-        jLabel40.setText("Card Number");
+        jLabel44.setText("Card Number");
 
-        jLabel41.setText("Security Code");
+        jLabel45.setText("Security Code");
 
         cardSecurityCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -932,13 +963,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             .addGroup(cardPaymentPanelLayout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel39)
+                    .addComponent(jLabel43)
                     .addGroup(cardPaymentPanelLayout.createSequentialGroup()
                         .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel38)
-                            .addComponent(jLabel36)
-                            .addComponent(jLabel40)
-                            .addComponent(jLabel41))
+                            .addComponent(cardTicketType)
+                            .addComponent(jLabel37)
+                            .addComponent(jLabel44)
+                            .addComponent(jLabel45))
                         .addGap(64, 64, 64)
                         .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cardPrice)
@@ -978,27 +1009,29 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cardVia)
                 .addGap(92, 92, 92)
-                .addComponent(jLabel39)
+                .addComponent(jLabel43)
                 .addGap(18, 18, 18)
                 .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel38)
+                    .addComponent(cardTicketType)
                     .addComponent(cardPrice))
                 .addGap(35, 35, 35)
                 .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel36)
+                    .addComponent(jLabel37)
                     .addComponent(cardName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel40)
+                    .addComponent(jLabel44)
                     .addComponent(cardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel41)
+                    .addComponent(jLabel45)
                     .addComponent(cardSecurityCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addComponent(cardConfirmButton)
                 .addContainerGap(45, Short.MAX_VALUE))
         );
+
+        mainPanel.add(cardPaymentPanel, "card");
 
         cashPaymentPanel.setPreferredSize(new java.awt.Dimension(690, 517));
 
@@ -1010,36 +1043,43 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
         cashVia.setText("Via Locations");
 
-        jLabel31.setText("Payment Information");
+        jLabel33.setText("Payment Information");
 
-        jLabel32.setText("Ticket Type");
+        jLabel35.setText("Ticket Type");
 
         cashPrice.setText("PRICE");
 
-        jLabel34.setText("Cash Insterted");
+        jLabel46.setText("Cash Insterted");
 
         cashInserted.setText("VALUE");
 
-        jPanel2.setBackground(new java.awt.Color(87, 249, 87));
+        jPanel5.setBackground(new java.awt.Color(87, 249, 87));
 
-        jLabel6.setText("Enter the appropriate ammount of cash into the machine");
+        jLabel19.setText("Enter the appropriate ammount of cash into the machine");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel6)
+                .addComponent(jLabel19)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6)
+                .addComponent(jLabel19)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        cashReturnButton.setText("Return Change");
+        cashReturnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashReturnButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout cashPaymentPanelLayout = new javax.swing.GroupLayout(cashPaymentPanel);
         cashPaymentPanel.setLayout(cashPaymentPanelLayout);
@@ -1048,32 +1088,37 @@ public class StationTerminalForm extends javax.swing.JFrame {
             .addGroup(cashPaymentPanelLayout.createSequentialGroup()
                 .addGap(94, 94, 94)
                 .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel31)
+                    .addComponent(jLabel33)
                     .addGroup(cashPaymentPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel34)
+                        .addComponent(jLabel46)
                         .addGap(59, 59, 59)
                         .addComponent(cashInserted))
                     .addGroup(cashPaymentPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel32)
+                        .addComponent(jLabel35)
                         .addGap(76, 76, 76)
                         .addComponent(cashPrice)))
                 .addContainerGap(434, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPaymentPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(cashPaymentPanelLayout.createSequentialGroup()
-                            .addGap(87, 87, 87)
-                            .addComponent(cashStation))
-                        .addGroup(cashPaymentPanelLayout.createSequentialGroup()
-                            .addComponent(cashDepartureDay)
-                            .addGap(126, 126, 126)
-                            .addComponent(cashReturnDay))
-                        .addGroup(cashPaymentPanelLayout.createSequentialGroup()
-                            .addGap(92, 92, 92)
-                            .addComponent(cashVia))))
-                .addGap(191, 191, 191))
+                .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPaymentPanelLayout.createSequentialGroup()
+                        .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(cashPaymentPanelLayout.createSequentialGroup()
+                                    .addGap(87, 87, 87)
+                                    .addComponent(cashStation))
+                                .addGroup(cashPaymentPanelLayout.createSequentialGroup()
+                                    .addComponent(cashDepartureDay)
+                                    .addGap(126, 126, 126)
+                                    .addComponent(cashReturnDay))
+                                .addGroup(cashPaymentPanelLayout.createSequentialGroup()
+                                    .addGap(92, 92, 92)
+                                    .addComponent(cashVia))))
+                        .addGap(191, 191, 191))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPaymentPanelLayout.createSequentialGroup()
+                        .addComponent(cashReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         cashPaymentPanelLayout.setVerticalGroup(
             cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1087,23 +1132,27 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cashVia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
-                .addComponent(jLabel31)
+                .addComponent(jLabel33)
                 .addGap(18, 18, 18)
                 .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel32)
+                    .addComponent(jLabel35)
                     .addComponent(cashPrice))
                 .addGap(53, 53, 53)
                 .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel34)
+                    .addComponent(jLabel46)
                     .addComponent(cashInserted))
-                .addContainerGap(226, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addComponent(cashReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        mainPanel.add(cashPaymentPanel, "cash");
 
         timetablePanel.setPreferredSize(new java.awt.Dimension(688, 517));
 
-        jLabel27.setText("Platform");
+        jLabel47.setText("Platform");
 
         javax.swing.GroupLayout platformPanelLayout = new javax.swing.GroupLayout(platformPanel);
         platformPanel.setLayout(platformPanelLayout);
@@ -1111,18 +1160,18 @@ public class StationTerminalForm extends javax.swing.JFrame {
             platformPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, platformPanelLayout.createSequentialGroup()
                 .addContainerGap(51, Short.MAX_VALUE)
-                .addComponent(jLabel27)
+                .addComponent(jLabel47)
                 .addGap(47, 47, 47))
         );
         platformPanelLayout.setVerticalGroup(
             platformPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, platformPanelLayout.createSequentialGroup()
                 .addContainerGap(45, Short.MAX_VALUE)
-                .addComponent(jLabel27)
+                .addComponent(jLabel47)
                 .addGap(41, 41, 41))
         );
 
-        jLabel26.setText("Destination");
+        jLabel48.setText("Destination");
 
         javax.swing.GroupLayout destinationPanelLayout = new javax.swing.GroupLayout(destinationPanel);
         destinationPanel.setLayout(destinationPanelLayout);
@@ -1130,18 +1179,18 @@ public class StationTerminalForm extends javax.swing.JFrame {
             destinationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(destinationPanelLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jLabel26)
+                .addComponent(jLabel48)
                 .addContainerGap(49, Short.MAX_VALUE))
         );
         destinationPanelLayout.setVerticalGroup(
             destinationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(destinationPanelLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addComponent(jLabel26)
+                .addComponent(jLabel48)
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        jLabel29.setText("Expected");
+        jLabel49.setText("Expected");
 
         javax.swing.GroupLayout expecedPanelLayout = new javax.swing.GroupLayout(expecedPanel);
         expecedPanel.setLayout(expecedPanelLayout);
@@ -1149,18 +1198,18 @@ public class StationTerminalForm extends javax.swing.JFrame {
             expecedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(expecedPanelLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addComponent(jLabel29)
+                .addComponent(jLabel49)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         expecedPanelLayout.setVerticalGroup(
             expecedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, expecedPanelLayout.createSequentialGroup()
                 .addContainerGap(46, Short.MAX_VALUE)
-                .addComponent(jLabel29)
+                .addComponent(jLabel49)
                 .addGap(40, 40, 40))
         );
 
-        jLabel30.setText("View Tickets");
+        jLabel50.setText("View Tickets");
 
         javax.swing.GroupLayout viewTicketsPanelLayout = new javax.swing.GroupLayout(viewTicketsPanel);
         viewTicketsPanel.setLayout(viewTicketsPanelLayout);
@@ -1168,19 +1217,19 @@ public class StationTerminalForm extends javax.swing.JFrame {
             viewTicketsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewTicketsPanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jLabel30)
+                .addComponent(jLabel50)
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         viewTicketsPanelLayout.setVerticalGroup(
             viewTicketsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewTicketsPanelLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addComponent(jLabel30)
+                .addComponent(jLabel50)
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        jLabel28.setText("Due");
-        jLabel28.setToolTipText("");
+        jLabel51.setText("Due");
+        jLabel51.setToolTipText("");
 
         javax.swing.GroupLayout duePanelLayout = new javax.swing.GroupLayout(duePanel);
         duePanel.setLayout(duePanelLayout);
@@ -1188,18 +1237,18 @@ public class StationTerminalForm extends javax.swing.JFrame {
             duePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(duePanelLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(jLabel28)
+                .addComponent(jLabel51)
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         duePanelLayout.setVerticalGroup(
             duePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(duePanelLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addComponent(jLabel28)
+                .addComponent(jLabel51)
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        exampleViewButton.setText("jButton44");
+        exampleViewButton.setText("Go To Tickets");
 
         destinationScrollPane.setViewportView(destinationTextPane);
 
@@ -1208,6 +1257,8 @@ public class StationTerminalForm extends javax.swing.JFrame {
         dueScrollPane.setViewportView(dueTextPane);
 
         expectedScrollPane.setViewportView(expectedTextPane);
+
+        jButton1.setText("Checkout Selected Route");
 
         javax.swing.GroupLayout timetablePanelLayout = new javax.swing.GroupLayout(timetablePanel);
         timetablePanel.setLayout(timetablePanelLayout);
@@ -1233,7 +1284,8 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(timetablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(viewTicketsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(exampleViewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(exampleViewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
         );
         timetablePanelLayout.setVerticalGroup(
@@ -1249,6 +1301,8 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGroup(timetablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(timetablePanelLayout.createSequentialGroup()
                         .addComponent(exampleViewButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(timetablePanelLayout.createSequentialGroup()
                         .addGroup(timetablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1259,83 +1313,83 @@ public class StationTerminalForm extends javax.swing.JFrame {
                         .addContainerGap())))
         );
 
+        mainPanel.add(timetablePanel, "timetable");
+
         homePanel.setPreferredSize(new java.awt.Dimension(690, 517));
 
-        destination1.setText("Destination 1");
-        destination1.addActionListener(new java.awt.event.ActionListener() {
+        jListDestinations.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jListDestinations.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListDestinationsValueChanged(evt);
+            }
+        });
+        jScrollDestinations.setViewportView(jListDestinations);
+
+        jLabel20.setText("Available Destinations");
+
+        confirmDestButton.setText("Select Destination");
+        confirmDestButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                destination1ActionPerformed(evt);
+                confirmDestButtonActionPerformed(evt);
             }
         });
 
-        destination3.setText("Destination 3");
-        destination3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                destination3ActionPerformed(evt);
+        jLabel1.setText("Stops At:");
+
+        jListVia.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jListVia.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListViaValueChanged(evt);
             }
         });
-
-        destination2.setText("Destination 2");
-
-        destination5.setText("Destination 5");
-
-        destination4.setText("Destination 4");
-
-        destination6.setText("Destination 6");
-
-        destination8.setText("Destination 8");
-        destination8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                destination8ActionPerformed(evt);
-            }
-        });
-
-        destination7.setText("Destination 7");
-
-        destination9.setText("Destination 9");
+        jScrollVia.setViewportView(jListVia);
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
         homePanelLayout.setHorizontalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePanelLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(destination7, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(114, 114, 114)
+                .addGap(62, 62, 62)
                 .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(destination5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(destination3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41))
+                    .addGroup(homePanelLayout.createSequentialGroup()
+                        .addComponent(jScrollDestinations, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jScrollVia, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addComponent(confirmDestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(homePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(103, 103, 103)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePanelLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(destination1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(131, 131, 131)
-                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(destination4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
-                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(destination7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination9, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(destination8, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44))
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
+                        .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollDestinations, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                            .addComponent(jScrollVia)))
+                    .addComponent(confirmDestButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
+
+        mainPanel.add(homePanel, "home");
 
         paymentSuccesfulPanel.setPreferredSize(new java.awt.Dimension(690, 517));
 
@@ -1348,25 +1402,30 @@ public class StationTerminalForm extends javax.swing.JFrame {
         paymentVia.setText("Via Locations");
 
         printTicketButton.setText("PRINT TICKET");
+        printTicketButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printTicketButtonActionPerformed(evt);
+            }
+        });
 
-        jPanel1.setBackground(new java.awt.Color(87, 249, 87));
+        jPanel6.setBackground(new java.awt.Color(87, 249, 87));
 
-        jLabel5.setText("PAYMENT SUCCESFUL");
+        jLabel21.setText("PAYMENT SUCCESFUL");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(jLabel5)
+                .addComponent(jLabel21)
                 .addContainerGap(44, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
+                .addComponent(jLabel21)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1392,7 +1451,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGap(191, 191, 191))
             .addGroup(paymentSuccesfulPanelLayout.createSequentialGroup()
                 .addGap(230, 230, 230)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paymentSuccesfulPanelLayout.setVerticalGroup(
@@ -1407,70 +1466,37 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(paymentVia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(140, 140, 140)
                 .addComponent(printTicketButton)
                 .addContainerGap(184, Short.MAX_VALUE))
         );
 
-        jLabel10.setText("TEst");
+        mainPanel.add(paymentSuccesfulPanel, "paySucc");
 
-        javax.swing.GroupLayout testPanelLayout = new javax.swing.GroupLayout(testPanel);
-        testPanel.setLayout(testPanelLayout);
-        testPanelLayout.setHorizontalGroup(
-            testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(testPanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel10)
-                .addContainerGap(55, Short.MAX_VALUE))
-        );
-        testPanelLayout.setVerticalGroup(
-            testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(testPanelLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel10)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        mainPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        mainPanel.setPreferredSize(new java.awt.Dimension(688, 517));
-
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 686, Short.MAX_VALUE)
-        );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
-        );
-
-        homeButtonPanel14.setBackground(new java.awt.Color(184, 241, 184));
-        homeButtonPanel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        homeButtonPanel14.addMouseListener(new java.awt.event.MouseAdapter() {
+        homeButtonPanel.setBackground(new java.awt.Color(184, 241, 184));
+        homeButtonPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        homeButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                homeButtonPanel14MouseClicked(evt);
+                homeButtonPanelMouseClicked(evt);
             }
         });
 
         homeLable14.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         homeLable14.setText("Home");
 
-        javax.swing.GroupLayout homeButtonPanel14Layout = new javax.swing.GroupLayout(homeButtonPanel14);
-        homeButtonPanel14.setLayout(homeButtonPanel14Layout);
-        homeButtonPanel14Layout.setHorizontalGroup(
-            homeButtonPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeButtonPanel14Layout.createSequentialGroup()
+        javax.swing.GroupLayout homeButtonPanelLayout = new javax.swing.GroupLayout(homeButtonPanel);
+        homeButtonPanel.setLayout(homeButtonPanelLayout);
+        homeButtonPanelLayout.setHorizontalGroup(
+            homeButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeButtonPanelLayout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(homeLable14)
                 .addGap(28, 28, 28))
         );
-        homeButtonPanel14Layout.setVerticalGroup(
-            homeButtonPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeButtonPanel14Layout.createSequentialGroup()
+        homeButtonPanelLayout.setVerticalGroup(
+            homeButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeButtonPanelLayout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(homeLable14)
                 .addGap(28, 28, 28))
@@ -1555,7 +1581,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(optionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(timePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(homeButtonPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(homeButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1567,7 +1593,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(homeButtonPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(homeButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(optionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1580,19 +1606,46 @@ public class StationTerminalForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loadLangButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadLangButtonActionPerformed
-        if (jRadioEnglish.isSelected()){
-            loadLanguageFile("English");
-        }
-        else if (jRadioGerman.isSelected()){
-            loadLanguageFile("German");
-        }
-        else if (jRadioFrench.isSelected()){
-            loadLanguageFile("French");
-        }
+    private void homeButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonPanelMouseClicked
 
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.show(cards, "home");
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "home");
+        routes = controller.getRoutes(location, location);
+        jListDestinations.setListData(routes.toArray());
+        //        mainPanel.removeAll();
+        //        mainPanel.revalidate();
+        //        mainPanel.repaint();
+        //        mainPanel.add(homePanel);
+        //        mainPanel.revalidate();
+        //        mainPanel.repaint();
+    }//GEN-LAST:event_homeButtonPanelMouseClicked
+
+    private void langaugeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langaugeButtonActionPerformed
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "language");
+    }//GEN-LAST:event_langaugeButtonActionPerformed
+
+    private void timetableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timetableButtonActionPerformed
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "timetable");
+    }//GEN-LAST:event_timetableButtonActionPerformed
+
+    private void loadLangButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadLangButtonActionPerformed
+        String newLang = null;
+        if (jRadioEnglish.isSelected()){
+            newLang = "English";
+        } else if(jRadioFrench.isSelected()){
+            newLang = "French";
+        } else if (jRadioGerman.isSelected()){
+            newLang = "German";
+        }
+        if (newLang != null){
+        loadLanguageFile(newLang);
+        }
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "home");
+        routes = controller.getRoutes(location, location);
+        jListDestinations.setListData(routes.toArray());
     }//GEN-LAST:event_loadLangButtonActionPerformed
 
     private void resultsPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel2MouseClicked
@@ -1636,28 +1689,21 @@ public class StationTerminalForm extends javax.swing.JFrame {
     }//GEN-LAST:event_returnDayActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        String ticketType;
-        String departureDate;
-        String returnDate;
-        if (jRadioReturn.isSelected()){
+        String depDate = "";
+        String retDate = "";
+        String ticketType = null;
+        if (jRadioOneWay.isSelected()){
+            ticketType = "OneWay";
+        } else if(jRadioReturn.isSelected()){
             ticketType = "Return";
-        }
-        else if (jRadioOneWay.isSelected()){
-            ticketType = "One Way";
-        }
-        else if (jRadioOpenReturn.isSelected()){
+        } else if (jRadioOpenReturn.isSelected()){
             ticketType = "Open Return";
-        } else {
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "Please fill all required fields");
-            ticketType = "";
         }
-
-        departureDate = departureDay + ", " + departureMonth + ", " + departureYear;
-        returnDate = returnDay + ", " + returnMonth + ", " + returnYear;
-
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.show(cards, "searchResults");
+        if (ticketType != null){
+        cardTicketType.setText(ticketType);
+        }
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "searchResults");
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void couponTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_couponTextFieldActionPerformed
@@ -1665,18 +1711,25 @@ public class StationTerminalForm extends javax.swing.JFrame {
     }//GEN-LAST:event_couponTextFieldActionPerformed
 
     private void bookingAdvanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingAdvanceActionPerformed
-        String purchaseType;
-        if (jRadioReturn.isSelected()){
-            CardLayout cl = (CardLayout)(cards.getLayout());
-            cl.show(cards, "card");
+        boolean couponValid = true;
+        if (!couponTextField.getText().isEmpty()){
+            double couponValue = usePromotionalCoupon(couponTextField.getText(),new Date(), routeToUse);
+            if (couponValue < 0)
+            {
+                couponValid = false;
+                couponInvalidPanel.setVisible(true);
+            }
         }
-        else if (jRadioOneWay.isSelected()){
-            CardLayout cl = (CardLayout)(cards.getLayout());
-            cl.show(cards, "cash");
-        } else {
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "Please fill all required fields");
-            purchaseType = "";
+        if(couponValid){
+        if(radioCash.isSelected()){
+                CardLayout cl = (CardLayout)(mainPanel.getLayout());
+                cl.show(mainPanel, "cash");
+                couponInvalidPanel.setVisible(false);
+            } else if (radioCard.isSelected()){
+                CardLayout cl = (CardLayout)(mainPanel.getLayout());
+                cl.show(mainPanel, "card");
+                couponInvalidPanel.setVisible(false);
+            }
         }
     }//GEN-LAST:event_bookingAdvanceActionPerformed
 
@@ -1685,51 +1738,65 @@ public class StationTerminalForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cardSecurityCodeActionPerformed
 
     private void cardConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardConfirmButtonActionPerformed
-        String cardNameStr = cardName.getText();
-        String cardNumberStr = cardNumber.getText();
-        String securityNumberStr = cardSecurityCode.getText();
-        if ((!cardNameStr.isEmpty()) & (!cardNumberStr.isEmpty()) & (!securityNumberStr.isEmpty())){
-            CardLayout cl = (CardLayout)(cards.getLayout());
-            cl.show(cards, "paySucc");
-        } else {
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "Please fill all required fields");
+        if(!cardName.getText().isEmpty() & !cardNumber.getText().isEmpty() & !cardSecurityCode.getText().isEmpty()){
+            if(cardPrice.getText().matches("[0-9]+")){
+            Purchase purchase = new Purchase();
+            purchase.makePurchase(cardName.getText(), cardNumber.getText(), Integer.parseInt(cardSecurityCode.getText()), Integer.parseInt(cardPrice.getText()));
+            CardLayout cl = (CardLayout)(mainPanel.getLayout());
+            cl.show(mainPanel, "paySucc");
+            } else {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, "Test payment complete");
+                CardLayout cl = (CardLayout)(mainPanel.getLayout());
+                cl.show(mainPanel, "paySucc");
+            }
         }
     }//GEN-LAST:event_cardConfirmButtonActionPerformed
 
-    private void destination1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destination1ActionPerformed
+    private void confirmDestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmDestButtonActionPerformed
+        
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "search");
+    }//GEN-LAST:event_confirmDestButtonActionPerformed
+
+    private void jRadioReturnStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioReturnStateChanged
+        if(jRadioReturn.isSelected()){
+            returnDay.setEnabled(true);
+            returnMonth.setEnabled(true);
+            returnYear.setEnabled(true);
+        } else {
+            returnDay.setEnabled(false);
+            returnMonth.setEnabled(false);
+            returnYear.setEnabled(false);
+        }
+    }//GEN-LAST:event_jRadioReturnStateChanged
+
+    private void printTicketButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printTicketButtonActionPerformed
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "home");
+        routes = controller.getRoutes(location, location);
+        jListDestinations.setListData(routes.toArray());
+    }//GEN-LAST:event_printTicketButtonActionPerformed
+
+    private void cashReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashReturnButtonActionPerformed
+        refundCash();
+    }//GEN-LAST:event_cashReturnButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "confirmBook");
+        couponInvalidPanel.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jListViaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListViaValueChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_destination1ActionPerformed
+    }//GEN-LAST:event_jListViaValueChanged
 
-    private void destination3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destination3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_destination3ActionPerformed
-
-    private void destination8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destination8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_destination8ActionPerformed
-
-    private void homeButtonPanel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonPanel14MouseClicked
-
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.show(cards, "home");
-        //        mainPanel.removeAll();
-        //        mainPanel.revalidate();
-        //        mainPanel.repaint();
-        //        mainPanel.add(homePanel);
-        //        mainPanel.revalidate();
-        //        mainPanel.repaint();
-    }//GEN-LAST:event_homeButtonPanel14MouseClicked
-
-    private void langaugeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langaugeButtonActionPerformed
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.show(cards, "language");
-    }//GEN-LAST:event_langaugeButtonActionPerformed
-
-    private void timetableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timetableButtonActionPerformed
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.show(cards, "timetable");
-    }//GEN-LAST:event_timetableButtonActionPerformed
+    private void jListDestinationsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListDestinationsValueChanged
+        // When a destination is selected:
+        Route route = (Route)jListDestinations.getSelectedValue();
+        jListVia.setListData(route.getDestinations().getLocationList().toArray());
+    }//GEN-LAST:event_jListDestinationsValueChanged
     
     public void loadLanguageFile(String lang){
     language = lang;
@@ -1739,11 +1806,12 @@ public class StationTerminalForm extends javax.swing.JFrame {
     frame.pack();
     frame.setVisible(true);
     }
+    
     public void displayTimeTables(RouteRegistry routes){
-
+        
     }
     
-    public void displayRoutesByDate(RouteRegistry routes, String departureDate,String returnDate){
+    public void displayRoutesByDate(RouteRegistry routes, Date departureDate, Date returnDate){
 
     }
     
@@ -1751,8 +1819,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
     }
     
-    public boolean hasPromotionalCoupon(){
-        return false;
+    public double usePromotionalCoupon(String couponName, Date useDate, Route useRoute){
+        if (couponName.equals(coupon.getID())){
+            return coupon.useCoupon(useDate, useRoute);
+        }
+        return -3; // invalid coupon code, -2 = invalid route, -1 = coupan already used
     }
     
     public void inputCouponDetails(String couponID){
@@ -1830,28 +1901,24 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JLabel cardReturnDay;
     private javax.swing.JTextField cardSecurityCode;
     private javax.swing.JLabel cardStation;
+    private javax.swing.JLabel cardTicketType;
     private javax.swing.JLabel cardVia;
     private javax.swing.JLabel cashDepartureDay;
     private javax.swing.JLabel cashInserted;
     private javax.swing.JPanel cashPaymentPanel;
     private javax.swing.JLabel cashPrice;
+    private javax.swing.JButton cashReturnButton;
     private javax.swing.JLabel cashReturnDay;
     private javax.swing.JLabel cashStation;
     private javax.swing.JLabel cashVia;
     private javax.swing.JPanel confirmBookingPanel;
+    private javax.swing.JButton confirmDestButton;
+    private javax.swing.JLabel confirmTicketType;
+    private javax.swing.JPanel couponInvalidPanel;
     private javax.swing.JTextField couponTextField;
     private javax.swing.JTextField departureDay;
     private javax.swing.JTextField departureMonth;
     private javax.swing.JTextField departureYear;
-    private javax.swing.JButton destination1;
-    private javax.swing.JButton destination2;
-    private javax.swing.JButton destination3;
-    private javax.swing.JButton destination4;
-    private javax.swing.JButton destination5;
-    private javax.swing.JButton destination6;
-    private javax.swing.JButton destination7;
-    private javax.swing.JButton destination8;
-    private javax.swing.JButton destination9;
     private javax.swing.JLabel destinationLabel;
     private javax.swing.JPanel destinationPanel;
     private javax.swing.JScrollPane destinationScrollPane;
@@ -1864,71 +1931,44 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane expectedScrollPane;
     private javax.swing.JTextPane expectedTextPane;
     private javax.swing.JPanel homeButtonPanel;
-    private javax.swing.JPanel homeButtonPanel1;
-    private javax.swing.JPanel homeButtonPanel10;
-    private javax.swing.JPanel homeButtonPanel11;
-    private javax.swing.JPanel homeButtonPanel12;
-    private javax.swing.JPanel homeButtonPanel13;
-    private javax.swing.JPanel homeButtonPanel14;
-    private javax.swing.JPanel homeButtonPanel2;
-    private javax.swing.JPanel homeButtonPanel3;
-    private javax.swing.JPanel homeButtonPanel4;
-    private javax.swing.JPanel homeButtonPanel5;
-    private javax.swing.JPanel homeButtonPanel6;
-    private javax.swing.JPanel homeButtonPanel7;
-    private javax.swing.JPanel homeButtonPanel8;
-    private javax.swing.JPanel homeButtonPanel9;
-    private javax.swing.JLabel homeLable;
-    private javax.swing.JLabel homeLable1;
-    private javax.swing.JLabel homeLable10;
-    private javax.swing.JLabel homeLable11;
-    private javax.swing.JLabel homeLable12;
-    private javax.swing.JLabel homeLable13;
     private javax.swing.JLabel homeLable14;
-    private javax.swing.JLabel homeLable2;
-    private javax.swing.JLabel homeLable3;
-    private javax.swing.JLabel homeLable4;
-    private javax.swing.JLabel homeLable5;
-    private javax.swing.JLabel homeLable6;
-    private javax.swing.JLabel homeLable7;
-    private javax.swing.JLabel homeLable8;
-    private javax.swing.JLabel homeLable9;
     private javax.swing.JPanel homePanel;
-    private javax.swing.JPanel homePanel1;
-    private javax.swing.JPanel homePanel2;
-    private javax.swing.JPanel homePanel3;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JList jListDestinations;
+    private javax.swing.JList jListVia;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JRadioButton jRadioEnglish;
     private javax.swing.JRadioButton jRadioFrench;
     private javax.swing.JRadioButton jRadioGerman;
     private javax.swing.JRadioButton jRadioOneWay;
     private javax.swing.JRadioButton jRadioOpenReturn;
     private javax.swing.JRadioButton jRadioReturn;
+    private javax.swing.JScrollPane jScrollDestinations;
+    private javax.swing.JScrollPane jScrollVia;
     private javax.swing.JButton langaugeButton;
     private javax.swing.JPanel languagePanel;
     private javax.swing.JButton loadLangButton;
@@ -1954,35 +1994,34 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JTextField returnDay;
     private javax.swing.JTextField returnMonth;
     private javax.swing.JTextField returnYear;
-    private javax.swing.JLabel rpanelDepart1;
-    private javax.swing.JLabel rpanelDepart2;
-    private javax.swing.JLabel rpanelDepart3;
-    private javax.swing.JLabel rpanelDepart4;
-    private javax.swing.JLabel rpanelDepart5;
-    private javax.swing.JLabel rpanelDepart6;
-    private javax.swing.JLabel rpanelDestination1;
-    private javax.swing.JLabel rpanelDestination2;
-    private javax.swing.JLabel rpanelDestination3;
-    private javax.swing.JLabel rpanelDestination4;
-    private javax.swing.JLabel rpanelDestination5;
-    private javax.swing.JLabel rpanelDestination6;
-    private javax.swing.JLabel rpanelPrice1;
-    private javax.swing.JLabel rpanelPrice2;
-    private javax.swing.JLabel rpanelPrice3;
-    private javax.swing.JLabel rpanelPrice4;
-    private javax.swing.JLabel rpanelPrice5;
-    private javax.swing.JLabel rpanelPrice6;
-    private javax.swing.JLabel rpanelReturn1;
-    private javax.swing.JLabel rpanelReturn2;
-    private javax.swing.JLabel rpanelReturn3;
-    private javax.swing.JLabel rpanelReturn4;
-    private javax.swing.JLabel rpanelReturn5;
-    private javax.swing.JLabel rpanelReturn6;
+    private javax.swing.JLabel rpanelDepart10;
+    private javax.swing.JLabel rpanelDepart11;
+    private javax.swing.JLabel rpanelDepart12;
+    private javax.swing.JLabel rpanelDepart7;
+    private javax.swing.JLabel rpanelDepart8;
+    private javax.swing.JLabel rpanelDepart9;
+    private javax.swing.JLabel rpanelDestination10;
+    private javax.swing.JLabel rpanelDestination11;
+    private javax.swing.JLabel rpanelDestination12;
+    private javax.swing.JLabel rpanelDestination7;
+    private javax.swing.JLabel rpanelDestination8;
+    private javax.swing.JLabel rpanelDestination9;
+    private javax.swing.JLabel rpanelPrice10;
+    private javax.swing.JLabel rpanelPrice11;
+    private javax.swing.JLabel rpanelPrice12;
+    private javax.swing.JLabel rpanelPrice7;
+    private javax.swing.JLabel rpanelPrice8;
+    private javax.swing.JLabel rpanelPrice9;
+    private javax.swing.JLabel rpanelReturn10;
+    private javax.swing.JLabel rpanelReturn11;
+    private javax.swing.JLabel rpanelReturn12;
+    private javax.swing.JLabel rpanelReturn7;
+    private javax.swing.JLabel rpanelReturn8;
+    private javax.swing.JLabel rpanelReturn9;
     private javax.swing.JButton searchButton;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel searchResultsPanel;
     private javax.swing.JPanel spacerPanel;
-    private javax.swing.JPanel testPanel;
     private javax.swing.JLabel timeLabel;
     private javax.swing.JPanel timePanel;
     private javax.swing.JButton timetableButton;

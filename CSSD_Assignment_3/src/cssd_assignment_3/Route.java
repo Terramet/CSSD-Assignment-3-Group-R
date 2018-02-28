@@ -5,6 +5,8 @@
  */
 package cssd_assignment_3;
 
+import java.util.List;
+
 /**
  *
  * @author Sam
@@ -50,8 +52,19 @@ public class Route {
     
     public double calcDistBetweenStops(){
        //assumes that the locations it contains are in the order visited
-       
-       
-       return 0;
+       List<Location> locs = destinations.getLocationList();
+       double totalDist = 0;
+       for (int i = 0; i < (locs.size() - 1); i++){
+           double distance = locs.get(i).DistanceTo(locs.get(i+1));
+           totalDist += distance;
+       }
+       return totalDist;
+    }
+    
+    @Override
+    public String toString(){
+        List<Location> locs = destinations.getLocationList();
+        String lastStop = locs.get(locs.size()-1).getName();
+        return lastStop;
     }
 }

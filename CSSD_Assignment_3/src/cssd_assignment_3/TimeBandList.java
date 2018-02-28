@@ -25,7 +25,7 @@ public class TimeBandList implements Serializable {
         timeBands = list;
     }
     
-    public void add(TimeBand t) {
+    public void add(TimeBand t) { // TIME BANDS MUST BE ADDED IN CHRONOLOGICAL ORDER
         timeBands.add(t);
     }
     
