@@ -97,7 +97,7 @@ public class CSSD_Assignment_3 extends javax.swing.JFrame {
 
     private void btnTopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTopupActionPerformed
         this.setVisible(false);
-        new TopUpForm().setVisible(true);
+        new Terminal().setVisible(true);
     }//GEN-LAST:event_btnTopupActionPerformed
 
     private void btnStationTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStationTerminalActionPerformed

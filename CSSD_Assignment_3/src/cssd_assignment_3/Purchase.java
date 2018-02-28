@@ -5,11 +5,6 @@
  */
 package cssd_assignment_3;
 
-interface ConsumerAccount{};
-/**
- *
- * @author Sam
- */
 public class Purchase {
     ConsumerAccount account;
     boolean paymentResult;

@@ -11,19 +11,19 @@ package cssd_assignment_3;
  */
 public class BankAccountInterface {
     protected int sortCode;
-    protected int accountNo;
+    protected int cardNo;
     protected int securityNo;
     protected String name;
     
-    public BankAccountInterface(int sort, int acc, int sec, String newName){
+    public BankAccountInterface(int sort, int cardNo, int sec, String newName){
         this.sortCode = sort;
-        this.accountNo = acc;
+        this.cardNo = cardNo;
         this.securityNo = sec;
         this.name = newName;
     }
     
     public boolean takePayment(String Name, int acc, int sort, int sec, int ammount){
-        return true;
+        return false;
     }
 }
 
@@ -31,7 +31,7 @@ class CorporateAccountInterface extends BankAccountInterface{
     private String VATno;
     private float corporateDiscountValue;
     
-    public CorporateAccountInterface(int sort, int acc, int sec, String newName, float corpDisc, String VAT){
+    CorporateAccountInterface(int sort, int acc, int sec, String newName, float corpDisc, String VAT){
         super(sort, acc, sec, newName);
         this.corporateDiscountValue = corpDisc;
         this.VATno = VAT;

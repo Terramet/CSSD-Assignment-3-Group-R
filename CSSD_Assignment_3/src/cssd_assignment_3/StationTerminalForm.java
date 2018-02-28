@@ -17,16 +17,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-//Delete these when merged to the rest of the project, they're just to make the nasty red lines go away
-interface FaresStructures{};
-
 /**
  *
  * @author Sam
  */
 public class StationTerminalForm extends javax.swing.JFrame {
 
-
+    
     // added from POS, we've only implemented one type of ConsumerUserInterface.
     private String machineID;
     private Location location;
@@ -1739,16 +1736,17 @@ public class StationTerminalForm extends javax.swing.JFrame {
     frame.pack();
     frame.setVisible(true);
     }
+    
     public void displayTimeTables(RouteRegistry routes){
-
+    
     }
     
     public void displayRoutesByDate(RouteRegistry routes, String departureDate,String returnDate){
-
+    
     }
     
     public void displayAllFares(RouteRegistry routes, FaresStructures fares){
-
+        
     }
     
     public boolean hasPromotionalCoupon(){
