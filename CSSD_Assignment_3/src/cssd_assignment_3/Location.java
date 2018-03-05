@@ -29,17 +29,23 @@ public class Location implements Serializable  {
         this.y = y;
     }
     
-    // added to enable basic calculation of fares.
     public double DistanceTo(Location to) {
-        double diffX = to.x - x;
-        double diffY = to.y - y;
-        double diffX2 = Math.pow(diffX, 2);
-        double diffY2 = Math.pow(diffY, 2);
-        double distance = Math.sqrt(diffX2 + diffY2);
+        double x2 = Math.pow(x, 2);
+        double y2 = Math.pow(y, 2);
+        double distance = Math.sqrt(x2 + y2);
         return distance;
     }
     
     public String getID(){
         return this.locID;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    @Override
+    public String toString(){
+        return name;
     }
 }

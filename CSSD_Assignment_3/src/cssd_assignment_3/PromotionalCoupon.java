@@ -13,14 +13,14 @@ import java.util.Date;
  * @author Sam
  */
 public class PromotionalCoupon {
-    private String couponID;
-    private Date expiryDate;
-    private boolean used;
-    private boolean expired;
-    private float value;
-    private List<Route> validRoutes;
+    String couponID;
+    Date expiryDate;
+    boolean used;
+    boolean expired;
+    double value;
+    List<Route> validRoutes;
     
-    PromotionalCoupon(String ID, Date expiry, float newValue, List<Route> routes){
+    PromotionalCoupon(String ID, Date expiry, double newValue, List<Route> routes){
     this.used = false;
     this.expired = false;
     
@@ -37,16 +37,20 @@ public class PromotionalCoupon {
     private void markCouponUsed(){
     used = true;
     }
+    
+    public String getID(){
+        return couponID;
+    }
         
     private boolean validateCoupon(Date useDate){
         Date todayDate = new Date();
         if (useDate.after(expiryDate)){
             return false;
-        } else 
+        }
         if (todayDate.after(expiryDate)){
         markCouponExpired();
         return false;
-        } else
+        }
         if (used == true){
             return false;
         }
