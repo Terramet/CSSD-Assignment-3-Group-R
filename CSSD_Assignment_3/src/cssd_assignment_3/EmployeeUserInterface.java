@@ -43,4 +43,8 @@ public class EmployeeUserInterface {
     public void addUser(Employee e) {
         manager.addUser(e);
     }
+    
+    public Report viewReport(){
+        return null;
+    }
 }
