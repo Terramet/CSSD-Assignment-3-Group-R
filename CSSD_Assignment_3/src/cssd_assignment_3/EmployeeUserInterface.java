@@ -48,6 +48,7 @@ public class EmployeeUserInterface {
     }
     
     public Report getReport(int type, Date from, Date to){
+        
         return rReg.getReport(type, from, to);
     }
 }

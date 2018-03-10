@@ -18,9 +18,9 @@ public class Vehicle implements Serializable {
     */
     private final boolean active = false;
     private final boolean broken = false;
-    //private enumeratedVehicleType type; //the fuck is this?
+    //private enumeratedVehicleType type; //what is this?
     private final String vehicleID;
-    //private loc currentLoc; //the fuck is a loc? I know its a location but theres no Loc class and theres no connection to the Location class either
+    //private loc currentLoc; //what is a loc? I know its a location but theres no Loc class and theres no connection to the Location class either
     private boolean full;
     private final int capacity;
     
@@ -30,6 +30,11 @@ public class Vehicle implements Serializable {
     }
     
     public String getID() {
+        return vehicleID;
+    }
+    
+    @Override
+    public String toString(){
         return vehicleID;
     }
 }

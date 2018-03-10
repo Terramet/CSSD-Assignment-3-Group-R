@@ -5,13 +5,14 @@
  */
 package cssd_assignment_3;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Sam
  */
-public class Route {
+public class Route implements Serializable{
     
     
     private TimeBandList timeBands;

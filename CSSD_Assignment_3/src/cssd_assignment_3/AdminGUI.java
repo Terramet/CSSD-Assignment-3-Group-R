@@ -5,10 +5,20 @@
  */
 package cssd_assignment_3;
 
+import cssd_assignment_3.Reports.FareEvasion;
+import cssd_assignment_3.Reports.Report;
 import cssd_assignment_3.Reports.ReportRegistry;
+import java.awt.Desktop;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,6 +32,7 @@ import javax.swing.JTextField;
 public class AdminGUI extends javax.swing.JFrame {
 
     static EmployeeUserInterface EUI = null;
+    Report currentOpenReport = null;
     /**
      * Creates new form AdminGUI
      * @param EUIp
@@ -542,6 +553,12 @@ public class AdminGUI extends javax.swing.JFrame {
 
         lblToFareEvasion.setText("To:");
 
+        dpToFareEvasion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dpToFareEvasionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlFareEvasionLayout = new javax.swing.GroupLayout(pnlFareEvasion);
         pnlFareEvasion.setLayout(pnlFareEvasionLayout);
         pnlFareEvasionLayout.setHorizontalGroup(
@@ -635,6 +652,28 @@ public class AdminGUI extends javax.swing.JFrame {
 
     private void btnPrintFareEvasionReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintFareEvasionReportActionPerformed
         // TODO add your handling code here:
+        if(currentOpenReport.getType() == 2) {
+            String fileName = "FareEvasionReport" + currentOpenReport.getName() + ".txt";
+            PrintWriter writer = null;
+            try {
+                writer = new PrintWriter(fileName, "UTF-8");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            FareEvasion r = (FareEvasion) currentOpenReport;
+            writer.println(r.toString().replace("\n", "\r\n"));
+            writer.close();
+            File file = new File(fileName);
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().edit(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }//GEN-LAST:event_btnPrintFareEvasionReportActionPerformed
 
     private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUserActionPerformed
@@ -673,11 +712,27 @@ public class AdminGUI extends javax.swing.JFrame {
 
     private void dpFromFareEvasionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpFromFareEvasionActionPerformed
         // TODO add your handling code here:
-        if(dpFromFareEvasion.getDate() != null && dpToFareEvasion.getDate() != null){
-            EUI.getReport(2, dpFromFareEvasion.getDate(), dpToFareEvasion.getDate());
-        }
+        getFareEvasionReport();
     }//GEN-LAST:event_dpFromFareEvasionActionPerformed
+
+    private void dpToFareEvasionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpToFareEvasionActionPerformed
+        // TODO add your handling code here:
+        getFareEvasionReport();
+    }//GEN-LAST:event_dpToFareEvasionActionPerformed
     
+    private void getFareEvasionReport(){
+        if(dpFromFareEvasion.getDate() != null && dpToFareEvasion.getDate() != null){
+            currentOpenReport = EUI.getReport(2, dpFromFareEvasion.getDate(), dpToFareEvasion.getDate());
+            if(currentOpenReport != null){
+                if(currentOpenReport.getType() == 2) {
+                    FareEvasion r = (FareEvasion) currentOpenReport;
+                    txtNumberOfEvadersCaught.setText(String.valueOf(r.getHMC()));
+                    txtRevenueRecovered.setText("£" + String.valueOf(r.revenueRecovered()));
+                    txtRevenueLost.setText("£" + String.valueOf(r.revenueLost()));
+                }
+            } 
+        }
+    }
     /**
      * @param args the command line arguments
      */

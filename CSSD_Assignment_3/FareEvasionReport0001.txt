@@ -1,0 +1,7 @@
+ID: 0001
+Type: Fare Evasion
+Start Date: Mon Jan 01 00:00:00 GMT 2018
+End Date: Sun Jan 07 00:00:00 GMT 2018
+Route: Leeds
+Vehicle: FDV 547T
+Number Caught: 37

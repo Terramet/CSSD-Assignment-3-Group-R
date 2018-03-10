@@ -7,6 +7,7 @@ package cssd_assignment_3.Reports;
 
 import cssd_assignment_3.Route;
 import cssd_assignment_3.Vehicle;
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -14,7 +15,7 @@ import java.util.*;
  *
  * @author Ascendant
  */
-public class Report {
+public class Report implements Serializable{
     /*
         Renamed timeStart and timeEnd to startTime and endTime for consistency
     */
@@ -33,6 +34,7 @@ public class Report {
         this.startDate = sD;
         this.endDate = eD;
         this.startTime = sT;
+        this.endTime = eT;
         this.route = route;
         this.vehicle = v;
     }
@@ -45,6 +47,10 @@ public class Report {
         return true;
     }
     
+    public String getName() {
+        return this.name;
+    }
+    
     public int getType() {
         return this.type;
     }
@@ -55,6 +61,14 @@ public class Report {
     
     public Date getEndDate(){
         return this.endDate;
+    }
+    
+    public Route getRoute(){
+        return this.route;
+    }
+    
+    public Vehicle getVehicle(){
+        return this.vehicle;
     }
     
     public Report getRouteReport(int type, Route route, Date period) {

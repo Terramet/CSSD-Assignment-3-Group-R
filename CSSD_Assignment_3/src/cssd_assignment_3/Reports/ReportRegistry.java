@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -21,7 +22,7 @@ import java.util.*;
  *
  * @author Ascendant
  */
-public class ReportRegistry {
+public class ReportRegistry implements Serializable{
     private static ReportRegistry Registry = null;
     private List<Report> reports = null;
     
@@ -84,10 +85,7 @@ public class ReportRegistry {
         Iterator<Report> itr = reports.iterator();
         while(itr.hasNext()) {
             Report r = itr.next();
-            System.out.println(from);
-            System.out.println(r.getStartDate());
-            System.out.println(from == r.getStartDate());
-            if(r.getStartDate() == from && r.getEndDate() == to && r.getType() == type){
+            if((from.compareTo(r.getStartDate()) == 0) && (to.compareTo(r.getEndDate()) == 0) && r.getType() == type){
                 return r;
             }
         }

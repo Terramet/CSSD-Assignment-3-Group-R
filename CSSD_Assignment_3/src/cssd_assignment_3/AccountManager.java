@@ -5,6 +5,7 @@
  */
 package cssd_assignment_3;
 
+import cssd_assignment_3.Reports.ReportRegistry;
 import java.util.*;
 
 /**
@@ -30,10 +31,15 @@ public class AccountManager {
     private String userName;
     private String password;
     private Employee activeUser;
-    private final EmployeeRegistry Registry;
+    private final EmployeeRegistry eReg;
+    private final VehicleRegistry vReg;
+    private final ReportRegistry rReg;
     
     public AccountManager() {
-       this.Registry = EmployeeRegistry.getRegistry();       
+       this.eReg = EmployeeRegistry.getRegistry();         
+       this.vReg = VehicleRegistry.getRegistry();       
+       this.rReg = ReportRegistry.getRegistry();       
+     
     }
     
     private void setActiveUser(Employee e) {
@@ -41,7 +47,7 @@ public class AccountManager {
     }
     
     public boolean login(String username, String password){
-        Employee e = Registry.getEmployee(username);
+        Employee e = eReg.getEmployee(username);
         if (e != null){
             if (e.passwordMatch(password)) {
                 setActiveUser(e);
@@ -52,7 +58,7 @@ public class AccountManager {
     }
     
     public List<Employee> getAccountList() {
-        return Registry.getAccountList();
+        return eReg.getAccountList();
     }
     
     public boolean getActiveIsAdmin() {
@@ -60,10 +66,12 @@ public class AccountManager {
     }
     
     public void saveAccounts() {
-        Registry.saveRegistry();
+        eReg.saveRegistry();        
+        vReg.saveRegistry();
+        rReg.saveRegistry();
     }
     
     public void addUser(Employee e) {
-        Registry.add(e);
+        eReg.add(e);
     }
 }

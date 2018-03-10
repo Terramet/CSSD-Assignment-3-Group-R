@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,7 +20,7 @@ import java.util.List;
  *
  * @author Sam
  */
-public class RouteRegistry {
+public class RouteRegistry implements Serializable{
        /*
     Renamed this class for consistancies sake, let me know if you want to change it back to TimeBands
     */
