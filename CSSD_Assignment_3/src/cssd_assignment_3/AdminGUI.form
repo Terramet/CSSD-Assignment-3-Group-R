@@ -191,24 +191,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtMainCosts" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtBreakCosts" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtExpensiveVehicles" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtCheapVehicles" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblMaintenanceCosts" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblBreakdownCosts" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblMostExpensiveVehicles" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblCheapestVehicles" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
@@ -218,14 +201,33 @@
                                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                                       <Component id="lblFromMaintenance" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="dpFromMaintenance" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="lblToMaintenance" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="dpToMaintenance" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="txtMainCosts" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtBreakCosts" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtExpensiveVehicles" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtCheapVehicles" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lblMaintenanceCosts" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblBreakdownCosts" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblMostExpensiveVehicles" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblCheapestVehicles" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Component id="dpFromMaintenance" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="lblToMaintenance" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="dpToMaintenance" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="67" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -239,7 +241,7 @@
                                   <Component id="dpToMaintenance" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblToMaintenance" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="42" max="32767" attributes="0"/>
+                              <EmptySpace pref="31" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtMainCosts" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblMaintenanceCosts" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -259,7 +261,7 @@
                                   <Component id="txtCheapVehicles" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblCheapestVehicles" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                               <Component id="btnPrintMaintenanceReport" min="-2" pref="50" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
@@ -713,21 +715,6 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="77" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtNumberOfEvadersCaught" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtRevenueRecovered" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtRevenueLost" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblNumEvadeCaught" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblRevenueRecovered" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblRevenueLost" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -738,14 +725,31 @@
                                       <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                                       <Component id="lblFromFareEvasion" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="dpFromFareEvasion" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="lblToFareEvasion" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="dpToFareEvasion" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="txtNumberOfEvadersCaught" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtRevenueRecovered" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtRevenueLost" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lblNumEvadeCaught" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblRevenueRecovered" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblRevenueLost" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Component id="dpFromFareEvasion" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="lblToFareEvasion" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="dpToFareEvasion" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="64" max="32767" attributes="0"/>
+                              <EmptySpace pref="60" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -759,7 +763,7 @@
                                   <Component id="dpToFareEvasion" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblToFareEvasion" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="45" max="32767" attributes="0"/>
+                              <EmptySpace pref="44" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtNumberOfEvadersCaught" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblNumEvadeCaught" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -774,7 +778,7 @@
                                   <Component id="txtRevenueLost" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblRevenueLost" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="btnPrintFareEvasionReport" min="-2" pref="50" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
@@ -827,6 +831,9 @@
                       </Events>
                     </Component>
                     <Component class="org.jdesktop.swingx.JXDatePicker" name="dpFromFareEvasion">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dpFromFareEvasionActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblFromFareEvasion">
                       <Properties>

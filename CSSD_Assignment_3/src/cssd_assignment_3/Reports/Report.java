@@ -27,8 +27,34 @@ public class Report {
     private Route route;
     private Vehicle vehicle;
     
+    public Report(String name, int type, Date sD, Date eD, LocalTime sT, LocalTime eT, Route route, Vehicle v)  {
+        this.name = name;
+        this.type = type;
+        this.startDate = sD;
+        this.endDate = eD;
+        this.startTime = sT;
+        this.route = route;
+        this.vehicle = v;
+    }
+
+    Report() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public boolean open() {
         return true;
+    }
+    
+    public int getType() {
+        return this.type;
+    }
+    
+    public Date getStartDate(){
+        return this.startDate;
+    }
+    
+    public Date getEndDate(){
+        return this.endDate;
     }
     
     public Report getRouteReport(int type, Route route, Date period) {

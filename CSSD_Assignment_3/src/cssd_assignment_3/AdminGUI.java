@@ -5,6 +5,7 @@
  */
 package cssd_assignment_3;
 
+import cssd_assignment_3.Reports.ReportRegistry;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -221,20 +222,6 @@ public class AdminGUI extends javax.swing.JFrame {
         pnlMaintenance.setLayout(pnlMaintenanceLayout);
         pnlMaintenanceLayout.setHorizontalGroup(
             pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMaintenanceLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtMainCosts)
-                    .addComponent(txtBreakCosts)
-                    .addComponent(txtExpensiveVehicles)
-                    .addComponent(txtCheapVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblMaintenanceCosts)
-                    .addComponent(lblBreakdownCosts)
-                    .addComponent(lblMostExpensiveVehicles)
-                    .addComponent(lblCheapestVehicles))
-                .addGap(55, 55, 55))
             .addGroup(pnlMaintenanceLayout.createSequentialGroup()
                 .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMaintenanceLayout.createSequentialGroup()
@@ -244,12 +231,26 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addGap(51, 51, 51)
                         .addComponent(lblFromMaintenance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dpFromMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblToMaintenance)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dpToMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlMaintenanceLayout.createSequentialGroup()
+                                .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtMainCosts)
+                                    .addComponent(txtBreakCosts)
+                                    .addComponent(txtExpensiveVehicles)
+                                    .addComponent(txtCheapVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblMaintenanceCosts)
+                                    .addComponent(lblBreakdownCosts)
+                                    .addComponent(lblMostExpensiveVehicles)
+                                    .addComponent(lblCheapestVehicles)))
+                            .addGroup(pnlMaintenanceLayout.createSequentialGroup()
+                                .addComponent(dpFromMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblToMaintenance)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dpToMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         pnlMaintenanceLayout.setVerticalGroup(
             pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +261,7 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addComponent(lblFromMaintenance)
                     .addComponent(dpToMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblToMaintenance))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMainCosts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMaintenanceCosts))
@@ -276,7 +277,7 @@ public class AdminGUI extends javax.swing.JFrame {
                 .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCheapVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCheapestVehicles))
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addComponent(btnPrintMaintenanceReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
@@ -531,6 +532,12 @@ public class AdminGUI extends javax.swing.JFrame {
             }
         });
 
+        dpFromFareEvasion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dpFromFareEvasionActionPerformed(evt);
+            }
+        });
+
         lblFromFareEvasion.setText("From:");
 
         lblToFareEvasion.setText("To:");
@@ -539,18 +546,6 @@ public class AdminGUI extends javax.swing.JFrame {
         pnlFareEvasion.setLayout(pnlFareEvasionLayout);
         pnlFareEvasionLayout.setHorizontalGroup(
             pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFareEvasionLayout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
-                .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNumberOfEvadersCaught)
-                    .addComponent(txtRevenueRecovered)
-                    .addComponent(txtRevenueLost, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNumEvadeCaught)
-                    .addComponent(lblRevenueRecovered)
-                    .addComponent(lblRevenueLost))
-                .addGap(48, 48, 48))
             .addGroup(pnlFareEvasionLayout.createSequentialGroup()
                 .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFareEvasionLayout.createSequentialGroup()
@@ -560,12 +555,24 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addComponent(lblFromFareEvasion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dpFromFareEvasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblToFareEvasion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dpToFareEvasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(64, Short.MAX_VALUE))
+                        .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlFareEvasionLayout.createSequentialGroup()
+                                .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNumberOfEvadersCaught)
+                                    .addComponent(txtRevenueRecovered)
+                                    .addComponent(txtRevenueLost, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNumEvadeCaught)
+                                    .addComponent(lblRevenueRecovered)
+                                    .addComponent(lblRevenueLost)))
+                            .addGroup(pnlFareEvasionLayout.createSequentialGroup()
+                                .addComponent(dpFromFareEvasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblToFareEvasion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dpToFareEvasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         pnlFareEvasionLayout.setVerticalGroup(
             pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -576,7 +583,7 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addComponent(lblFromFareEvasion)
                     .addComponent(dpToFareEvasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblToFareEvasion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumberOfEvadersCaught, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNumEvadeCaught))
@@ -588,7 +595,7 @@ public class AdminGUI extends javax.swing.JFrame {
                 .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRevenueLost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblRevenueLost))
-                .addGap(35, 35, 35)
+                .addGap(36, 36, 36)
                 .addComponent(btnPrintFareEvasionReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
@@ -650,19 +657,26 @@ public class AdminGUI extends javax.swing.JFrame {
         if(result != JOptionPane.OK_CANCEL_OPTION) {
             String pass = new String(password.getPassword());
             if(username.getText().equals(""))
-                optAddUser.showMessageDialog(null, "Please enter a username");
+                JOptionPane.showMessageDialog(null, "Please enter a username");
             else if(pass.equals(""))
-                optAddUser.showMessageDialog(null, "Please enter a password");
+                JOptionPane.showMessageDialog(null, "Please enter a password");
             else if(securityLevel.getText().equals(""))
-                optAddUser.showMessageDialog(null, "Please enter a security level");
+                JOptionPane.showMessageDialog(null, "Please enter a security level");
             else {
                 Employee newEmployee = new Employee(username.getText(), pass, Integer.parseInt(securityLevel.getText()));
                 EUI.addUser(newEmployee);
                 listAccounts.setListData(EUI.getAccountList().toArray());
                 listAccounts.repaint();
             }
-        } else return;
+        }
     }//GEN-LAST:event_btnAddUserActionPerformed
+
+    private void dpFromFareEvasionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpFromFareEvasionActionPerformed
+        // TODO add your handling code here:
+        if(dpFromFareEvasion.getDate() != null && dpToFareEvasion.getDate() != null){
+            EUI.getReport(2, dpFromFareEvasion.getDate(), dpToFareEvasion.getDate());
+        }
+    }//GEN-LAST:event_dpFromFareEvasionActionPerformed
     
     /**
      * @param args the command line arguments
@@ -693,10 +707,8 @@ public class AdminGUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminGUI(null).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AdminGUI(null).setVisible(true);
         });
     }
 

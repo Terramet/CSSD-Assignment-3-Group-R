@@ -5,6 +5,8 @@
  */
 package cssd_assignment_3;
 
+import cssd_assignment_3.Reports.Report;
+import cssd_assignment_3.Reports.ReportRegistry;
 import java.util.*;
 
 /**
@@ -19,6 +21,7 @@ public class EmployeeUserInterface {
     private String encrpytedPassword;
     private String name;
     private AccountManager manager = null;
+    private ReportRegistry rReg = ReportRegistry.getRegistry();
     
     public EmployeeUserInterface() {
         manager = new AccountManager();
@@ -44,7 +47,7 @@ public class EmployeeUserInterface {
         manager.addUser(e);
     }
     
-    public Report viewReport(){
-        return null;
+    public Report getReport(int type, Date from, Date to){
+        return rReg.getReport(type, from, to);
     }
 }

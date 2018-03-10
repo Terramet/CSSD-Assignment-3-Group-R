@@ -20,6 +20,7 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
         lblInvalidLogin.setVisible(false);
         EUI = new EmployeeUserInterface();
+        this.getRootPane().setDefaultButton(btnLogin);
     }
 
     /**
@@ -155,10 +156,8 @@ public class LoginForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LoginForm().setVisible(true);
         });
     }
 

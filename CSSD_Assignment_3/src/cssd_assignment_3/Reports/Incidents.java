@@ -5,17 +5,22 @@
  */
 package cssd_assignment_3.Reports;
 
+import cssd_assignment_3.Route;
+import cssd_assignment_3.Vehicle;
+import java.time.LocalTime;
+import java.util.Date;
+
 /**
  *
  * @author Ascendant
  */
-public class Incidents {
+public class Incidents extends Report{
     private int timesPoliceCalledOnRoute;
     private int noMinorAccidents;
     private int noSeriousAccidents;
     
-    public Incidents() {
-        super();
+    public Incidents(String name, int type, Date sD, Date eD, LocalTime sT, LocalTime eT, Route route, Vehicle v) {
+        super(name, type, sD, eD, sT, eT, route, v);
     }
     
     //Where does this come from?
