@@ -657,9 +657,7 @@ public class AdminGUI extends javax.swing.JFrame {
             PrintWriter writer = null;
             try {
                 writer = new PrintWriter(fileName, "UTF-8");
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnsupportedEncodingException ex) {
+            } catch (FileNotFoundException | UnsupportedEncodingException ex) {
                 Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
             FareEvasion r = (FareEvasion) currentOpenReport;
@@ -721,7 +719,7 @@ public class AdminGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_dpToFareEvasionActionPerformed
     
     private void getFareEvasionReport(){
-        if(dpFromFareEvasion.getDate() != null && dpToFareEvasion.getDate() != null){
+        if(dpFromFareEvasion.getDate() != null && dpToFareEvasion.getDate() != null && EUI.getActiveIsAdmin()){
             currentOpenReport = EUI.getReport(2, dpFromFareEvasion.getDate(), dpToFareEvasion.getDate());
             if(currentOpenReport != null){
                 if(currentOpenReport.getType() == 2) {
