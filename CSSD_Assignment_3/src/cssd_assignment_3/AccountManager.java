@@ -5,6 +5,7 @@
  */
 package cssd_assignment_3;
 
+import com.berry.BCrypt;
 import cssd_assignment_3.Reports.ReportRegistry;
 import java.util.*;
 
@@ -49,6 +50,7 @@ public class AccountManager {
     public boolean login(String username, String password){
         Employee e = eReg.getEmployee(username);
         if (e != null){
+            password = BCrypt.hashpw(password, e.getSalt());
             if (e.passwordMatch(password)) {
                 setActiveUser(e);
                 return true;

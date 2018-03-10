@@ -5,6 +5,7 @@
  */
 package cssd_assignment_3;
 
+import com.berry.BCrypt;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,8 +45,10 @@ public class EmployeeRegistry implements Serializable{
             }
                 if(Registry == null) {
                     List<Employee> list =  new ArrayList<>();
-                    list.add(new Employee("Admin", "Admin", 7));
-                    list.add(new Employee("Bob", "UselessBob", 0));
+                    String salt1 = BCrypt.gensalt();
+                    list.add(new Employee("Admin", BCrypt.hashpw("Admin", salt1), 7, salt1));
+                    String salt2 = BCrypt.gensalt();
+                    list.add(new Employee("Bob", BCrypt.hashpw("UselessBob", salt2), 0, salt2));
                     Registry = new EmployeeRegistry(list);
                 }
         }

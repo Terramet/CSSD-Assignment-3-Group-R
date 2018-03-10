@@ -21,15 +21,21 @@ public class Employee implements Serializable {
     private final String name;
     private final String password;
     private final int securityLevel;
+    private final String salt;
     
-    public Employee (String n, String p, int sL) {
+    public Employee (String n, String p, int sL, String salt) {
         this.name = n;
         this.password = p;
         this.securityLevel = sL;
+        this.salt = salt;
     }
     
     public String getName() {
         return this.name;
+    }
+    
+    public String getSalt() {
+        return this.salt;
     }
     
     public boolean passwordMatch(String password) {
