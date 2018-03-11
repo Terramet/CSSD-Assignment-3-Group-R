@@ -66,6 +66,7 @@ public class AdminGUI extends javax.swing.JFrame {
         optAddUser = new javax.swing.JOptionPane();
         tabsHomePage = new javax.swing.JTabbedPane();
         pnlNews = new javax.swing.JPanel();
+        btnLogout = new javax.swing.JButton();
         pnlAccount = new javax.swing.JPanel();
         scrAccounts = new javax.swing.JScrollPane();
         listAccounts = new javax.swing.JList();
@@ -137,15 +138,28 @@ public class AdminGUI extends javax.swing.JFrame {
 
         tabsHomePage.setName(""); // NOI18N
 
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlNewsLayout = new javax.swing.GroupLayout(pnlNews);
         pnlNews.setLayout(pnlNewsLayout);
         pnlNewsLayout.setHorizontalGroup(
             pnlNewsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 398, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNewsLayout.createSequentialGroup()
+                .addContainerGap(351, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addContainerGap())
         );
         pnlNewsLayout.setVerticalGroup(
             pnlNewsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 303, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNewsLayout.createSequentialGroup()
+                .addContainerGap(312, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addContainerGap())
         );
 
         tabsHomePage.addTab("News", pnlNews);
@@ -180,7 +194,7 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addGroup(pnlAccountLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(lblCurrentAccounts)))
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
         pnlAccountLayout.setVerticalGroup(
             pnlAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,40 +253,39 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addGap(136, 136, 136)
                         .addComponent(btnPrintMaintenanceReport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlMaintenanceLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addGap(89, 89, 89)
+                        .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtMainCosts)
+                            .addComponent(txtBreakCosts)
+                            .addComponent(txtExpensiveVehicles)
+                            .addComponent(txtCheapVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblMaintenanceCosts)
+                            .addComponent(lblBreakdownCosts)
+                            .addComponent(lblMostExpensiveVehicles)
+                            .addComponent(lblCheapestVehicles)))
+                    .addGroup(pnlMaintenanceLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addComponent(lblFromMaintenance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlMaintenanceLayout.createSequentialGroup()
-                                .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtMainCosts)
-                                    .addComponent(txtBreakCosts)
-                                    .addComponent(txtExpensiveVehicles)
-                                    .addComponent(txtCheapVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblMaintenanceCosts)
-                                    .addComponent(lblBreakdownCosts)
-                                    .addComponent(lblMostExpensiveVehicles)
-                                    .addComponent(lblCheapestVehicles)))
-                            .addGroup(pnlMaintenanceLayout.createSequentialGroup()
-                                .addComponent(dpFromMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblToMaintenance)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dpToMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(67, Short.MAX_VALUE))
+                        .addComponent(dpFromMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblToMaintenance)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dpToMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         pnlMaintenanceLayout.setVerticalGroup(
             pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMaintenanceLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(27, 27, 27)
                 .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dpFromMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFromMaintenance)
                     .addComponent(dpToMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblToMaintenance))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMainCosts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMaintenanceCosts))
@@ -346,7 +359,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addGap(136, 136, 136)
                         .addComponent(btnPrintCapacityReport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlCapacityLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                        .addGap(26, 26, 26)
                         .addComponent(lblFromCapacity)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dpFromCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -354,7 +367,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addComponent(lblToCapacity)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dpToCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         pnlCapacityLayout.setVerticalGroup(
             pnlCapacityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,7 +425,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addGap(136, 136, 136)
                         .addComponent(btnPrintFinanceReport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlFinanceLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
+                        .addGap(28, 28, 28)
                         .addComponent(lblFromFinance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dpFromFinance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -420,18 +433,18 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addComponent(lblToFinance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dpToFinance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         pnlFinanceLayout.setVerticalGroup(
             pnlFinanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFinanceLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(40, 40, 40)
                 .addGroup(pnlFinanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dpFromFinance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFromFinance)
                     .addComponent(dpToFinance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblToFinance))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(pnlFinanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProfitLoss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProfitLoss))
@@ -465,39 +478,41 @@ public class AdminGUI extends javax.swing.JFrame {
                 .addComponent(btnPrintIncidentsReport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(pnlIncidentsLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
                 .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlIncidentsLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(pnlIncidentsLayout.createSequentialGroup()
+                                .addComponent(txtDriversAccidentReports)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGetDriversReport))
+                            .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblDriversAccidentReports)
+                                .addComponent(lblUnsociableReports)
+                                .addComponent(txtUnsociableReports, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblIncidentReports)
+                                .addComponent(txtIncidentReports, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pnlIncidentsLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addComponent(lblFromIncidents)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dpFromIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblToIncidents)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dpToIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(pnlIncidentsLayout.createSequentialGroup()
-                            .addComponent(txtDriversAccidentReports)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnGetDriversReport))
-                        .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDriversAccidentReports)
-                            .addComponent(lblUnsociableReports)
-                            .addComponent(txtUnsociableReports, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblIncidentReports)
-                            .addComponent(txtIncidentReports, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addComponent(dpToIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         pnlIncidentsLayout.setVerticalGroup(
             pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlIncidentsLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(21, 21, 21)
                 .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dpFromIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFromIncidents)
                     .addComponent(dpToIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblToIncidents))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(lblUnsociableReports)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUnsociableReports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,38 +584,38 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addGap(136, 136, 136)
                         .addComponent(btnPrintFareEvasionReport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlFareEvasionLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(lblFromFareEvasion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(92, 92, 92)
+                        .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNumberOfEvadersCaught)
+                            .addComponent(txtRevenueRecovered)
+                            .addComponent(txtRevenueLost, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlFareEvasionLayout.createSequentialGroup()
-                                .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNumberOfEvadersCaught)
-                                    .addComponent(txtRevenueRecovered)
-                                    .addComponent(txtRevenueLost, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNumEvadeCaught)
-                                    .addComponent(lblRevenueRecovered)
-                                    .addComponent(lblRevenueLost)))
-                            .addGroup(pnlFareEvasionLayout.createSequentialGroup()
-                                .addComponent(dpFromFareEvasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblToFareEvasion)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dpToFareEvasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(60, Short.MAX_VALUE))
+                            .addComponent(lblNumEvadeCaught)
+                            .addComponent(lblRevenueRecovered)
+                            .addComponent(lblRevenueLost))))
+                .addContainerGap(61, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFareEvasionLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblFromFareEvasion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dpFromFareEvasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblToFareEvasion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dpToFareEvasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
         pnlFareEvasionLayout.setVerticalGroup(
             pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFareEvasionLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(32, 32, 32)
                 .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dpFromFareEvasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFromFareEvasion)
                     .addComponent(dpToFareEvasion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblToFareEvasion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(pnlFareEvasionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumberOfEvadersCaught, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNumEvadeCaught))
@@ -658,9 +673,7 @@ public class AdminGUI extends javax.swing.JFrame {
                 PrintWriter writer = null;
                 try {
                     writer = new PrintWriter(fileName, "UTF-8");
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (UnsupportedEncodingException ex) {
+                } catch (FileNotFoundException | UnsupportedEncodingException ex) {
                     Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 FareEvasion r = (FareEvasion) currentOpenReport;
@@ -723,6 +736,16 @@ public class AdminGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         getFareEvasionReport();
     }//GEN-LAST:event_dpToFareEvasionActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        if(EUI.logout()) {
+            this.setVisible(false);
+            new LoginForm().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error logging out, please close this window instead", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLogoutActionPerformed
     
     private void getFareEvasionReport(){
         if(dpFromFareEvasion.getDate() != null && dpToFareEvasion.getDate() != null){
@@ -774,6 +797,7 @@ public class AdminGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnGetDriversReport;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPrintCapacityReport;
     private javax.swing.JButton btnPrintFareEvasionReport;
     private javax.swing.JButton btnPrintFinanceReport;

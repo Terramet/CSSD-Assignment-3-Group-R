@@ -57,6 +57,11 @@ public class AccountManager {
         return false;
     }
     
+    public boolean logout() {
+        activeUser = null;
+        return (activeUser == null);
+    }
+    
     public List<Employee> getAccountList() {
         return eReg.getAccountList();
     }

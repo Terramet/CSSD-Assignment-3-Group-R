@@ -47,6 +47,10 @@ public class EmployeeUserInterface {
         manager.addUser(e);
     }
     
+    public boolean logout(){
+        return manager.logout();
+    }
+    
     public Report getReport(int type, Date from, Date to){
         
         return rReg.getReport(type, from, to);
