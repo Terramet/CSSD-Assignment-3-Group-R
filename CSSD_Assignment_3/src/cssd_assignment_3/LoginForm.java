@@ -125,6 +125,8 @@ public class LoginForm extends javax.swing.JFrame {
             new AdminGUI(EUI).setVisible(true);
         } else {
             lblInvalidLogin.setVisible(true);
+            txtUsername.setText("");
+            pwfPassword.setText("");
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
