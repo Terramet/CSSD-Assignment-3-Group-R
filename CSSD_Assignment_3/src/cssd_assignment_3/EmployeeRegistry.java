@@ -54,7 +54,7 @@ public class EmployeeRegistry implements Serializable{
 
     public void saveRegistry() {
         try {
-            ObjectOutputStream outRegistry = new ObjectOutputStream(new FileOutputStream("Registry.ser"));
+            ObjectOutputStream outRegistry = new ObjectOutputStream(new FileOutputStream("EmployeeRegistry.ser"));
             outRegistry.writeObject(this);
         } catch (IOException e) {
             System.out.println("Error: " + e);
