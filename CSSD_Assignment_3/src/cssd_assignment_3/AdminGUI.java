@@ -684,25 +684,29 @@ public class AdminGUI extends javax.swing.JFrame {
     private void btnPrintFareEvasionReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintFareEvasionReportActionPerformed
         // TODO add your handling code here:
         if(EUI.getActiveIsAdmin()){
-            if(currentOpenReport.getType() == 2) {
-                String fileName = "FareEvasionReport" + currentOpenReport.getName() + ".txt";
-                PrintWriter writer = null;
-                try {
-                    writer = new PrintWriter(fileName, "UTF-8");
-                } catch (FileNotFoundException | UnsupportedEncodingException ex) {
-                    Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                FareEvasion r = (FareEvasion) currentOpenReport;
-                writer.println(r.toString().replace("\n", "\r\n"));
-                writer.close();
-                File file = new File(fileName);
-                if (Desktop.isDesktopSupported()) {
+            if(currentOpenReport != null){
+                if(currentOpenReport.getType() == 2) {
+                    String fileName = "FareEvasionReport" + currentOpenReport.getName() + ".txt";
+                    PrintWriter writer = null;
                     try {
-                        Desktop.getDesktop().edit(file);
-                    } catch (IOException ex) {
+                        writer = new PrintWriter(fileName, "UTF-8");
+                    } catch (FileNotFoundException | UnsupportedEncodingException ex) {
                         Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    FareEvasion r = (FareEvasion) currentOpenReport;
+                    writer.println(r.toString().replace("\n", "\r\n"));
+                    writer.close();
+                    File file = new File(fileName);
+                    if (Desktop.isDesktopSupported()) {
+                        try {
+                            Desktop.getDesktop().edit(file);
+                        } catch (IOException ex) {
+                            Logger.getLogger(AdminGUI.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "You have not opened a report yet, use the date picker to open a report", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Sorry but you need to be an admin to print a report.", "Warning", JOptionPane.WARNING_MESSAGE);
