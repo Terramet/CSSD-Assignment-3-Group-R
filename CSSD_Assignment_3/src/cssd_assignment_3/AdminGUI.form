@@ -316,6 +316,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="PRINT REPORT"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrintMaintenanceReportActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblMaintenanceCosts">
                       <Properties>
@@ -573,6 +576,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="PRINT REPORT"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrintFinanceReportActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="org.jdesktop.swingx.JXDatePicker" name="dpFromFinance">
                     </Component>
@@ -678,6 +684,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="PRINT REPORT"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrintIncidentsReportActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblUnsociableReports">
                       <Properties>

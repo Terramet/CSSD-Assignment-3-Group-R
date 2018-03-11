@@ -230,6 +230,11 @@ public class AdminGUI extends javax.swing.JFrame {
         txtCheapVehicles.setText("????????");
 
         btnPrintMaintenanceReport.setText("PRINT REPORT");
+        btnPrintMaintenanceReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintMaintenanceReportActionPerformed(evt);
+            }
+        });
 
         lblMaintenanceCosts.setText("Maintenance Costs");
 
@@ -404,6 +409,11 @@ public class AdminGUI extends javax.swing.JFrame {
         lblProfitLoss.setText("Profit / Loss");
 
         btnPrintFinanceReport.setText("PRINT REPORT");
+        btnPrintFinanceReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintFinanceReportActionPerformed(evt);
+            }
+        });
 
         lblFromFinance.setText("From:");
 
@@ -456,6 +466,11 @@ public class AdminGUI extends javax.swing.JFrame {
         tabsReports.addTab("Finance", pnlFinance);
 
         btnPrintIncidentsReport.setText("PRINT REPORT");
+        btnPrintIncidentsReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintIncidentsReportActionPerformed(evt);
+            }
+        });
 
         lblUnsociableReports.setText("Unsociable Reports");
 
@@ -663,6 +678,7 @@ public class AdminGUI extends javax.swing.JFrame {
 
     private void btnPrintCapacityReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintCapacityReportActionPerformed
         // TODO add your handling code here:
+        printButtonError();
     }//GEN-LAST:event_btnPrintCapacityReportActionPerformed
 
     private void btnPrintFareEvasionReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintFareEvasionReportActionPerformed
@@ -727,6 +743,10 @@ public class AdminGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddUserActionPerformed
 
+    private void printButtonError() {
+        JOptionPane.showMessageDialog(null, "Sorry only FareEvasion reports have been implemented", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
     private void dpFromFareEvasionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpFromFareEvasionActionPerformed
         // TODO add your handling code here:
         getFareEvasionReport();
@@ -746,8 +766,26 @@ public class AdminGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error logging out, please close this window instead", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnPrintMaintenanceReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintMaintenanceReportActionPerformed
+        // TODO add your handling code here:
+        printButtonError();
+    }//GEN-LAST:event_btnPrintMaintenanceReportActionPerformed
+
+    private void btnPrintFinanceReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintFinanceReportActionPerformed
+        // TODO add your handling code here:
+        printButtonError();
+    }//GEN-LAST:event_btnPrintFinanceReportActionPerformed
+
+    private void btnPrintIncidentsReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintIncidentsReportActionPerformed
+        // TODO add your handling code here:
+        printButtonError();
+    }//GEN-LAST:event_btnPrintIncidentsReportActionPerformed
     
     private void getFareEvasionReport(){
+        txtNumberOfEvadersCaught.setText("#");
+        txtRevenueRecovered.setText("£");
+        txtRevenueLost.setText("£");
         if(dpFromFareEvasion.getDate() != null && dpToFareEvasion.getDate() != null){
             currentOpenReport = EUI.getReport(2, dpFromFareEvasion.getDate(), dpToFareEvasion.getDate());
             if(currentOpenReport != null){
