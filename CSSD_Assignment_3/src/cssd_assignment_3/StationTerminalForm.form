@@ -95,7 +95,7 @@
                           <Component id="jRadioFrench" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioEnglish" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="502" max="32767" attributes="0"/>
+                      <EmptySpace pref="504" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
@@ -113,7 +113,7 @@
                       <Component id="jRadioFrench" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jRadioGerman" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="252" max="32767" attributes="0"/>
+                      <EmptySpace pref="254" max="32767" attributes="0"/>
                       <Component id="loadLangButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -177,11 +177,6 @@
                       </Group>
                       <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -202,9 +197,7 @@
                           <Component id="resultsPanel5" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="resultsPanel6" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -227,11 +220,11 @@
                           <EmptySpace pref="98" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelDestination7" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelDestination2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelPrice7" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelPrice2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -239,8 +232,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="rpanelReturn7" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="rpanelDepart7" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rpanelReturn2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rpanelDepart2" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -250,35 +243,35 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDestination7" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDestination2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDepart7" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDepart2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelReturn7" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelReturn2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="rpanelPrice7" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelPrice2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="rpanelPrice7">
+                <Component class="javax.swing.JLabel" name="rpanelPrice2">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Price"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelReturn7">
+                <Component class="javax.swing.JLabel" name="rpanelReturn2">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Return Date/Time"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelDepart7">
+                <Component class="javax.swing.JLabel" name="rpanelDepart2">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Departure Date/Time"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelDestination7">
+                <Component class="javax.swing.JLabel" name="rpanelDestination2">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Destination"/>
                   </Properties>
@@ -302,11 +295,11 @@
                           <EmptySpace pref="98" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelDestination8" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelDestination4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelPrice8" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelPrice4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -314,8 +307,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="rpanelReturn8" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="rpanelDepart8" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rpanelReturn4" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rpanelDepart4" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -325,35 +318,35 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDestination8" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDestination4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDepart8" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDepart4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelReturn8" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelReturn4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="rpanelPrice8" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelPrice4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="rpanelPrice8">
+                <Component class="javax.swing.JLabel" name="rpanelPrice4">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Price"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelReturn8">
+                <Component class="javax.swing.JLabel" name="rpanelReturn4">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Return Date/Time"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelDepart8">
+                <Component class="javax.swing.JLabel" name="rpanelDepart4">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Departure Date/Time"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelDestination8">
+                <Component class="javax.swing.JLabel" name="rpanelDestination4">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Destination"/>
                   </Properties>
@@ -377,11 +370,11 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelDestination9" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelDestination1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelPrice9" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelPrice1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -389,8 +382,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="rpanelReturn9" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="rpanelDepart9" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rpanelReturn1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rpanelDepart1" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="75" max="32767" attributes="0"/>
                       </Group>
@@ -400,35 +393,35 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDestination9" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDestination1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDepart9" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDepart1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelReturn9" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelReturn1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="rpanelPrice9" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelPrice1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="rpanelDestination9">
+                <Component class="javax.swing.JLabel" name="rpanelDestination1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Destination"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelDepart9">
+                <Component class="javax.swing.JLabel" name="rpanelDepart1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Departure Date/Time"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelPrice9">
+                <Component class="javax.swing.JLabel" name="rpanelPrice1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Price"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelReturn9">
+                <Component class="javax.swing.JLabel" name="rpanelReturn1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Return Date/Time"/>
                   </Properties>
@@ -452,17 +445,17 @@
                           <EmptySpace pref="76" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelDestination10" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelDestination3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelPrice10" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelPrice3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="rpanelReturn10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="rpanelDepart10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rpanelReturn3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rpanelDepart3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                               </Group>
@@ -474,35 +467,35 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDestination10" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDestination3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDepart10" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDepart3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelReturn10" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelReturn3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="rpanelPrice10" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelPrice3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="rpanelPrice10">
+                <Component class="javax.swing.JLabel" name="rpanelPrice3">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Price"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelReturn10">
+                <Component class="javax.swing.JLabel" name="rpanelReturn3">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Return Date/Time"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelDepart10">
+                <Component class="javax.swing.JLabel" name="rpanelDepart3">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Departure Date/Time"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelDestination10">
+                <Component class="javax.swing.JLabel" name="rpanelDestination3">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Destination"/>
                   </Properties>
@@ -526,11 +519,11 @@
                           <EmptySpace pref="98" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelDestination11" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelDestination5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelPrice11" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelPrice5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -538,8 +531,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="rpanelReturn11" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="rpanelDepart11" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rpanelReturn5" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rpanelDepart5" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -549,35 +542,35 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDestination11" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDestination5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDepart11" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDepart5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelReturn11" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelReturn5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="rpanelPrice11" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelPrice5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="rpanelPrice11">
+                <Component class="javax.swing.JLabel" name="rpanelPrice5">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Price"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelReturn11">
+                <Component class="javax.swing.JLabel" name="rpanelReturn5">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Return Date/Time"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelDepart11">
+                <Component class="javax.swing.JLabel" name="rpanelDepart5">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Departure Date/Time"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelDestination11">
+                <Component class="javax.swing.JLabel" name="rpanelDestination5">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Destination"/>
                   </Properties>
@@ -601,11 +594,11 @@
                           <EmptySpace pref="98" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelDestination12" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelDestination6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="rpanelPrice12" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rpanelPrice6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -613,8 +606,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="rpanelReturn12" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="rpanelDepart12" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rpanelReturn6" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="rpanelDepart6" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -624,49 +617,41 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDestination12" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDestination6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelDepart12" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelDepart6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rpanelReturn12" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelReturn6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="rpanelPrice12" min="-2" max="-2" attributes="0"/>
+                          <Component id="rpanelPrice6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="rpanelPrice12">
+                <Component class="javax.swing.JLabel" name="rpanelPrice6">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Price"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelReturn12">
+                <Component class="javax.swing.JLabel" name="rpanelReturn6">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Return Date/Time"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelDepart12">
+                <Component class="javax.swing.JLabel" name="rpanelDepart6">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Departure Date/Time"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="rpanelDestination12">
+                <Component class="javax.swing.JLabel" name="rpanelDestination6">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Destination"/>
                   </Properties>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Test Continue"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
-              </Events>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="searchPanel">
@@ -696,41 +681,47 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="247" max="32767" attributes="0"/>
+                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jDepartureDate" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioOneWay" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioReturn" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioOpenReturn" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jRadioOneWay" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="departureDay" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="departureMonth" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="departureYear" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                      <Component id="depHour" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="depMinute" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="238" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="returnDay" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="returnMonth" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="returnYear" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jRadioReturn" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioOpenReturn" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jReturnDate" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="retHour" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="retMinute" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -748,20 +739,32 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="departureDay" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="departureMonth" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="departureYear" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="returnDay" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="returnMonth" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="returnYear" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jDepartureDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jReturnDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="retHour" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="retMinute" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="depHour" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="depMinute" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="56" max="32767" attributes="0"/>
                       <Component id="jRadioOneWay" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jRadioReturn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="jRadioOpenReturn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="127" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                       <Component id="searchButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                   </Group>
@@ -779,59 +782,13 @@
                 <Property name="text" type="java.lang.String" value="Return Date"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="departureDay">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="DD"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="departureDayActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="departureMonth">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="11"/>
-                <Property name="text" type="java.lang.String" value="MM"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="departureMonthActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="departureYear">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="YYYY"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="returnYear">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="YYYY"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="returnMonth">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="11"/>
-                <Property name="text" type="java.lang.String" value="MM"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="returnMonthActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="returnDay">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="DD"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="returnDayActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioReturn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Return"/>
               </Properties>
               <Events>
                 <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jRadioReturnStateChanged"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioReturnActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioOneWay">
@@ -856,6 +813,57 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchButtonActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="jDepartureDate">
+            </Component>
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="jReturnDate">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Departure Time"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel12">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Return Time"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="depHour">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="HH"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[6, 20]"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="depMinute">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="MM"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[6, 20]"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="retHour">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="HH"/>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[6, 20]"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="retMinute">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="MM"/>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[6, 20]"/>
+                </Property>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -905,10 +913,6 @@
                               <Component id="bookingReturnDate" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="313" max="-2" attributes="0"/>
-                              <Component id="bookingVia" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="radioCard" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -944,9 +948,7 @@
                           <Component id="bookingDepartureDate" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bookingReturnDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="bookingVia" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -1004,11 +1006,6 @@
             <Component class="javax.swing.JLabel" name="bookingPrice">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Price"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="bookingVia">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Via Locations"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel16">
@@ -1133,10 +1130,6 @@
                                       <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
                                       <Component id="cardReturnDay" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                                      <Component id="cardVia" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
                               <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
                           </Group>
@@ -1158,9 +1151,7 @@
                           <Component id="cardDepartureDay" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cardReturnDay" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="cardVia" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                       <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -1203,11 +1194,6 @@
             <Component class="javax.swing.JLabel" name="cardDepartureDay">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Departure Day/Time"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="cardVia">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Via Locations"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="cardPrice">
@@ -1279,20 +1265,25 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel33" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                              <Component id="cashInserted" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                              <Component id="cashTicketType" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                               <Component id="cashPrice" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                              <Component id="cashInserted" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cashFiftyPence" pref="170" max="32767" attributes="0"/>
+                                  <Component id="cashOnePound" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="434" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="172" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -1307,16 +1298,16 @@
                                           <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
                                           <Component id="cashReturnDay" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                                          <Component id="cashVia" min="-2" max="-2" attributes="0"/>
-                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="cashReturnButton" min="-2" pref="170" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="cashReturnButton" pref="170" max="32767" attributes="0"/>
+                                  <Component id="cashFivePounds" max="32767" attributes="0"/>
+                                  <Component id="cashTwoPounds" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1333,23 +1324,27 @@
                           <Component id="cashDepartureDay" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cashReturnDay" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="cashVia" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cashTicketType" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cashPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cashFivePounds" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="cashTwoPounds" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel46" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cashInserted" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cashOnePound" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="149" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cashFiftyPence" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="111" max="32767" attributes="0"/>
                       <Component id="cashReturnButton" min="-2" pref="66" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1372,17 +1367,12 @@
                 <Property name="text" type="java.lang.String" value="Departure Day/Time"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="cashVia">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Via Locations"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel33">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Payment Information"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel35">
+            <Component class="javax.swing.JLabel" name="cashTicketType">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ticket Type"/>
               </Properties>
@@ -1443,6 +1433,38 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cashReturnButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="cashFivePounds">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Add 5 Pounds"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cashFivePoundsActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="cashTwoPounds">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Add 2 Pounds"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cashTwoPoundsActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="cashOnePound">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Add 1 Pound"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cashOnePoundActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="cashFiftyPence">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Add 50 Pence"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cashFiftyPenceActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -1751,16 +1773,29 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jScrollDestinations" min="-2" pref="173" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="jScrollDestinations" alignment="0" min="-2" pref="173" max="-2" attributes="0"/>
+                          <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="jScrollVia" min="-2" pref="176" max="-2" attributes="0"/>
-                              <EmptySpace pref="67" max="32767" attributes="0"/>
-                              <Component id="confirmDestButton" min="-2" pref="167" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="35" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace pref="67" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                          <Component id="confirmDestButton" min="-2" pref="167" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -1772,20 +1807,23 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace pref="21" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jScrollDestinations" pref="451" max="32767" attributes="0"/>
-                                  <Component id="jScrollVia" max="32767" attributes="0"/>
-                              </Group>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="confirmDestButton" min="-2" pref="59" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="confirmDestButton" alignment="1" min="-2" pref="59" max="-2" attributes="0"/>
+                          <Component id="jScrollDestinations" pref="451" max="32767" attributes="0"/>
+                          <Component id="jScrollVia" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1820,7 +1858,7 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Available Destinations"/>
+                <Property name="text" type="java.lang.String" value="Available Routes"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="confirmDestButton">
@@ -1846,13 +1884,7 @@
                 <Component class="javax.swing.JList" name="jListVia">
                   <Properties>
                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                      <StringArray count="5">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                        <StringItem index="4" value="Item 5"/>
-                      </StringArray>
+                      <StringArray count="0"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -1861,6 +1893,16 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JLabel" name="jLabel3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Welcome to Sheffield Train Station"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Please select a stop"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="paymentSuccesfulPanel">
@@ -1885,10 +1927,6 @@
                               <Component id="paymentDepartureDate" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
                               <Component id="paymentReturnDate" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                              <Component id="paymentVia" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
@@ -1917,9 +1955,7 @@
                           <Component id="paymentDepartureDate" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="paymentReturnDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="paymentVia" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
                       <Component id="printTicketButton" min="-2" max="-2" attributes="0"/>
@@ -1942,11 +1978,6 @@
             <Component class="javax.swing.JLabel" name="paymentDepartureDate">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Departure Day/Time"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="paymentVia">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Via Locations"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="printTicketButton">

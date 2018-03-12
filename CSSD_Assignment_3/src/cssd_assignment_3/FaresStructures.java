@@ -1,5 +1,6 @@
 package cssd_assignment_3;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 class FaresStructures {
@@ -17,8 +18,9 @@ class FaresStructures {
         return 0.0;
     }
     
-    public double getRouteCosts(RouteRegistry routeRegistry, Date start, Date ret) {
-        return 0.0;
+    public ArrayList<Double> getRouteCosts(ArrayList<PotentialJourney> journeys) {
+        ArrayList<Double> costs = null;
+        return costs;
     }
     
     public double calcCostOfJourney(Journey journey) {
