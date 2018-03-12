@@ -48,7 +48,7 @@ public class AdminGUI extends javax.swing.JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                EUI.saveAccounts();
+                EUI.saveRegistries();
             }
 
         });

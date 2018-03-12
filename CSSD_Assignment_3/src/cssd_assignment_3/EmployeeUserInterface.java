@@ -39,8 +39,8 @@ public class EmployeeUserInterface {
         return manager.getActiveIsAdmin();
     }
     
-    public void saveAccounts() {
-        manager.saveAccounts();
+    public void saveRegistries() {
+        manager.saveRegistries();
     }
     
     public void addUser(Employee e) {
@@ -52,7 +52,6 @@ public class EmployeeUserInterface {
     }
     
     public Report getReport(int type, Date from, Date to){
-        
         return rReg.getReport(type, from, to);
     }
 }

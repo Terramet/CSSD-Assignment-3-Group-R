@@ -30,8 +30,8 @@ public class Location implements Serializable  {
     }
     
     public double DistanceTo(Location to) {
-        double x2 = Math.pow(x, 2);
-        double y2 = Math.pow(y, 2);
+        double x2 = Math.pow(x - to.getX(), 2);
+        double y2 = Math.pow(y - to.getY(), 2);
         double distance = Math.sqrt(x2 + y2);
         return distance;
     }
@@ -47,5 +47,13 @@ public class Location implements Serializable  {
     @Override
     public String toString(){
         return name;
+    }
+    
+    public double getX(){
+        return x;
+    }
+    
+    public double getY(){
+        return y;
     }
 }
