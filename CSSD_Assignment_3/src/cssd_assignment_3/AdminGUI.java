@@ -45,6 +45,11 @@ public class AdminGUI extends javax.swing.JFrame {
             tabsHomePage.setEnabledAt(1, false);
         }
         
+        pnlIncidents.removeAll();
+        pnlIncidents.add(pnlIncidentsHome);
+        pnlIncidents.repaint();
+        pnlIncidents.revalidate();
+        
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -109,18 +114,30 @@ public class AdminGUI extends javax.swing.JFrame {
         lblToFinance = new javax.swing.JLabel();
         dpToFinance = new org.jdesktop.swingx.JXDatePicker();
         pnlIncidents = new javax.swing.JPanel();
+        pnlIncidentsHome = new javax.swing.JPanel();
+        dpFromIncidents = new org.jdesktop.swingx.JXDatePicker();
+        btnGetDriversReport = new javax.swing.JButton();
         btnPrintIncidentsReport = new javax.swing.JButton();
+        txtDriversAccidentReports = new javax.swing.JTextField();
+        dpToIncidents = new org.jdesktop.swingx.JXDatePicker();
+        lblFromIncidents = new javax.swing.JLabel();
         lblUnsociableReports = new javax.swing.JLabel();
         txtUnsociableReports = new javax.swing.JTextField();
+        lblToIncidents = new javax.swing.JLabel();
         lblIncidentReports = new javax.swing.JLabel();
         txtIncidentReports = new javax.swing.JTextField();
         lblDriversAccidentReports = new javax.swing.JLabel();
-        txtDriversAccidentReports = new javax.swing.JTextField();
-        btnGetDriversReport = new javax.swing.JButton();
-        dpFromIncidents = new org.jdesktop.swingx.JXDatePicker();
-        lblFromIncidents = new javax.swing.JLabel();
-        lblToIncidents = new javax.swing.JLabel();
-        dpToIncidents = new org.jdesktop.swingx.JXDatePicker();
+        pnlDriversReport = new javax.swing.JPanel();
+        lblSpecificDriversReport = new javax.swing.JLabel();
+        lblDriversName = new javax.swing.JLabel();
+        txtDriversName = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
+        pnlHistory = new javax.swing.JPanel();
+        lblDriversHIstory = new javax.swing.JLabel();
+        scrlHistory = new javax.swing.JScrollPane();
+        txtaHistory = new javax.swing.JTextArea();
+        lblDriverName = new javax.swing.JLabel();
+        btnPrintDriverReport = new javax.swing.JButton();
         pnlFareEvasion = new javax.swing.JPanel();
         txtNumberOfEvadersCaught = new javax.swing.JTextField();
         txtRevenueRecovered = new javax.swing.JTextField();
@@ -150,7 +167,7 @@ public class AdminGUI extends javax.swing.JFrame {
         pnlNewsLayout.setHorizontalGroup(
             pnlNewsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNewsLayout.createSequentialGroup()
-                .addContainerGap(351, Short.MAX_VALUE)
+                .addContainerGap(349, Short.MAX_VALUE)
                 .addComponent(btnLogout)
                 .addContainerGap())
         );
@@ -194,7 +211,7 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addGroup(pnlAccountLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(lblCurrentAccounts)))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
         pnlAccountLayout.setVerticalGroup(
             pnlAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +224,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(lblCurrentAccounts)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrAccounts, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)))
+                        .addComponent(scrAccounts, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -279,7 +296,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addComponent(lblToMaintenance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dpToMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         pnlMaintenanceLayout.setVerticalGroup(
             pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,7 +389,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addComponent(lblToCapacity)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dpToCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         pnlCapacityLayout.setVerticalGroup(
             pnlCapacityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,7 +400,7 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addComponent(lblFromCapacity)
                     .addComponent(dpToCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblToCapacity))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(pnlCapacityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBusesFull, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblOfBusesFull))
@@ -443,7 +460,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addComponent(lblToFinance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dpToFinance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         pnlFinanceLayout.setVerticalGroup(
             pnlFinanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -465,86 +482,187 @@ public class AdminGUI extends javax.swing.JFrame {
 
         tabsReports.addTab("Finance", pnlFinance);
 
-        btnPrintIncidentsReport.setText("PRINT REPORT");
-        btnPrintIncidentsReport.addActionListener(new java.awt.event.ActionListener() {
+        pnlIncidents.setLayout(new java.awt.CardLayout());
+
+        btnGetDriversReport.setText("Get drivers report");
+        btnGetDriversReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintIncidentsReportActionPerformed(evt);
+                btnGetDriversReportActionPerformed(evt);
             }
         });
 
+        btnPrintIncidentsReport.setText("PRINT REPORT");
+
+        lblFromIncidents.setText("From:");
+
         lblUnsociableReports.setText("Unsociable Reports");
+
+        lblToIncidents.setText("To:");
 
         lblIncidentReports.setText("Incident Reports");
 
         lblDriversAccidentReports.setText("Drivers Accident Reports");
 
-        btnGetDriversReport.setText("Get drivers report");
-
-        lblFromIncidents.setText("From:");
-
-        lblToIncidents.setText("To:");
-
-        javax.swing.GroupLayout pnlIncidentsLayout = new javax.swing.GroupLayout(pnlIncidents);
-        pnlIncidents.setLayout(pnlIncidentsLayout);
-        pnlIncidentsLayout.setHorizontalGroup(
-            pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlIncidentsLayout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(btnPrintIncidentsReport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(pnlIncidentsLayout.createSequentialGroup()
-                .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlIncidentsLayout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(pnlIncidentsLayout.createSequentialGroup()
-                                .addComponent(txtDriversAccidentReports)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnGetDriversReport))
-                            .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblDriversAccidentReports)
-                                .addComponent(lblUnsociableReports)
-                                .addComponent(txtUnsociableReports, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblIncidentReports)
-                                .addComponent(txtIncidentReports, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(pnlIncidentsLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+        javax.swing.GroupLayout pnlIncidentsHomeLayout = new javax.swing.GroupLayout(pnlIncidentsHome);
+        pnlIncidentsHome.setLayout(pnlIncidentsHomeLayout);
+        pnlIncidentsHomeLayout.setHorizontalGroup(
+            pnlIncidentsHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIncidentsHomeLayout.createSequentialGroup()
+                .addGroup(pnlIncidentsHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlIncidentsHomeLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(lblFromIncidents)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dpFromIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lblToIncidents)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dpToIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addGroup(pnlIncidentsHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDriversAccidentReports)
+                            .addComponent(lblIncidentReports)
+                            .addComponent(lblUnsociableReports)
+                            .addComponent(txtUnsociableReports, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlIncidentsHomeLayout.createSequentialGroup()
+                                .addComponent(dpFromIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblToIncidents)
+                                .addGap(18, 18, 18)
+                                .addComponent(dpToIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlIncidentsHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(pnlIncidentsHomeLayout.createSequentialGroup()
+                                    .addComponent(txtDriversAccidentReports)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnGetDriversReport))
+                                .addComponent(txtIncidentReports, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pnlIncidentsHomeLayout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(btnPrintIncidentsReport, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
-        pnlIncidentsLayout.setVerticalGroup(
-            pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlIncidentsLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        pnlIncidentsHomeLayout.setVerticalGroup(
+            pnlIncidentsHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIncidentsHomeLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(pnlIncidentsHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dpFromIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFromIncidents)
                     .addComponent(dpToIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFromIncidents)
                     .addComponent(lblToIncidents))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(lblUnsociableReports)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtUnsociableReports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblIncidentReports)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtIncidentReports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblDriversAccidentReports)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlIncidentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDriversAccidentReports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGetDriversReport))
+                .addGroup(pnlIncidentsHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGetDriversReport)
+                    .addComponent(txtDriversAccidentReports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPrintIncidentsReport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addComponent(btnPrintIncidentsReport, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(112, 112, 112))
         );
+
+        pnlIncidents.add(pnlIncidentsHome, "card2");
+
+        lblSpecificDriversReport.setText("GET SPECIFIC DRIVERS ACCIDENT REPORT");
+
+        lblDriversName.setText("Enter Drivers Name");
+
+        btnSearch.setText("SEARCH");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlDriversReportLayout = new javax.swing.GroupLayout(pnlDriversReport);
+        pnlDriversReport.setLayout(pnlDriversReportLayout);
+        pnlDriversReportLayout.setHorizontalGroup(
+            pnlDriversReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDriversReportLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlDriversReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDriversReportLayout.createSequentialGroup()
+                        .addGroup(pnlDriversReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSpecificDriversReport)
+                            .addGroup(pnlDriversReportLayout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(lblDriversName)))
+                        .addGap(88, 88, 88))
+                    .addGroup(pnlDriversReportLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(pnlDriversReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDriversName)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
+        );
+        pnlDriversReportLayout.setVerticalGroup(
+            pnlDriversReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDriversReportLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblSpecificDriversReport)
+                .addGap(55, 55, 55)
+                .addComponent(lblDriversName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDriversName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+
+        pnlIncidents.add(pnlDriversReport, "card3");
+
+        lblDriversHIstory.setText("Drivers Accident History");
+
+        txtaHistory.setColumns(20);
+        txtaHistory.setRows(5);
+        scrlHistory.setViewportView(txtaHistory);
+
+        lblDriverName.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblDriverName.setText("... - Accident History");
+
+        btnPrintDriverReport.setText("PRINT REPORT");
+        btnPrintDriverReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintDriverReportActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlHistoryLayout = new javax.swing.GroupLayout(pnlHistory);
+        pnlHistory.setLayout(pnlHistoryLayout);
+        pnlHistoryLayout.setHorizontalGroup(
+            pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHistoryLayout.createSequentialGroup()
+                .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHistoryLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrlHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDriversHIstory)))
+                    .addGroup(pnlHistoryLayout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(btnPrintDriverReport))
+                    .addGroup(pnlHistoryLayout.createSequentialGroup()
+                        .addGap(123, 123, 123)
+                        .addComponent(lblDriverName)))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        pnlHistoryLayout.setVerticalGroup(
+            pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHistoryLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(lblDriverName)
+                .addGap(41, 41, 41)
+                .addComponent(lblDriversHIstory)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrlHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPrintDriverReport, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        pnlIncidents.add(pnlHistory, "card4");
 
         tabsReports.addTab("Incidents", pnlIncidents);
 
@@ -609,7 +727,7 @@ public class AdminGUI extends javax.swing.JFrame {
                             .addComponent(lblNumEvadeCaught)
                             .addComponent(lblRevenueRecovered)
                             .addComponent(lblRevenueLost))))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFareEvasionLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblFromFareEvasion)
@@ -657,7 +775,7 @@ public class AdminGUI extends javax.swing.JFrame {
         );
         pnlReportsLayout.setVerticalGroup(
             pnlReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabsReports)
+            .addComponent(tabsReports, javax.swing.GroupLayout.PREFERRED_SIZE, 350, Short.MAX_VALUE)
         );
 
         tabsHomePage.addTab("Reports", pnlReports);
@@ -781,10 +899,27 @@ public class AdminGUI extends javax.swing.JFrame {
         printButtonError();
     }//GEN-LAST:event_btnPrintFinanceReportActionPerformed
 
-    private void btnPrintIncidentsReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintIncidentsReportActionPerformed
+    private void btnPrintDriverReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintDriverReportActionPerformed
         // TODO add your handling code here:
         printButtonError();
-    }//GEN-LAST:event_btnPrintIncidentsReportActionPerformed
+    }//GEN-LAST:event_btnPrintDriverReportActionPerformed
+
+    private void btnGetDriversReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetDriversReportActionPerformed
+        // TODO add your handling code here:
+        pnlIncidents.removeAll();
+        pnlIncidents.add(pnlDriversReport);
+        pnlIncidents.repaint();
+        pnlIncidents.revalidate();
+    }//GEN-LAST:event_btnGetDriversReportActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        pnlIncidents.removeAll();
+        pnlIncidents.add(pnlHistory);
+        pnlIncidents.repaint();
+        pnlIncidents.revalidate();
+        lblDriverName.setText(txtDriversName.getText() + " - Accident History");
+    }//GEN-LAST:event_btnSearchActionPerformed
     
     private void getFareEvasionReport(){
         txtNumberOfEvadersCaught.setText("#");
@@ -841,10 +976,12 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnGetDriversReport;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPrintCapacityReport;
+    private javax.swing.JButton btnPrintDriverReport;
     private javax.swing.JButton btnPrintFareEvasionReport;
     private javax.swing.JButton btnPrintFinanceReport;
     private javax.swing.JButton btnPrintIncidentsReport;
     private javax.swing.JButton btnPrintMaintenanceReport;
+    private javax.swing.JButton btnSearch;
     private org.jdesktop.swingx.JXDatePicker dpFromCapacity;
     private org.jdesktop.swingx.JXDatePicker dpFromFareEvasion;
     private org.jdesktop.swingx.JXDatePicker dpFromFinance;
@@ -858,7 +995,10 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblBreakdownCosts;
     private javax.swing.JLabel lblCheapestVehicles;
     private javax.swing.JLabel lblCurrentAccounts;
+    private javax.swing.JLabel lblDriverName;
     private javax.swing.JLabel lblDriversAccidentReports;
+    private javax.swing.JLabel lblDriversHIstory;
+    private javax.swing.JLabel lblDriversName;
     private javax.swing.JLabel lblFromCapacity;
     private javax.swing.JLabel lblFromFareEvasion;
     private javax.swing.JLabel lblFromFinance;
@@ -874,6 +1014,7 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblProfitLoss;
     private javax.swing.JLabel lblRevenueLost;
     private javax.swing.JLabel lblRevenueRecovered;
+    private javax.swing.JLabel lblSpecificDriversReport;
     private javax.swing.JLabel lblToCapacity;
     private javax.swing.JLabel lblToFareEvasion;
     private javax.swing.JLabel lblToFinance;
@@ -884,19 +1025,24 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JOptionPane optAddUser;
     private javax.swing.JPanel pnlAccount;
     private javax.swing.JPanel pnlCapacity;
+    private javax.swing.JPanel pnlDriversReport;
     private javax.swing.JPanel pnlFareEvasion;
     private javax.swing.JPanel pnlFinance;
+    private javax.swing.JPanel pnlHistory;
     private javax.swing.JPanel pnlIncidents;
+    private javax.swing.JPanel pnlIncidentsHome;
     private javax.swing.JPanel pnlMaintenance;
     private javax.swing.JPanel pnlNews;
     private javax.swing.JPanel pnlReports;
     private javax.swing.JScrollPane scrAccounts;
+    private javax.swing.JScrollPane scrlHistory;
     private javax.swing.JTabbedPane tabsHomePage;
     private javax.swing.JTabbedPane tabsReports;
     private javax.swing.JTextField txtBreakCosts;
     private javax.swing.JTextField txtBusesFull;
     private javax.swing.JTextField txtCheapVehicles;
     private javax.swing.JTextField txtDriversAccidentReports;
+    private javax.swing.JTextField txtDriversName;
     private javax.swing.JTextField txtExpensiveVehicles;
     private javax.swing.JTextField txtIncidentReports;
     private javax.swing.JTextField txtMainCosts;
@@ -907,5 +1053,6 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JTextField txtTrainsFull;
     private javax.swing.JTextField txtTramsFull;
     private javax.swing.JTextField txtUnsociableReports;
+    private javax.swing.JTextArea txtaHistory;
     // End of variables declaration//GEN-END:variables
 }
