@@ -39,7 +39,6 @@ public class AccountManager {
        this.eReg = EmployeeRegistry.getRegistry();         
        this.vReg = VehicleRegistry.getRegistry();       
        this.rReg = ReportRegistry.getRegistry();       
-     
     }
     
     private void setActiveUser(Employee e) {
@@ -67,10 +66,10 @@ public class AccountManager {
     }
     
     public boolean getActiveIsAdmin() {
-        return activeUser.isEmployeeAdmin(activeUser);
+        return activeUser.isEmployeeAdmin();
     }
     
-    public void saveAccounts() {
+    public void saveRegistries() {
         eReg.saveRegistry();        
         vReg.saveRegistry();
         rReg.saveRegistry();

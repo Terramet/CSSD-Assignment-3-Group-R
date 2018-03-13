@@ -40,8 +40,8 @@ public class EmployeeUserInterface {
         return manager.getActiveIsAdmin();
     }
     
-    public void saveAccounts() {
-        manager.saveAccounts();
+    public void saveRegistries() {
+        manager.saveRegistries();
     }
     
     public void addUser(Employee e) {

@@ -36,8 +36,8 @@ public class Employee implements Serializable {
         return this.password.equals(password);
     }
     
-    public boolean isEmployeeAdmin(Employee e) {
-        return e.securityLevel >= 7;
+    public boolean isEmployeeAdmin() {
+        return securityLevel >= 7;
     }
     
     @Override
