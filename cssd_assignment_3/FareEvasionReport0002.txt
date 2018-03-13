@@ -1,0 +1,7 @@
+ID: 0002
+Type: Fare Evasion
+Start Date: Mon Jan 08 00:00:00 GMT 2018
+End Date: Sun Jan 14 00:00:00 GMT 2018
+Route: Nottingham
+Vehicle: SIG 4508
+Number Caught: 63

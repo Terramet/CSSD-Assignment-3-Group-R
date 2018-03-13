@@ -1,0 +1,8 @@
+"Accueil"
+"La langue"
+"Calendrier"
+"Routes disponibles:"
+"Arrête à:
+"Bienvenue à la gare de Sheffield"
+"Veuillez sélectionner un arrêt"
+"Sélectionner la destination"
