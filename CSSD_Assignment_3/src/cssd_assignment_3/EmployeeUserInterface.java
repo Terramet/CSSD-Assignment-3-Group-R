@@ -22,7 +22,8 @@ public class EmployeeUserInterface {
     private String name;
     private AccountManager manager = null;
     private ReportRegistry rReg = ReportRegistry.getRegistry();
-    
+    private Report currentOpenReport = null;
+
     public EmployeeUserInterface() {
         manager = new AccountManager();
     }
@@ -51,8 +52,11 @@ public class EmployeeUserInterface {
         return manager.logout();
     }
     
-    public Report getReport(int type, Date from, Date to){
-        
-        return rReg.getReport(type, from, to);
+    public Report getOpenReport(){
+        return currentOpenReport;
+    }
+    
+    public void getReport(int type, Date from, Date to){
+        currentOpenReport = rReg.getReport(type, from, to);
     }
 }
