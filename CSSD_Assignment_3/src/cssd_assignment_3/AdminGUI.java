@@ -32,7 +32,6 @@ import javax.swing.JTextField;
 public class AdminGUI extends javax.swing.JFrame {
 
     static EmployeeUserInterface EUI = null;
-    Report currentOpenReport = null;
     /**
      * Creates new form AdminGUI
      * @param EUIp
@@ -801,6 +800,7 @@ public class AdminGUI extends javax.swing.JFrame {
 
     private void btnPrintFareEvasionReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintFareEvasionReportActionPerformed
         // TODO add your handling code here:
+        Report currentOpenReport = EUI.getOpenReport();
         if(EUI.getActiveIsAdmin()){
             if(currentOpenReport != null){
                 if(currentOpenReport.getType() == 2) {
@@ -926,7 +926,8 @@ public class AdminGUI extends javax.swing.JFrame {
         txtRevenueRecovered.setText("£");
         txtRevenueLost.setText("£");
         if(dpFromFareEvasion.getDate() != null && dpToFareEvasion.getDate() != null){
-            currentOpenReport = EUI.getReport(2, dpFromFareEvasion.getDate(), dpToFareEvasion.getDate());
+            EUI.getReport(2, dpFromFareEvasion.getDate(), dpToFareEvasion.getDate());
+            Report currentOpenReport = EUI.getOpenReport();
             if(currentOpenReport != null){
                 if(currentOpenReport.getType() == 2) {
                     FareEvasion r = (FareEvasion) currentOpenReport;
