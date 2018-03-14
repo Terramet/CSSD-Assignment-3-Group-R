@@ -11,6 +11,7 @@ import java.util.List;
 public class PotentialJourney {
     
     public PotentialJourney(Route route, Location beginLoc, Location endLoc, Date startDate, Date endDate) {
+        this.route = route;
         this.beginLoc = beginLoc;
         this.endLoc = endLoc;
         this.startDate = startDate;
@@ -49,6 +50,7 @@ public class PotentialJourney {
             Location at = locations.get(begin);
             Location to = locations.get(begin+1);
             journeyDistance += at.DistanceTo(to);
+            begin++;
         }
         
         return true;

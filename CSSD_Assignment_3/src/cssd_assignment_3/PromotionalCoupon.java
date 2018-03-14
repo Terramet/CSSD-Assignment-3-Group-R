@@ -21,21 +21,21 @@ public class PromotionalCoupon {
     List<Route> validRoutes;
     
     PromotionalCoupon(String ID, Date expiry, double newValue, List<Route> routes){
-    this.used = false;
-    this.expired = false;
-    
-    this.couponID = ID;
-    this.expiryDate = expiry;
-    this.value = newValue;
-    this.validRoutes = routes;
+        this.used = false;
+        this.expired = false;
+
+        this.couponID = ID;
+        this.expiryDate = expiry;
+        this.value = newValue;
+        this.validRoutes = routes;
     }
     
     private void markCouponExpired(){
-    expired = true;
+        expired = true;
     }
     
     private void markCouponUsed(){
-    used = true;
+        used = true;
     }
     
     public String getID(){
@@ -48,8 +48,8 @@ public class PromotionalCoupon {
             return false;
         }
         if (todayDate.after(expiryDate)){
-        markCouponExpired();
-        return false;
+            markCouponExpired();
+            return false;
         }
         if (used == true){
             return false;
@@ -65,6 +65,6 @@ public class PromotionalCoupon {
             }
             return -2;
         }
-    return -1;
+        return -1;
     }
 }
