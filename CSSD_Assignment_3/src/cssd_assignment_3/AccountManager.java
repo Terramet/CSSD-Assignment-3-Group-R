@@ -35,20 +35,20 @@ public class AccountManager {
     private final VehicleRegistry vReg;
     private final ReportRegistry rReg;
     
-    public AccountManager() {
+    public AccountManager() {   //set up registries
        this.eReg = EmployeeRegistry.getRegistry();         
        this.vReg = VehicleRegistry.getRegistry();       
        this.rReg = ReportRegistry.getRegistry();       
     }
     
-    private void setActiveUser(Employee e) {
+    private void setActiveUser(Employee e) {    //set the active user
         this.activeUser = e;
     }
     
     public boolean login(String username, String password){
-        Employee e = eReg.getEmployee(username);
+        Employee e = eReg.getEmployee(username);    //get the employee with said username
         if (e != null){
-            if (e.passwordMatch(password)) {
+            if (e.passwordMatch(password)) {        //check provided password against stored
                 setActiveUser(e);
                 return true;
             } 
@@ -56,26 +56,26 @@ public class AccountManager {
         return false;
     }
     
-    public boolean logout() {
+    public boolean logout() {   //log the user out, return if they successfully logged out
         activeUser = null;
         return (activeUser == null);
     }
     
-    public List<Employee> getAccountList() {
+    public List<Employee> getAccountList() {    //get the list of accounts in order to display them
         return eReg.getAccountList();
     }
     
-    public boolean getActiveIsAdmin() {
+    public boolean getActiveIsAdmin() {         //check if active user is an admin
         return activeUser.isEmployeeAdmin();
     }
     
-    public void saveRegistries() {
+    public void saveRegistries() {      //save any changes to the registries
         eReg.saveRegistry();        
         vReg.saveRegistry();
         rReg.saveRegistry();
     }
     
-    public void addUser(Employee e) {
+    public void addUser(Employee e) {       //add a new user
         eReg.add(e);
     }
 }

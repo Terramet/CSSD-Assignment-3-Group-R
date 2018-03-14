@@ -28,11 +28,11 @@ public class EmployeeRegistry implements Serializable{
     private static EmployeeRegistry Registry = null;
     private List<Employee> employees = null;
     
-    protected EmployeeRegistry(List<Employee> list){
+    protected EmployeeRegistry(List<Employee> list){    //protected so the user cannot instanciate this class
         employees = list;
     }
     
-    public static EmployeeRegistry getRegistry() {
+    public static EmployeeRegistry getRegistry() {      //this is a singleton so get the data from file or create a new one if it doesn't exist
         if(Registry == null) {
             try {
                 ObjectInputStream inRegistry = new ObjectInputStream(new FileInputStream("EmployeeRegistry.ser"));
@@ -41,8 +41,8 @@ public class EmployeeRegistry implements Serializable{
                 System.out.println("Error:" + c);
             } catch (IOException e) {
                 System.out.println("Error: " + e);
-            }
-                if(Registry == null) {
+            }   
+                if(Registry == null) {                  //if the registry file was empty, make an object
                     List<Employee> list =  new ArrayList<>();
                     list.add(new Employee("Admin", "Admin", 7));
                     list.add(new Employee("Bob", "UselessBob", 0));
@@ -52,7 +52,7 @@ public class EmployeeRegistry implements Serializable{
         return Registry;
     }
 
-    public void saveRegistry() {
+    public void saveRegistry() {    //save the data back to file
         try {
             ObjectOutputStream outRegistry = new ObjectOutputStream(new FileOutputStream("EmployeeRegistry.ser"));
             outRegistry.writeObject(this);
@@ -61,15 +61,15 @@ public class EmployeeRegistry implements Serializable{
         }
     }
     
-    public void add(Employee e) {
+    public void add(Employee e) {       //add aa new employee to the list
         employees.add(e);
     }
     
-    public List<Employee> getAccountList() {
+    public List<Employee> getAccountList() {        //return all employees so that the names can be displayed
         return employees;
     }
     
-    public Employee getEmployee(String name) {
+    public Employee getEmployee(String name) {          //return the employee object with the given username
         Iterator<Employee> itr = employees.iterator();
         while(itr.hasNext()) {
             Employee e = itr.next();

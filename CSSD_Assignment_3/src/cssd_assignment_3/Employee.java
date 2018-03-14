@@ -28,20 +28,20 @@ public class Employee implements Serializable {
         this.securityLevel = sL;
     }
     
-    public String getName() {
+    public String getName() {   //return username
         return this.name;
     }
-    
-    public boolean passwordMatch(String password) {
+        
+    public boolean passwordMatch(String password) {     //check passwords match
         return this.password.equals(password);
     }
     
-    public boolean isEmployeeAdmin() {
+    public boolean isEmployeeAdmin() {      //check is user is admin
         return securityLevel >= 7;
     }
     
     @Override
-    public String toString() {
+    public String toString() {          //for the GUI list
         return name;
     }
 }

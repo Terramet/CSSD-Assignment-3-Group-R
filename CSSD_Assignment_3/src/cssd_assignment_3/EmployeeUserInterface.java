@@ -28,35 +28,35 @@ public class EmployeeUserInterface {
         manager = new AccountManager();
     }
     
-    public boolean login(String name, String password) {
+    public boolean login(String name, String password) {    //pass login details to the manager
         return manager.login(name, password);
     }
     
-    public List<Employee> getAccountList() {
+    public List<Employee> getAccountList() {    //get the account list so the they can be displayed on the GUI
         return manager.getAccountList();
     }
     
-    public boolean getActiveIsAdmin() {
+    public boolean getActiveIsAdmin() {     //Check active user is admin
         return manager.getActiveIsAdmin();
     }
     
-    public void saveRegistries() {
+    public void saveRegistries() {      //send save signal to accountmanager
         manager.saveRegistries();
     }
     
-    public void addUser(Employee e) {
+    public void addUser(Employee e) {   //add a new employee
         manager.addUser(e);
     }
     
-    public boolean logout(){
+    public boolean logout(){        //signal to log out
         return manager.logout();
     }
     
-    public Report getOpenReport(){
+    public Report getOpenReport(){      //return the current open report
         return currentOpenReport;
     }
     
-    public void getReport(int type, Date from, Date to){
+    public void getReport(int type, Date from, Date to){        //open new report
         currentOpenReport = rReg.getReport(type, from, to);
     }
 }
