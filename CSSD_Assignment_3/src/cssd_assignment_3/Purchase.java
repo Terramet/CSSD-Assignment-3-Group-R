@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package cssd_assignment_3;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Sam
@@ -26,9 +30,15 @@ public class Purchase {
         //make a dialog for reciept
         return paymentResult;
     }
-    public boolean makePurchase(String name, String accNo, int sortCode, int amount){
-        paymentResult = bankInt.takePayment(name, accNo, amount, sortCode, amount);
-        //make a dialog for reciept
+    public boolean makePurchase(String name, String accNo,int sortCode, int seccNo, double amount){
+        paymentResult = bankInt.takePayment(name, accNo, sortCode, seccNo, amount);
+                JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        if (paymentResult){
+            JOptionPane.showMessageDialog(frame, "Transaction under name " + name + " was successful" , "Payment Confirmation", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(frame, "Transaction under name " + name + " failed!" , "Payment Confirmation", JOptionPane.PLAIN_MESSAGE);
+        }
         return paymentResult;
     }
 }

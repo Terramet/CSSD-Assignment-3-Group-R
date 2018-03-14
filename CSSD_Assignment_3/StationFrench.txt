@@ -1,0 +1,8 @@
+Accueil
+La langue
+Calendrier
+Routes disponibles:
+Arrete a:
+Bienvenue a la gare de Sheffield
+Veuillez selectionner un arret
+Selectionner la destination

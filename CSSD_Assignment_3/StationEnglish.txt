@@ -1,0 +1,8 @@
+Home
+Language
+Timetable
+Available Routes:
+Stops At:
+Welcome to Sheffield Train Station
+Please select a stop
+Select Destination

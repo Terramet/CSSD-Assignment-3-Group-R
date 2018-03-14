@@ -22,7 +22,7 @@ public class BankAccountInterface {
         this.name = newName;
     }
     
-    public boolean takePayment(String Name, String acc, int sort, int sec, int amount){
+    public boolean takePayment(String Name, String acc, int sort, int sec, double amount){
         //Actual checking of whether the details are correct are not would no take part in this system, that's the banks job
         return true;
     }
@@ -47,7 +47,7 @@ class CorporateAccountInterface extends BankAccountInterface{
     }
     
     @Override
-    public boolean takePayment(String Name, String acc, int sort, int sec, int amount){
+    public boolean takePayment(String Name, String acc, int sort, int sec, double amount){
         //Actual checking of whether the details are correct are not would no take part in this system, that's the banks job
         double newAmount = discountVAT(amount);
         return true;

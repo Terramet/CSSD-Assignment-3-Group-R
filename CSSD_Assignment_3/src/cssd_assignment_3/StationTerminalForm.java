@@ -7,19 +7,27 @@ package cssd_assignment_3;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.ListModel;
 
 /**
  *
@@ -38,13 +46,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
     }
 
     // enter cash for a user.
-    public void enterCash() {
-        
+    public void enterCash(double cash) {
+        credits += cash;
     }
     
     //private JPanel cards = new JPanel();
     
-    private ButtonGroup langRadios = new ButtonGroup();
+    private ButtonGroup langRadios = new ButtonGroup(); // button groups- ensures only one of the radio dials can be selected at a time
     private ButtonGroup travelRadios = new ButtonGroup();
     private ButtonGroup paymentRadios = new ButtonGroup();
     
@@ -52,7 +60,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
     PromotionalCoupon coupon;
     List<Route> routes;
     RouteController controller = new RouteController();
-    FaresStructures fares;
+    FaresStructures fares = new FaresStructures();
     String couponID;
     double credits;
     double travelCost;
@@ -72,14 +80,14 @@ public class StationTerminalForm extends javax.swing.JFrame {
         travelRadios.add(jRadioOpenReturn);
         paymentRadios.add(radioCash);
         paymentRadios.add(radioCard);
-
+        
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, "home");
-        routes = controller.getRoutes(location, location);
+        routes = controller.getRoutes(location, location); // Passing the same location into both variables gets all avaliable routes from that location
         jListDestinations.setListData(routes.toArray());
-        coupon = new PromotionalCoupon("HZCPN",(new Date(86400000)),0.50,routes);
+        coupon = new PromotionalCoupon("HZCPN",(new Date(Long.MAX_VALUE)),0.50,routes); // example coupon- CODE: "HZCPN"
         
-        Timer timer = new Timer();
+        Timer timer = new Timer(); // automatically updates the time in the bottom left of the UI
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -106,50 +114,51 @@ public class StationTerminalForm extends javax.swing.JFrame {
         loadLangButton = new javax.swing.JButton();
         searchResultsPanel = new javax.swing.JPanel();
         resultsPanel2 = new javax.swing.JPanel();
-        rpanelPrice7 = new javax.swing.JLabel();
-        rpanelReturn7 = new javax.swing.JLabel();
-        rpanelDepart7 = new javax.swing.JLabel();
-        rpanelDestination7 = new javax.swing.JLabel();
+        rpanelPrice2 = new javax.swing.JLabel();
+        rpanelReturn2 = new javax.swing.JLabel();
+        rpanelDepart2 = new javax.swing.JLabel();
+        rpanelDestination2 = new javax.swing.JLabel();
         resultsPanel4 = new javax.swing.JPanel();
-        rpanelPrice8 = new javax.swing.JLabel();
-        rpanelReturn8 = new javax.swing.JLabel();
-        rpanelDepart8 = new javax.swing.JLabel();
-        rpanelDestination8 = new javax.swing.JLabel();
+        rpanelPrice4 = new javax.swing.JLabel();
+        rpanelReturn4 = new javax.swing.JLabel();
+        rpanelDepart4 = new javax.swing.JLabel();
+        rpanelDestination4 = new javax.swing.JLabel();
         resultsPanel1 = new javax.swing.JPanel();
-        rpanelDestination9 = new javax.swing.JLabel();
-        rpanelDepart9 = new javax.swing.JLabel();
-        rpanelPrice9 = new javax.swing.JLabel();
-        rpanelReturn9 = new javax.swing.JLabel();
+        rpanelDestination1 = new javax.swing.JLabel();
+        rpanelDepart1 = new javax.swing.JLabel();
+        rpanelPrice1 = new javax.swing.JLabel();
+        rpanelReturn1 = new javax.swing.JLabel();
         resultsPanel3 = new javax.swing.JPanel();
-        rpanelPrice10 = new javax.swing.JLabel();
-        rpanelReturn10 = new javax.swing.JLabel();
-        rpanelDepart10 = new javax.swing.JLabel();
-        rpanelDestination10 = new javax.swing.JLabel();
+        rpanelPrice3 = new javax.swing.JLabel();
+        rpanelReturn3 = new javax.swing.JLabel();
+        rpanelDepart3 = new javax.swing.JLabel();
+        rpanelDestination3 = new javax.swing.JLabel();
         resultsPanel5 = new javax.swing.JPanel();
-        rpanelPrice11 = new javax.swing.JLabel();
-        rpanelReturn11 = new javax.swing.JLabel();
-        rpanelDepart11 = new javax.swing.JLabel();
-        rpanelDestination11 = new javax.swing.JLabel();
+        rpanelPrice5 = new javax.swing.JLabel();
+        rpanelReturn5 = new javax.swing.JLabel();
+        rpanelDepart5 = new javax.swing.JLabel();
+        rpanelDestination5 = new javax.swing.JLabel();
         resultsPanel6 = new javax.swing.JPanel();
-        rpanelPrice12 = new javax.swing.JLabel();
-        rpanelReturn12 = new javax.swing.JLabel();
-        rpanelDepart12 = new javax.swing.JLabel();
-        rpanelDestination12 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        rpanelPrice6 = new javax.swing.JLabel();
+        rpanelReturn6 = new javax.swing.JLabel();
+        rpanelDepart6 = new javax.swing.JLabel();
+        rpanelDestination6 = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        departureDay = new javax.swing.JTextField();
-        departureMonth = new javax.swing.JTextField();
-        departureYear = new javax.swing.JTextField();
-        returnYear = new javax.swing.JTextField();
-        returnMonth = new javax.swing.JTextField();
-        returnDay = new javax.swing.JTextField();
         jRadioReturn = new javax.swing.JRadioButton();
         jRadioOneWay = new javax.swing.JRadioButton();
         jRadioOpenReturn = new javax.swing.JRadioButton();
         destinationLabel = new javax.swing.JLabel();
         searchButton = new javax.swing.JButton();
+        jDepartureDate = new org.jdesktop.swingx.JXDatePicker();
+        jReturnDate = new org.jdesktop.swingx.JXDatePicker();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        depHour = new javax.swing.JTextField();
+        depMinute = new javax.swing.JTextField();
+        retHour = new javax.swing.JTextField();
+        retMinute = new javax.swing.JTextField();
         confirmBookingPanel = new javax.swing.JPanel();
         bookingStation = new javax.swing.JLabel();
         bookingDepartureDate = new javax.swing.JLabel();
@@ -157,7 +166,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         confirmTicketType = new javax.swing.JLabel();
         bookingPrice = new javax.swing.JLabel();
-        bookingVia = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         radioCash = new javax.swing.JRadioButton();
         radioCard = new javax.swing.JRadioButton();
@@ -170,7 +178,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
         cardReturnDay = new javax.swing.JLabel();
         cardStation = new javax.swing.JLabel();
         cardDepartureDay = new javax.swing.JLabel();
-        cardVia = new javax.swing.JLabel();
         cardPrice = new javax.swing.JLabel();
         cardTicketType = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
@@ -185,15 +192,18 @@ public class StationTerminalForm extends javax.swing.JFrame {
         cashReturnDay = new javax.swing.JLabel();
         cashStation = new javax.swing.JLabel();
         cashDepartureDay = new javax.swing.JLabel();
-        cashVia = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
+        cashTicketType = new javax.swing.JLabel();
         cashPrice = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
         cashInserted = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         cashReturnButton = new javax.swing.JButton();
+        cashFivePounds = new javax.swing.JButton();
+        cashTwoPounds = new javax.swing.JButton();
+        cashOnePound = new javax.swing.JButton();
+        cashFiftyPence = new javax.swing.JButton();
         timetablePanel = new javax.swing.JPanel();
         platformPanel = new javax.swing.JPanel();
         jLabel47 = new javax.swing.JLabel();
@@ -218,23 +228,24 @@ public class StationTerminalForm extends javax.swing.JFrame {
         homePanel = new javax.swing.JPanel();
         jScrollDestinations = new javax.swing.JScrollPane();
         jListDestinations = new javax.swing.JList();
-        jLabel20 = new javax.swing.JLabel();
-        confirmDestButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        homeAvailRoutes = new javax.swing.JLabel();
+        homeSelectDestination = new javax.swing.JButton();
+        homeStopsAt = new javax.swing.JLabel();
         jScrollVia = new javax.swing.JScrollPane();
         jListVia = new javax.swing.JList();
+        homeSheff1 = new javax.swing.JLabel();
+        homeSheff2 = new javax.swing.JLabel();
         paymentSuccesfulPanel = new javax.swing.JPanel();
         paymentReturnDate = new javax.swing.JLabel();
         paymentStation = new javax.swing.JLabel();
         paymentDepartureDate = new javax.swing.JLabel();
-        paymentVia = new javax.swing.JLabel();
         printTicketButton = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         homeButtonPanel = new javax.swing.JPanel();
-        homeLable14 = new javax.swing.JLabel();
+        homeLabel = new javax.swing.JLabel();
         optionPanel = new javax.swing.JPanel();
-        langaugeButton = new javax.swing.JButton();
+        languageButton = new javax.swing.JButton();
         timetableButton = new javax.swing.JButton();
         timePanel = new javax.swing.JPanel();
         timeLabel = new javax.swing.JLabel();
@@ -272,7 +283,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                     .addComponent(jRadioGerman)
                     .addComponent(jRadioFrench)
                     .addComponent(jRadioEnglish))
-                .addContainerGap(502, Short.MAX_VALUE))
+                .addContainerGap(504, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, languagePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(loadLangButton)
@@ -287,7 +298,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addComponent(jRadioFrench)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioGerman)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
                 .addComponent(loadLangButton)
                 .addContainerGap())
         );
@@ -303,13 +314,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelPrice7.setText("Price");
+        rpanelPrice2.setText("Price");
 
-        rpanelReturn7.setText("Return Date/Time");
+        rpanelReturn2.setText("Return Date/Time");
 
-        rpanelDepart7.setText("Departure Date/Time");
+        rpanelDepart2.setText("Departure Date/Time");
 
-        rpanelDestination7.setText("Destination");
+        rpanelDestination2.setText("Destination");
 
         javax.swing.GroupLayout resultsPanel2Layout = new javax.swing.GroupLayout(resultsPanel2);
         resultsPanel2.setLayout(resultsPanel2Layout);
@@ -319,29 +330,29 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(resultsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel2Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination7)
+                        .addComponent(rpanelDestination2)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel2Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice7)
+                        .addComponent(rpanelPrice2)
                         .addContainerGap())))
             .addGroup(resultsPanel2Layout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addGroup(resultsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rpanelReturn7)
-                    .addComponent(rpanelDepart7))
+                    .addComponent(rpanelReturn2)
+                    .addComponent(rpanelDepart2))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         resultsPanel2Layout.setVerticalGroup(
             resultsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination7)
+                .addComponent(rpanelDestination2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart7)
+                .addComponent(rpanelDepart2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn7)
+                .addComponent(rpanelReturn2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice7)
+                .addComponent(rpanelPrice2)
                 .addContainerGap())
         );
 
@@ -352,13 +363,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelPrice8.setText("Price");
+        rpanelPrice4.setText("Price");
 
-        rpanelReturn8.setText("Return Date/Time");
+        rpanelReturn4.setText("Return Date/Time");
 
-        rpanelDepart8.setText("Departure Date/Time");
+        rpanelDepart4.setText("Departure Date/Time");
 
-        rpanelDestination8.setText("Destination");
+        rpanelDestination4.setText("Destination");
 
         javax.swing.GroupLayout resultsPanel4Layout = new javax.swing.GroupLayout(resultsPanel4);
         resultsPanel4.setLayout(resultsPanel4Layout);
@@ -368,29 +379,29 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(resultsPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel4Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination8)
+                        .addComponent(rpanelDestination4)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel4Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice8)
+                        .addComponent(rpanelPrice4)
                         .addContainerGap())))
             .addGroup(resultsPanel4Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addGroup(resultsPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rpanelReturn8)
-                    .addComponent(rpanelDepart8))
+                    .addComponent(rpanelReturn4)
+                    .addComponent(rpanelDepart4))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         resultsPanel4Layout.setVerticalGroup(
             resultsPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination8)
+                .addComponent(rpanelDestination4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart8)
+                .addComponent(rpanelDepart4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn8)
+                .addComponent(rpanelReturn4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice8)
+                .addComponent(rpanelPrice4)
                 .addContainerGap())
         );
 
@@ -401,13 +412,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelDestination9.setText("Destination");
+        rpanelDestination1.setText("Destination");
 
-        rpanelDepart9.setText("Departure Date/Time");
+        rpanelDepart1.setText("Departure Date/Time");
 
-        rpanelPrice9.setText("Price");
+        rpanelPrice1.setText("Price");
 
-        rpanelReturn9.setText("Return Date/Time");
+        rpanelReturn1.setText("Return Date/Time");
 
         javax.swing.GroupLayout resultsPanel1Layout = new javax.swing.GroupLayout(resultsPanel1);
         resultsPanel1.setLayout(resultsPanel1Layout);
@@ -417,29 +428,29 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(resultsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel1Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination9)
+                        .addComponent(rpanelDestination1)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel1Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice9)
+                        .addComponent(rpanelPrice1)
                         .addContainerGap())))
             .addGroup(resultsPanel1Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addGroup(resultsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rpanelReturn9)
-                    .addComponent(rpanelDepart9))
+                    .addComponent(rpanelReturn1)
+                    .addComponent(rpanelDepart1))
                 .addGap(0, 75, Short.MAX_VALUE))
         );
         resultsPanel1Layout.setVerticalGroup(
             resultsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination9)
+                .addComponent(rpanelDestination1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart9)
+                .addComponent(rpanelDepart1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn9)
+                .addComponent(rpanelReturn1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice9)
+                .addComponent(rpanelPrice1)
                 .addContainerGap())
         );
 
@@ -450,13 +461,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelPrice10.setText("Price");
+        rpanelPrice3.setText("Price");
 
-        rpanelReturn10.setText("Return Date/Time");
+        rpanelReturn3.setText("Return Date/Time");
 
-        rpanelDepart10.setText("Departure Date/Time");
+        rpanelDepart3.setText("Departure Date/Time");
 
-        rpanelDestination10.setText("Destination");
+        rpanelDestination3.setText("Destination");
 
         javax.swing.GroupLayout resultsPanel3Layout = new javax.swing.GroupLayout(resultsPanel3);
         resultsPanel3.setLayout(resultsPanel3Layout);
@@ -466,28 +477,28 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(76, Short.MAX_VALUE)
                 .addGroup(resultsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel3Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination10)
+                        .addComponent(rpanelDestination3)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel3Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice10)
+                        .addComponent(rpanelPrice3)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel3Layout.createSequentialGroup()
                         .addGroup(resultsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rpanelReturn10)
-                            .addComponent(rpanelDepart10))
+                            .addComponent(rpanelReturn3)
+                            .addComponent(rpanelDepart3))
                         .addGap(71, 71, 71))))
         );
         resultsPanel3Layout.setVerticalGroup(
             resultsPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination10)
+                .addComponent(rpanelDestination3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart10)
+                .addComponent(rpanelDepart3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn10)
+                .addComponent(rpanelReturn3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice10)
+                .addComponent(rpanelPrice3)
                 .addContainerGap())
         );
 
@@ -498,13 +509,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelPrice11.setText("Price");
+        rpanelPrice5.setText("Price");
 
-        rpanelReturn11.setText("Return Date/Time");
+        rpanelReturn5.setText("Return Date/Time");
 
-        rpanelDepart11.setText("Departure Date/Time");
+        rpanelDepart5.setText("Departure Date/Time");
 
-        rpanelDestination11.setText("Destination");
+        rpanelDestination5.setText("Destination");
 
         javax.swing.GroupLayout resultsPanel5Layout = new javax.swing.GroupLayout(resultsPanel5);
         resultsPanel5.setLayout(resultsPanel5Layout);
@@ -514,29 +525,29 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(resultsPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel5Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination11)
+                        .addComponent(rpanelDestination5)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel5Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice11)
+                        .addComponent(rpanelPrice5)
                         .addContainerGap())))
             .addGroup(resultsPanel5Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addGroup(resultsPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rpanelReturn11)
-                    .addComponent(rpanelDepart11))
+                    .addComponent(rpanelReturn5)
+                    .addComponent(rpanelDepart5))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         resultsPanel5Layout.setVerticalGroup(
             resultsPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination11)
+                .addComponent(rpanelDestination5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart11)
+                .addComponent(rpanelDepart5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn11)
+                .addComponent(rpanelReturn5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice11)
+                .addComponent(rpanelPrice5)
                 .addContainerGap())
         );
 
@@ -547,13 +558,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        rpanelPrice12.setText("Price");
+        rpanelPrice6.setText("Price");
 
-        rpanelReturn12.setText("Return Date/Time");
+        rpanelReturn6.setText("Return Date/Time");
 
-        rpanelDepart12.setText("Departure Date/Time");
+        rpanelDepart6.setText("Departure Date/Time");
 
-        rpanelDestination12.setText("Destination");
+        rpanelDestination6.setText("Destination");
 
         javax.swing.GroupLayout resultsPanel6Layout = new javax.swing.GroupLayout(resultsPanel6);
         resultsPanel6.setLayout(resultsPanel6Layout);
@@ -563,38 +574,31 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(resultsPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel6Layout.createSequentialGroup()
-                        .addComponent(rpanelDestination12)
+                        .addComponent(rpanelDestination6)
                         .addGap(96, 96, 96))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanel6Layout.createSequentialGroup()
-                        .addComponent(rpanelPrice12)
+                        .addComponent(rpanelPrice6)
                         .addContainerGap())))
             .addGroup(resultsPanel6Layout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addGroup(resultsPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rpanelReturn12)
-                    .addComponent(rpanelDepart12))
+                    .addComponent(rpanelReturn6)
+                    .addComponent(rpanelDepart6))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         resultsPanel6Layout.setVerticalGroup(
             resultsPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultsPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rpanelDestination12)
+                .addComponent(rpanelDestination6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelDepart12)
+                .addComponent(rpanelDepart6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rpanelReturn12)
+                .addComponent(rpanelReturn6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rpanelPrice12)
+                .addComponent(rpanelPrice6)
                 .addContainerGap())
         );
-
-        jButton2.setText("Test Continue");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout searchResultsPanelLayout = new javax.swing.GroupLayout(searchResultsPanel);
         searchResultsPanel.setLayout(searchResultsPanelLayout);
@@ -612,10 +616,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
                     .addComponent(resultsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(resultsPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(68, 68, 68))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchResultsPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(58, 58, 58))
         );
         searchResultsPanelLayout.setVerticalGroup(
             searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -632,9 +632,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGroup(searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(resultsPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(resultsPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addComponent(jButton2)
-                .addContainerGap())
+                .addGap(43, 43, 43))
         );
 
         mainPanel.add(searchResultsPanel, "searchResults");
@@ -645,50 +643,19 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
         jLabel11.setText("Return Date");
 
-        departureDay.setText("DD");
-        departureDay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                departureDayActionPerformed(evt);
-            }
-        });
-
-        departureMonth.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        departureMonth.setText("MM");
-        departureMonth.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                departureMonthActionPerformed(evt);
-            }
-        });
-
-        departureYear.setText("YYYY");
-
-        returnYear.setText("YYYY");
-        returnYear.setEnabled(false);
-
-        returnMonth.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        returnMonth.setText("MM");
-        returnMonth.setEnabled(false);
-        returnMonth.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnMonthActionPerformed(evt);
-            }
-        });
-
-        returnDay.setText("DD");
-        returnDay.setEnabled(false);
-        returnDay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnDayActionPerformed(evt);
-            }
-        });
-
         jRadioReturn.setText("Return");
         jRadioReturn.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jRadioReturnStateChanged(evt);
             }
         });
+        jRadioReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioReturnActionPerformed(evt);
+            }
+        });
 
+        jRadioOneWay.setSelected(true);
         jRadioOneWay.setText("One Way");
 
         jRadioOpenReturn.setText("Open Return");
@@ -701,6 +668,26 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 searchButtonActionPerformed(evt);
             }
         });
+
+        jReturnDate.setEnabled(false);
+
+        jLabel2.setText("Departure Time");
+
+        jLabel12.setText("Return Time");
+
+        depHour.setText("HH");
+        depHour.setMaximumSize(new java.awt.Dimension(6, 20));
+
+        depMinute.setText("MM");
+        depMinute.setMaximumSize(new java.awt.Dimension(6, 20));
+
+        retHour.setText("HH");
+        retHour.setEnabled(false);
+        retHour.setMaximumSize(new java.awt.Dimension(6, 20));
+
+        retMinute.setText("MM");
+        retMinute.setEnabled(false);
+        retMinute.setMaximumSize(new java.awt.Dimension(6, 20));
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
@@ -716,34 +703,39 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGap(91, 91, 91))
             .addGroup(searchPanelLayout.createSequentialGroup()
                 .addGap(124, 124, 124)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addGap(183, 183, 183))
+            .addGroup(searchPanelLayout.createSequentialGroup()
+                .addGap(115, 115, 115)
                 .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDepartureDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioOneWay)
+                    .addComponent(jRadioReturn)
+                    .addComponent(jRadioOpenReturn)
                     .addGroup(searchPanelLayout.createSequentialGroup()
-                        .addComponent(jRadioOneWay)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(searchPanelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
                             .addGroup(searchPanelLayout.createSequentialGroup()
-                                .addComponent(departureDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(departureMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(departureYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
-                        .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
+                                .addGap(10, 10, 10)
+                                .addComponent(depHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(depMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
+                        .addComponent(jReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(156, 156, 156))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
+                        .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(searchPanelLayout.createSequentialGroup()
-                                .addComponent(returnDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(returnMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(returnYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(158, 158, 158))
-                    .addGroup(searchPanelLayout.createSequentialGroup()
-                        .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioReturn)
-                            .addComponent(jRadioOpenReturn))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(retHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(retMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel12))
+                        .addGap(181, 181, 181))))
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -756,19 +748,27 @@ public class StationTerminalForm extends javax.swing.JFrame {
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(departureDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(departureMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(departureYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(returnDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(returnMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(returnYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                    .addComponent(jDepartureDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(retHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(retMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(depHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(depMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(jRadioOneWay)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioReturn)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioOpenReturn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addGap(63, 63, 63)
                 .addComponent(searchButton)
                 .addGap(79, 79, 79))
         );
@@ -788,8 +788,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
         confirmTicketType.setText("Ticket Type");
 
         bookingPrice.setText("Price");
-
-        bookingVia.setText("Via Locations");
 
         jLabel16.setText("Payment Method:");
 
@@ -861,9 +859,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
                         .addGap(126, 126, 126)
                         .addComponent(bookingReturnDate))
                     .addGroup(confirmBookingPanelLayout.createSequentialGroup()
-                        .addGap(313, 313, 313)
-                        .addComponent(bookingVia))
-                    .addGroup(confirmBookingPanelLayout.createSequentialGroup()
                         .addGap(136, 136, 136)
                         .addGroup(confirmBookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(radioCard)
@@ -890,9 +885,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGroup(confirmBookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookingDepartureDate)
                     .addComponent(bookingReturnDate))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bookingVia)
-                .addGap(35, 35, 35)
+                .addGap(60, 60, 60)
                 .addComponent(jLabel14)
                 .addGap(27, 27, 27)
                 .addGroup(confirmBookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -925,8 +918,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
         cardStation.setText("Station - Destination");
 
         cardDepartureDay.setText("Departure Day/Time");
-
-        cardVia.setText("Via Locations");
 
         cardPrice.setText("PRICE");
 
@@ -985,10 +976,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                             .addGroup(cardPaymentPanelLayout.createSequentialGroup()
                                 .addComponent(cardDepartureDay)
                                 .addGap(126, 126, 126)
-                                .addComponent(cardReturnDay))
-                            .addGroup(cardPaymentPanelLayout.createSequentialGroup()
-                                .addGap(92, 92, 92)
-                                .addComponent(cardVia)))
+                                .addComponent(cardReturnDay)))
                         .addGap(191, 191, 191))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardPaymentPanelLayout.createSequentialGroup()
                         .addComponent(cardConfirmButton)
@@ -1003,9 +991,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cardDepartureDay)
                     .addComponent(cardReturnDay))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cardVia)
-                .addGap(92, 92, 92)
+                .addGap(117, 117, 117)
                 .addComponent(jLabel43)
                 .addGap(18, 18, 18)
                 .addGroup(cardPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1038,11 +1024,9 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
         cashDepartureDay.setText("Departure Day/Time");
 
-        cashVia.setText("Via Locations");
-
         jLabel33.setText("Payment Information");
 
-        jLabel35.setText("Ticket Type");
+        cashTicketType.setText("Ticket Type");
 
         cashPrice.setText("PRICE");
 
@@ -1078,6 +1062,34 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
+        cashFivePounds.setText("Add 5 Pounds");
+        cashFivePounds.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashFivePoundsActionPerformed(evt);
+            }
+        });
+
+        cashTwoPounds.setText("Add 2 Pounds");
+        cashTwoPounds.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashTwoPoundsActionPerformed(evt);
+            }
+        });
+
+        cashOnePound.setText("Add 1 Pound");
+        cashOnePound.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashOnePoundActionPerformed(evt);
+            }
+        });
+
+        cashFiftyPence.setText("Add 50 Pence");
+        cashFiftyPence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashFiftyPenceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout cashPaymentPanelLayout = new javax.swing.GroupLayout(cashPaymentPanel);
         cashPaymentPanel.setLayout(cashPaymentPanelLayout);
         cashPaymentPanelLayout.setHorizontalGroup(
@@ -1087,16 +1099,20 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel33)
                     .addGroup(cashPaymentPanelLayout.createSequentialGroup()
+                        .addComponent(cashTicketType)
+                        .addGap(76, 76, 76)
+                        .addComponent(cashPrice))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPaymentPanelLayout.createSequentialGroup()
                         .addComponent(jLabel46)
                         .addGap(59, 59, 59)
-                        .addComponent(cashInserted))
-                    .addGroup(cashPaymentPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel35)
-                        .addGap(76, 76, 76)
-                        .addComponent(cashPrice)))
-                .addContainerGap(434, Short.MAX_VALUE))
+                        .addComponent(cashInserted)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cashFiftyPence, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(cashOnePound, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPaymentPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(172, Short.MAX_VALUE)
                 .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPaymentPanelLayout.createSequentialGroup()
                         .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1108,13 +1124,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
                                 .addGroup(cashPaymentPanelLayout.createSequentialGroup()
                                     .addComponent(cashDepartureDay)
                                     .addGap(126, 126, 126)
-                                    .addComponent(cashReturnDay))
-                                .addGroup(cashPaymentPanelLayout.createSequentialGroup()
-                                    .addGap(92, 92, 92)
-                                    .addComponent(cashVia))))
+                                    .addComponent(cashReturnDay))))
                         .addGap(191, 191, 191))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPaymentPanelLayout.createSequentialGroup()
-                        .addComponent(cashReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cashReturnButton, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(cashFivePounds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cashTwoPounds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         cashPaymentPanelLayout.setVerticalGroup(
@@ -1126,21 +1142,25 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cashDepartureDay)
                     .addComponent(cashReturnDay))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cashVia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(31, 31, 31)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addComponent(jLabel33)
                 .addGap(18, 18, 18)
                 .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel35)
-                    .addComponent(cashPrice))
-                .addGap(53, 53, 53)
+                    .addComponent(cashTicketType)
+                    .addComponent(cashPrice)
+                    .addComponent(cashFivePounds))
+                .addGap(15, 15, 15)
+                .addComponent(cashTwoPounds)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(cashPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel46)
-                    .addComponent(cashInserted))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                    .addComponent(cashInserted)
+                    .addComponent(cashOnePound))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cashFiftyPence)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addComponent(cashReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1326,28 +1346,27 @@ public class StationTerminalForm extends javax.swing.JFrame {
         });
         jScrollDestinations.setViewportView(jListDestinations);
 
-        jLabel20.setText("Available Destinations");
+        homeAvailRoutes.setText("Available Routes");
 
-        confirmDestButton.setText("Select Destination");
-        confirmDestButton.addActionListener(new java.awt.event.ActionListener() {
+        homeSelectDestination.setText("Select Destination");
+        homeSelectDestination.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmDestButtonActionPerformed(evt);
+                homeSelectDestinationActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Stops At:");
+        homeStopsAt.setText("Stops At:");
 
-        jListVia.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jListVia.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 jListViaValueChanged(evt);
             }
         });
         jScrollVia.setViewportView(jListVia);
+
+        homeSheff1.setText("Welcome to Sheffield Train Station");
+
+        homeSheff2.setText("Please select a stop");
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
@@ -1356,33 +1375,43 @@ public class StationTerminalForm extends javax.swing.JFrame {
             .addGroup(homePanelLayout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollDestinations, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(homeAvailRoutes))
+                .addGap(35, 35, 35)
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(homePanelLayout.createSequentialGroup()
-                        .addComponent(jScrollDestinations, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
                         .addComponent(jScrollVia, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                        .addComponent(confirmDestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(homeSelectDestination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(homePanelLayout.createSequentialGroup()
+                                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(homeSheff1)
+                                    .addComponent(homeSheff2))
+                                .addGap(0, 35, Short.MAX_VALUE))))
                     .addGroup(homePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addGap(103, 103, 103)
-                        .addComponent(jLabel1)
+                        .addComponent(homeStopsAt)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePanelLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(homeAvailRoutes)
+                    .addComponent(homeStopsAt))
+                .addGap(18, 18, 18)
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
-                        .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollDestinations, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-                            .addComponent(jScrollVia)))
-                    .addComponent(confirmDestButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addComponent(homeSheff1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(homeSheff2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(homeSelectDestination, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollDestinations, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                    .addComponent(jScrollVia))
                 .addContainerGap())
         );
 
@@ -1395,8 +1424,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
         paymentStation.setText("Station - Destination");
 
         paymentDepartureDate.setText("Departure Day/Time");
-
-        paymentVia.setText("Via Locations");
 
         printTicketButton.setText("PRINT TICKET");
         printTicketButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1438,9 +1465,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
                         .addGap(126, 126, 126)
                         .addComponent(paymentReturnDate))
                     .addGroup(paymentSuccesfulPanelLayout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(paymentVia))
-                    .addGroup(paymentSuccesfulPanelLayout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addGroup(paymentSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(printTicketButton)
@@ -1460,9 +1484,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGroup(paymentSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(paymentDepartureDate)
                     .addComponent(paymentReturnDate))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(paymentVia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(31, 31, 31)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(140, 140, 140)
                 .addComponent(printTicketButton)
@@ -1479,8 +1501,8 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        homeLable14.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        homeLable14.setText("Home");
+        homeLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        homeLabel.setText("Home");
 
         javax.swing.GroupLayout homeButtonPanelLayout = new javax.swing.GroupLayout(homeButtonPanel);
         homeButtonPanel.setLayout(homeButtonPanelLayout);
@@ -1488,23 +1510,23 @@ public class StationTerminalForm extends javax.swing.JFrame {
             homeButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeButtonPanelLayout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(homeLable14)
+                .addComponent(homeLabel)
                 .addGap(28, 28, 28))
         );
         homeButtonPanelLayout.setVerticalGroup(
             homeButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeButtonPanelLayout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(homeLable14)
+                .addComponent(homeLabel)
                 .addGap(28, 28, 28))
         );
 
         optionPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        langaugeButton.setText("Language");
-        langaugeButton.addActionListener(new java.awt.event.ActionListener() {
+        languageButton.setText("Language");
+        languageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                langaugeButtonActionPerformed(evt);
+                languageButtonActionPerformed(evt);
             }
         });
 
@@ -1522,7 +1544,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
             .addGroup(optionPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(optionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(langaugeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                    .addComponent(languageButton, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                     .addComponent(timetableButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1530,7 +1552,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
             optionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(optionPanelLayout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addComponent(langaugeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(languageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
                 .addComponent(timetableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1604,32 +1626,25 @@ public class StationTerminalForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void homeButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonPanelMouseClicked
-
-        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        CardLayout cl = (CardLayout)(mainPanel.getLayout()); // Returns to the homepage of the UI
         cl.show(mainPanel, "home");
         routes = controller.getRoutes(location, location);
         jListDestinations.setListData(routes.toArray());
-        //        mainPanel.removeAll();
-        //        mainPanel.revalidate();
-        //        mainPanel.repaint();
-        //        mainPanel.add(homePanel);
-        //        mainPanel.revalidate();
-        //        mainPanel.repaint();
     }//GEN-LAST:event_homeButtonPanelMouseClicked
 
-    private void langaugeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langaugeButtonActionPerformed
-        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+    private void languageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageButtonActionPerformed
+        CardLayout cl = (CardLayout)(mainPanel.getLayout()); // navigate to language panel
         cl.show(mainPanel, "language");
-    }//GEN-LAST:event_langaugeButtonActionPerformed
+    }//GEN-LAST:event_languageButtonActionPerformed
 
     private void timetableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timetableButtonActionPerformed
-        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());// navigate to timetable panel
         cl.show(mainPanel, "timetable");
     }//GEN-LAST:event_timetableButtonActionPerformed
 
     private void loadLangButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadLangButtonActionPerformed
         String newLang = null;
-        if (jRadioEnglish.isSelected()){
+        if (jRadioEnglish.isSelected()){ // gets the language to change to as a string
             newLang = "English";
         } else if(jRadioFrench.isSelected()){
             newLang = "French";
@@ -1637,70 +1652,119 @@ public class StationTerminalForm extends javax.swing.JFrame {
             newLang = "German";
         }
         if (newLang != null){
-        loadLanguageFile(newLang);
+            try {
+                loadLanguageFile(newLang); // if it found a language to change to, change to it
+            } catch (IOException ex) {
+                Logger.getLogger(StationTerminalForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        CardLayout cl = (CardLayout)(mainPanel.getLayout()); // go back home
         cl.show(mainPanel, "home");
         routes = controller.getRoutes(location, location);
         jListDestinations.setListData(routes.toArray());
     }//GEN-LAST:event_loadLangButtonActionPerformed
 
     private void resultsPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel2MouseClicked
-        // TODO add your handling code here:
+        bookingDepartureDate.setText(rpanelDepart2.getText()); // mimiced buttons for selecting a journey time/cost
+        bookingReturnDate.setText(rpanelReturn2.getText());
+        bookingPrice.setText(rpanelPrice2.getText());
+        travelCost = Double.parseDouble(rpanelPrice2.getText().substring(1));
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "confirmBook");
+        couponInvalidPanel.setVisible(false);
     }//GEN-LAST:event_resultsPanel2MouseClicked
 
     private void resultsPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel4MouseClicked
-        // TODO add your handling code here:
+        bookingDepartureDate.setText(rpanelDepart4.getText()); // mimiced buttons for selecting a journey time/cost
+        bookingReturnDate.setText(rpanelReturn4.getText()); // passes state forward to next panel
+        bookingPrice.setText(rpanelPrice4.getText());
+        travelCost = Double.parseDouble(rpanelPrice4.getText().substring(1));
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "confirmBook");
+        couponInvalidPanel.setVisible(false);
     }//GEN-LAST:event_resultsPanel4MouseClicked
 
     private void resultsPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel1MouseClicked
-        // TODO add your handling code here:
+        bookingDepartureDate.setText(rpanelDepart1.getText()); // mimiced buttons for selecting a journey time/cost
+        bookingReturnDate.setText(rpanelReturn1.getText()); 
+        bookingPrice.setText(rpanelPrice1.getText());
+        travelCost = Double.parseDouble(rpanelPrice1.getText().substring(1));
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "confirmBook");
+        couponInvalidPanel.setVisible(false);
     }//GEN-LAST:event_resultsPanel1MouseClicked
 
     private void resultsPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel3MouseClicked
-        // TODO add your handling code here:
+        bookingDepartureDate.setText(rpanelDepart3.getText());  // mimiced buttons for selecting a journey time/cost
+        bookingReturnDate.setText(rpanelReturn3.getText());
+        bookingPrice.setText(rpanelPrice3.getText());
+        travelCost = Double.parseDouble(rpanelPrice3.getText().substring(1));
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "confirmBook");
+        couponInvalidPanel.setVisible(false);
     }//GEN-LAST:event_resultsPanel3MouseClicked
 
     private void resultsPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel5MouseClicked
-        // TODO add your handling code here:
+        bookingDepartureDate.setText(rpanelDepart5.getText());  // mimiced buttons for selecting a journey time/cost
+        bookingReturnDate.setText(rpanelReturn5.getText());
+        bookingPrice.setText(rpanelPrice5.getText());
+        travelCost = Double.parseDouble(rpanelPrice5.getText().substring(1));
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "confirmBook");
+        couponInvalidPanel.setVisible(false);
     }//GEN-LAST:event_resultsPanel5MouseClicked
 
     private void resultsPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultsPanel6MouseClicked
-        // TODO add your handling code here:
+        bookingDepartureDate.setText(rpanelDepart6.getText()); // mimiced buttons for selecting a journey time/cost
+        bookingReturnDate.setText(rpanelReturn6.getText()); 
+        bookingPrice.setText(rpanelPrice6.getText());
+        travelCost = Double.parseDouble(rpanelPrice6.getText().substring(1));
+        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        cl.show(mainPanel, "confirmBook");
+        couponInvalidPanel.setVisible(false);
     }//GEN-LAST:event_resultsPanel6MouseClicked
 
-    private void departureDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departureDayActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_departureDayActionPerformed
-
-    private void departureMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departureMonthActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_departureMonthActionPerformed
-
-    private void returnMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMonthActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_returnMonthActionPerformed
-
-    private void returnDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnDayActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_returnDayActionPerformed
-
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        String depDate = "";
-        String retDate = "";
+        Date depDate = jDepartureDate.getDate();
+        Date retDate;
+        if (jReturnDate.isEnabled()){ // return date is disabled by defaul and is only enabled when "return" is selected
+            retDate = jReturnDate.getDate();
+        }else{
+            retDate = null;
+        }
+
         String ticketType = null;
-        if (jRadioOneWay.isSelected()){
-            ticketType = "OneWay";
+        if (jRadioOneWay.isSelected()){ // default option
+            ticketType = "One Way";
         } else if(jRadioReturn.isSelected()){
             ticketType = "Return";
         } else if (jRadioOpenReturn.isSelected()){
             ticketType = "Open Return";
         }
-        if (ticketType != null){
-        cardTicketType.setText(ticketType);
+        
+        boolean validTime = false;
+        if(depHour.getText().matches("[0-9]+")){
+            if(depMinute.getText().matches("[0-9]+")){ // checks that the time entered is a valid number
+                if (ticketType.equals("Return")){
+                    if(retHour.getText().matches("[0-9]+")){
+                        if(retMinute.getText().matches("[0-9]+")){ // same again for return time
+                            validTime = true;
+                        }
+                    }
+                } else {
+                    validTime = true;
+                }
+                
+            }
         }
-        CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        if (ticketType != null & validTime == true){
+        cashTicketType.setText(ticketType); // passes forward the state of the ticket
+        cardTicketType.setText(ticketType);
+        displayRoutesByDate(depDate, retDate); // gets the prices of the route at and after the dates passed, and displays them on the results buttons
+        CardLayout cl = (CardLayout)(mainPanel.getLayout()); // change to search results
         cl.show(mainPanel, "searchResults");
+        }
+
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void couponTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_couponTextFieldActionPerformed
@@ -1709,22 +1773,35 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
     private void bookingAdvanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingAdvanceActionPerformed
         boolean couponValid = true;
-        if (!couponTextField.getText().isEmpty()){
-            double couponValue = usePromotionalCoupon(couponTextField.getText(),new Date(), routeToUse);
-            if (couponValue < 0)
+        if (!couponTextField.getText().isEmpty()){ // if a coupon is entered
+            double couponValue = usePromotionalCoupon(couponTextField.getText(),new Date(), routeToUse); // check against the known coupon as to its validity
+            if (couponValue < 0) // valid coupons return a number between 0 and 1 to multiply the price by
             {
-                couponValid = false;
-                couponInvalidPanel.setVisible(true);
+                couponValid = false; // prevent the screen from progressing
+                couponInvalidPanel.setVisible(true); // display an error
+            } else {
+                travelCost = travelCost * couponValue;
             }
         }
         if(couponValid){
-        if(radioCash.isSelected()){
+            DecimalFormat dec = new DecimalFormat("#0.00");
+            if(radioCash.isSelected()){
                 CardLayout cl = (CardLayout)(mainPanel.getLayout());
-                cl.show(mainPanel, "cash");
-                couponInvalidPanel.setVisible(false);
+                cashDepartureDay.setText(bookingDepartureDate.getText());
+                cashReturnDay.setText(bookingReturnDate.getText());
+                cashPrice.setText("£" + dec.format(travelCost)); // pass forward the (potentialy reduced) price
+                paymentDepartureDate.setText(bookingDepartureDate.getText());
+                paymentReturnDate.setText(bookingReturnDate.getText());
+                cl.show(mainPanel, "cash"); // navigate to the cash checkout
+                couponInvalidPanel.setVisible(false); // hide the error message for if the panel is shown again
             } else if (radioCard.isSelected()){
                 CardLayout cl = (CardLayout)(mainPanel.getLayout());
-                cl.show(mainPanel, "card");
+                cardDepartureDay.setText(bookingDepartureDate.getText());
+                cardReturnDay.setText(bookingReturnDate.getText());
+                cardPrice.setText("£" + dec.format(travelCost)); // pass forward the (potentialy reduced) price
+                paymentDepartureDate.setText(bookingDepartureDate.getText());
+                paymentReturnDate.setText(bookingReturnDate.getText());
+                cl.show(mainPanel, "card");// navigate to the card checkout
                 couponInvalidPanel.setVisible(false);
             }
         }
@@ -1736,41 +1813,76 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
     private void cardConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardConfirmButtonActionPerformed
         if(!cardName.getText().isEmpty() & !cardNumber.getText().isEmpty() & !cardSecurityCode.getText().isEmpty()){
-            if(cardPrice.getText().matches("[0-9]+")){
+            if(cardPrice.getText().substring(1).matches("[0-9.]+")){ // if a valid price has been passed forward
             Purchase purchase = new Purchase();
-            purchase.makePurchase(cardName.getText(), cardNumber.getText(), Integer.parseInt(cardSecurityCode.getText()), Integer.parseInt(cardPrice.getText()));
-            CardLayout cl = (CardLayout)(mainPanel.getLayout());
-            cl.show(mainPanel, "paySucc");
-            } else {
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame, "Test payment complete");
+            boolean purchaseSuccess = purchase.makePurchase(cardName.getText(), cardNumber.getText(), Integer.parseInt(cardSecurityCode.getText()), 0,
+                                    Double.parseDouble(cardPrice.getText().substring(1))); // attempt to make a purchase using the details provided
+            if (purchaseSuccess){ // if it was sucessful
                 CardLayout cl = (CardLayout)(mainPanel.getLayout());
-                cl.show(mainPanel, "paySucc");
-            }
+                cl.show(mainPanel, "paySucc");// navigate to the final panel
+                }
+            } 
+        } else {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, "Please fill all fields.");
         }
     }//GEN-LAST:event_cardConfirmButtonActionPerformed
 
-    private void confirmDestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmDestButtonActionPerformed
+    private void homeSelectDestinationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeSelectDestinationActionPerformed
+        if(jListVia.getSelectedValue() != null){
+        Location newDestination = (Location)jListVia.getSelectedValue();
+        routeToUse = (Route)jListDestinations.getSelectedValue();
+        String destName = newDestination.getName();
+        String locName = location.getName();
+        destinationLabel.setText(locName + " - " + destName);
+        bookingStation.setText(locName + " - " + destName);
+        cardStation.setText(locName + " - " + destName);
+        cashStation.setText(locName + " - " + destName);
+        paymentStation.setText(locName + " - " + destName);
+        
+        rpanelDestination2.setText(destName);
+        rpanelDestination4.setText(destName);
+        rpanelDestination1.setText(destName);
+        rpanelDestination3.setText(destName);
+        rpanelDestination5.setText(destName);
+        rpanelDestination6.setText(destName);
+        
+        resultsPanel1.setVisible(true);
+        resultsPanel2.setVisible(true);
+        resultsPanel3.setVisible(true);
+        resultsPanel4.setVisible(true);
+        resultsPanel5.setVisible(true);
+        resultsPanel6.setVisible(true);
+        
+        jDepartureDate.setDate(new Date());
+        Calendar calendar = Calendar.getInstance(); // round the departure date UP to the nearest 30 mins
+        calendar.setTime(new Date());
+        depHour.setText(Integer.toString(calendar.get(Calendar.HOUR)));
+        retHour.setText(Integer.toString(calendar.get(Calendar.HOUR)));
+        depMinute.setText(Integer.toString(calendar.get(Calendar.MINUTE)));
+        retMinute.setText(Integer.toString(calendar.get(Calendar.MINUTE)));
         
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, "search");
-    }//GEN-LAST:event_confirmDestButtonActionPerformed
+        }
+    }//GEN-LAST:event_homeSelectDestinationActionPerformed
 
     private void jRadioReturnStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioReturnStateChanged
         if(jRadioReturn.isSelected()){
-            returnDay.setEnabled(true);
-            returnMonth.setEnabled(true);
-            returnYear.setEnabled(true);
+            jReturnDate.setEnabled(true);
+            retHour.setEnabled(true);
+            retMinute.setEnabled(true);
         } else {
-            returnDay.setEnabled(false);
-            returnMonth.setEnabled(false);
-            returnYear.setEnabled(false);
+            jReturnDate.setEnabled(false);
+            retHour.setEnabled(false);
+            retMinute.setEnabled(false);
         }
     }//GEN-LAST:event_jRadioReturnStateChanged
 
     private void printTicketButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printTicketButtonActionPerformed
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, "home");
+        printReciept();
         routes = controller.getRoutes(location, location);
         jListDestinations.setListData(routes.toArray());
     }//GEN-LAST:event_printTicketButtonActionPerformed
@@ -1779,12 +1891,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
         refundCash();
     }//GEN-LAST:event_cashReturnButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CardLayout cl = (CardLayout)(mainPanel.getLayout());
-        cl.show(mainPanel, "confirmBook");
-        couponInvalidPanel.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jListViaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListViaValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jListViaValueChanged
@@ -1792,59 +1898,295 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private void jListDestinationsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListDestinationsValueChanged
         // When a destination is selected:
         Route route = (Route)jListDestinations.getSelectedValue();
-        jListVia.setListData(route.getDestinations().getLocationList().toArray());
+        List<Location> locs = route.getDestinations().getLocationList();
+        List<Location> newLocs = new ArrayList<>();
+        boolean homeFound = false;
+        Iterator<Location> litr = locs.iterator();
+        while (litr.hasNext()){
+            Location l = litr.next();
+            if (homeFound == true){
+                newLocs.add(l);
+            }
+            if (l.getID().equals("1"))
+            {
+                homeFound = true;
+            }
+        }
+        jListVia.setListData(newLocs.toArray());
     }//GEN-LAST:event_jListDestinationsValueChanged
+
+    private void jRadioReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioReturnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioReturnActionPerformed
+
+    private void cashFivePoundsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashFivePoundsActionPerformed
+        enterCash(5);
+        cashInserted.setText(Double.toString(credits));
+        if (credits >= travelCost)
+        {
+            if (credits != travelCost)
+            {
+                JFrame frame = new JFrame();
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                JOptionPane.showMessageDialog(frame, "Refunded £" + (credits - travelCost) + " in change", "Change", JOptionPane.PLAIN_MESSAGE);
+                credits = 0;
+            }
+            CardLayout cl = (CardLayout)(mainPanel.getLayout());
+            cl.show(mainPanel, "paySucc");
+        }
+    }//GEN-LAST:event_cashFivePoundsActionPerformed
+
+    private void cashTwoPoundsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashTwoPoundsActionPerformed
+        enterCash(2);
+        cashInserted.setText(Double.toString(credits));
+        if (credits >= travelCost)
+        {
+            if (credits != travelCost)
+            {
+                JFrame frame = new JFrame();
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                JOptionPane.showMessageDialog(frame, "Refunded £" + (credits - travelCost) + " in change", "Change", JOptionPane.PLAIN_MESSAGE);
+                credits = 0;
+            }
+            CardLayout cl = (CardLayout)(mainPanel.getLayout());
+            cl.show(mainPanel, "paySucc");
+        }
+    }//GEN-LAST:event_cashTwoPoundsActionPerformed
+
+    private void cashOnePoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashOnePoundActionPerformed
+        enterCash(1);
+        cashInserted.setText(Double.toString(credits));
+        if (credits >= travelCost)
+        {
+            if (credits != travelCost)
+            {
+                JFrame frame = new JFrame();
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                DecimalFormat dec = new DecimalFormat("#0.00");
+                JOptionPane.showMessageDialog(frame, "Refunded " + dec.format(credits - travelCost) + " in change", "Change", JOptionPane.PLAIN_MESSAGE);
+                credits = 0;
+            }
+            CardLayout cl = (CardLayout)(mainPanel.getLayout());
+            cl.show(mainPanel, "paySucc");
+        }
+    }//GEN-LAST:event_cashOnePoundActionPerformed
+
+    private void cashFiftyPenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashFiftyPenceActionPerformed
+        enterCash(0.5);
+        cashInserted.setText(Double.toString(credits));
+        if (credits >= travelCost)
+        {
+            if (credits != travelCost)
+            {
+                JFrame frame = new JFrame();
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                DecimalFormat dec = new DecimalFormat("#0.00");
+                JOptionPane.showMessageDialog(frame, "Refunded " + dec.format(credits - travelCost) + " in change", "Change", JOptionPane.PLAIN_MESSAGE);
+                credits = 0;
+            }
+            CardLayout cl = (CardLayout)(mainPanel.getLayout());
+            cl.show(mainPanel, "paySucc");
+        }
+    }//GEN-LAST:event_cashFiftyPenceActionPerformed
     
-    public void loadLanguageFile(String lang){
+    public void loadLanguageFile(String lang) throws IOException{
     language = lang;
+    String line = null;
+    String fileName = "Station" + language + ".txt";
+    try {
+    FileReader fileReader = new FileReader(fileName);
+        // Home Button
+        try (BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+            line = bufferedReader.readLine();
+            // Home Button
+            homeLabel.setText(line);
+            line = bufferedReader.readLine();
+            // language button
+            languageButton.setText(line);
+            line = bufferedReader.readLine();
+            // timetable button
+            timetableButton.setText(line);
+            line = bufferedReader.readLine();
+            // "Available Routes"
+            homeAvailRoutes.setText(line);
+            line = bufferedReader.readLine();
+            // "Stops at:"
+            homeStopsAt.setText(line);
+            line = bufferedReader.readLine();
+            // welcome message
+            homeSheff1.setText(line);
+            line = bufferedReader.readLine();
+            // select a stop
+            homeSheff2.setText(line);
+            line = bufferedReader.readLine();
+            // Select destination button
+            homeSelectDestination.setText(line);
+        }
+    
     JFrame frame = new JFrame("Language Changed");
-    JLabel label = new JLabel("Let's pretend the language is now " + language + ", okay?");
-    frame.add(label, BorderLayout.CENTER);
-    frame.pack();
-    frame.setVisible(true);
+    JOptionPane.showMessageDialog(frame,"Language is now " + language + ", okay?");
+      } catch(FileNotFoundException ex) {
+            System.out.println(
+                "Unable to open file '" + 
+                fileName + "'");                
+        }
     }
     
     public void displayTimeTables(RouteRegistry routes){
+        //too much?
+    }
+    
+    public void displayRoutesByDate(Date departureDate, Date returnDate){
+        if(departureDate != null){
+            List<JLabel> depDates = new ArrayList<>(); // arraylist of labels for the departure date on the search results panel
+            depDates.add(rpanelDepart1);
+            depDates.add(rpanelDepart2);
+            depDates.add(rpanelDepart3);
+            depDates.add(rpanelDepart4);
+            depDates.add(rpanelDepart5);
+            depDates.add(rpanelDepart6);
+            List<JLabel> retDates = new ArrayList<>(); // arraylist of labels for the return date on the search results panel
+            retDates.add(rpanelReturn1);
+            retDates.add(rpanelReturn2);
+            retDates.add(rpanelReturn3);
+            retDates.add(rpanelReturn4);
+            retDates.add(rpanelReturn5);
+            retDates.add(rpanelReturn6);
+            List<JLabel> prices = new ArrayList<>(); // arraylist of labels for the prices on the search results panel
+            prices.add(rpanelPrice1);
+            prices.add(rpanelPrice2);
+            prices.add(rpanelPrice3);
+            prices.add(rpanelPrice4);
+            prices.add(rpanelPrice5);
+            prices.add(rpanelPrice6);
+            List<JPanel> panels = new ArrayList<>();// arraylist of panels on the search results panel (to be hidden in case of an invalid journey)
+            panels.add(resultsPanel1);
+            panels.add(resultsPanel2);
+            panels.add(resultsPanel3);
+            panels.add(resultsPanel4);
+            panels.add(resultsPanel5);
+            panels.add(resultsPanel6);
         
-    }
-    
-    public void displayRoutesByDate(RouteRegistry routes, Date departureDate, Date returnDate){
+            DecimalFormat dec = new DecimalFormat("#0.00");
 
-    }
-    
-    public void displayAllFares(RouteRegistry routes, FaresStructures fares){
+            if (returnDate == null){ // if the isn't a return date passed in (i.e. not a return ticked)
+                ArrayList<PotentialJourney> journs = new ArrayList<>();
+                for (int i = 0; i < 6; i++){
+                    Date depDate = new Date(); //get the current date
+                    Date retDate = new Date(Long.MAX_VALUE); // get max date - will never return
+                    
+                    int baseTime = (Integer.parseInt(depHour.getText()) * 3600000) + ((Integer.parseInt(depMinute.getText()) - 1) * 60000);
+                    depDate.setTime(departureDate.getTime() + baseTime  + (i * 1800000));
 
+                    Calendar calendar = Calendar.getInstance(); // round the departure date UP to the nearest 30 mins
+                    calendar.setTime(depDate);
+                    int unroundedMinutes = calendar.get(Calendar.MINUTE);
+                    int mod = unroundedMinutes % 30;
+                    calendar.set(Calendar.MINUTE, unroundedMinutes + (30 - mod));
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
+                    
+                    depDate.setTime(calendar.getTimeInMillis());
+                    
+                    PotentialJourney newJourney = new PotentialJourney(routeToUse,location,destination,depDate,retDate); // create a journey to check
+                    journs.add(newJourney); // add it to the list
+                    String dep = new SimpleDateFormat("MMM d ', 'HH:mm").format(depDate);
+                    depDates.get(i).setText("Depart: " + dep);
+                    retDates.get(i).setText(cardTicketType.getText()); // set text on the results screen
+                }
+                List<Double> costs = fares.getRouteCosts(journs); // get the costs
+                //ArrayList<Double> costs = new ArrayList<>();
+                //double[] cs = {1,2,3,4,5,6};
+                //costs.add(cs[0]);
+                //costs.add(cs[1]);
+                //costs.add(cs[2]);
+                //costs.add(cs[3]);
+                //costs.add(cs[4]);
+                //costs.add(cs[5]);
+                
+                for (int i = 0; i < 6; i++){
+                    if (costs.get(i) != null) // if it's a valid journey
+                    {
+                    prices.get(i).setText("£" + dec.format(costs.get(i))); // add the cost to the results
+                    } else {
+                        panels.get(i).setVisible(false);
+                        panels.get(i).setEnabled(false); // else make the results panel invisible and disabled
+                    }
+                }
+            //set prices on screen
+            } else {
+                ArrayList<PotentialJourney> journs = new ArrayList<>();
+                Date retDate = new Date();
+                int baseRetTime = (Integer.parseInt(retHour.getText()) * 3600000) + (Integer.parseInt(retMinute.getText()) * 60000);
+                retDate.setTime(returnDate.getTime() + baseRetTime);
+                
+                Calendar calendar = Calendar.getInstance(); // round the return date UP to the nearest 30 mins
+                calendar.setTime(retDate);
+                int unroundedMinutes = calendar.get(Calendar.MINUTE); 
+                int mod = unroundedMinutes % 30;
+                calendar.set(Calendar.MINUTE, unroundedMinutes + (30 - mod));
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                
+                retDate.setTime(calendar.getTimeInMillis());
+                
+                for (int i = 0; i < 6; i++){
+                    Date depDate = new Date(); // same as above - this time return is not irrelevant so it is kept
+
+                    int baseDepTime = (Integer.parseInt(depHour.getText()) * 3600000) + (Integer.parseInt(depMinute.getText()) * 60000);
+                    depDate.setTime(departureDate.getTime() + baseDepTime  + (i * 1800000)); // add i * (30 minutes) to the date
+
+                    calendar = Calendar.getInstance(); // round the departure date UP to the nearest 30 mins
+                    calendar.setTime(depDate);
+                    unroundedMinutes = calendar.get(Calendar.MINUTE);
+                    mod = unroundedMinutes % 30;
+                    calendar.set(Calendar.MINUTE, unroundedMinutes + (30 - mod));
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
+                    
+                    depDate.setTime(calendar.getTimeInMillis());
+                    
+                    PotentialJourney newJourney = new PotentialJourney(routeToUse,location,destination,depDate,retDate); // create a new journey to check
+                    journs.add(newJourney);
+                    String dep = new SimpleDateFormat("MMM d ', 'HH:mm").format(depDate);
+                    String ret = new SimpleDateFormat("MMM d ', 'HH:mm").format(retDate);
+                    depDates.get(i).setText("Depart: " + dep);
+                    retDates.get(i).setText("Return: " + ret);
+                }
+                List<Double> costs = fares.getRouteCosts(journs);
+                for (int i = 0; i < 6; i++){
+                    if (costs.get(i) != null) // if it's a valid journey
+                    {
+                        prices.get(i).setText("£" + dec.format(costs.get(i))); // add the cost to the results
+                    } else {
+                        panels.get(i).setVisible(false);
+                        panels.get(i).setEnabled(false); // else make the results panel invisible and disabled
+                    }
+                }
+            }
+        }
     }
     
     public double usePromotionalCoupon(String couponName, Date useDate, Route useRoute){
-        if (couponName.equals(coupon.getID())){
+        if (couponName.equals(coupon.getID())){ // check if the code passed is valid
             return coupon.useCoupon(useDate, useRoute);
         }
-        return -3; // invalid coupon code, -2 = invalid route, -1 = coupan already used
-    }
-    
-    public void inputCouponDetails(String couponID){
-    
+        return -3; // invalid coupon code, -2 = invalid route, -1 = coupon already used
     }
     
     public boolean isCashEnteredSufficient(int cashTally, int newCash){
         return ((cashTally+newCash) == travelCost);
     }
     
-    public void getUserEnteredAccount(String accountID){
-    
-    }
-    
-    public void choosePaymentMethod(){
-    
-    }
-    
-    public void printRecipt(){
-        
-    }
-    
-    public void chooseTokenType(){
-    
+    public void printReciept(){
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JOptionPane.showMessageDialog(frame,
+        paymentStation.getText() + "\n"
+        + paymentDepartureDate.getText() + "\n"
+        + paymentReturnDate.getText() + "\n"
+        + cashTicketType.getText() + "\n"
+        + bookingPrice.getText() + "\n", "Reciept", JOptionPane.PLAIN_MESSAGE);
     }
     /**
      * @param args the command line arguments
@@ -1888,7 +2230,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JLabel bookingPrice;
     private javax.swing.JLabel bookingReturnDate;
     private javax.swing.JLabel bookingStation;
-    private javax.swing.JLabel bookingVia;
     private javax.swing.JButton cardConfirmButton;
     private javax.swing.JLabel cardDepartureDay;
     private javax.swing.JTextField cardName;
@@ -1899,23 +2240,24 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JTextField cardSecurityCode;
     private javax.swing.JLabel cardStation;
     private javax.swing.JLabel cardTicketType;
-    private javax.swing.JLabel cardVia;
     private javax.swing.JLabel cashDepartureDay;
+    private javax.swing.JButton cashFiftyPence;
+    private javax.swing.JButton cashFivePounds;
     private javax.swing.JLabel cashInserted;
+    private javax.swing.JButton cashOnePound;
     private javax.swing.JPanel cashPaymentPanel;
     private javax.swing.JLabel cashPrice;
     private javax.swing.JButton cashReturnButton;
     private javax.swing.JLabel cashReturnDay;
     private javax.swing.JLabel cashStation;
-    private javax.swing.JLabel cashVia;
+    private javax.swing.JLabel cashTicketType;
+    private javax.swing.JButton cashTwoPounds;
     private javax.swing.JPanel confirmBookingPanel;
-    private javax.swing.JButton confirmDestButton;
     private javax.swing.JLabel confirmTicketType;
     private javax.swing.JPanel couponInvalidPanel;
     private javax.swing.JTextField couponTextField;
-    private javax.swing.JTextField departureDay;
-    private javax.swing.JTextField departureMonth;
-    private javax.swing.JTextField departureYear;
+    private javax.swing.JTextField depHour;
+    private javax.swing.JTextField depMinute;
     private javax.swing.JLabel destinationLabel;
     private javax.swing.JPanel destinationPanel;
     private javax.swing.JScrollPane destinationScrollPane;
@@ -1927,22 +2269,26 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JPanel expecedPanel;
     private javax.swing.JScrollPane expectedScrollPane;
     private javax.swing.JTextPane expectedTextPane;
+    private javax.swing.JLabel homeAvailRoutes;
     private javax.swing.JPanel homeButtonPanel;
-    private javax.swing.JLabel homeLable14;
+    private javax.swing.JLabel homeLabel;
     private javax.swing.JPanel homePanel;
+    private javax.swing.JButton homeSelectDestination;
+    private javax.swing.JLabel homeSheff1;
+    private javax.swing.JLabel homeSheff2;
+    private javax.swing.JLabel homeStopsAt;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private org.jdesktop.swingx.JXDatePicker jDepartureDate;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel43;
@@ -1964,9 +2310,10 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioOneWay;
     private javax.swing.JRadioButton jRadioOpenReturn;
     private javax.swing.JRadioButton jRadioReturn;
+    private org.jdesktop.swingx.JXDatePicker jReturnDate;
     private javax.swing.JScrollPane jScrollDestinations;
     private javax.swing.JScrollPane jScrollVia;
-    private javax.swing.JButton langaugeButton;
+    private javax.swing.JButton languageButton;
     private javax.swing.JPanel languagePanel;
     private javax.swing.JButton loadLangButton;
     private javax.swing.JPanel mainPanel;
@@ -1975,7 +2322,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JLabel paymentReturnDate;
     private javax.swing.JLabel paymentStation;
     private javax.swing.JPanel paymentSuccesfulPanel;
-    private javax.swing.JLabel paymentVia;
     private javax.swing.JPanel platformPanel;
     private javax.swing.JScrollPane platformScrollPane;
     private javax.swing.JTextPane platformTextPane;
@@ -1988,33 +2334,32 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JPanel resultsPanel4;
     private javax.swing.JPanel resultsPanel5;
     private javax.swing.JPanel resultsPanel6;
-    private javax.swing.JTextField returnDay;
-    private javax.swing.JTextField returnMonth;
-    private javax.swing.JTextField returnYear;
-    private javax.swing.JLabel rpanelDepart10;
-    private javax.swing.JLabel rpanelDepart11;
-    private javax.swing.JLabel rpanelDepart12;
-    private javax.swing.JLabel rpanelDepart7;
-    private javax.swing.JLabel rpanelDepart8;
-    private javax.swing.JLabel rpanelDepart9;
-    private javax.swing.JLabel rpanelDestination10;
-    private javax.swing.JLabel rpanelDestination11;
-    private javax.swing.JLabel rpanelDestination12;
-    private javax.swing.JLabel rpanelDestination7;
-    private javax.swing.JLabel rpanelDestination8;
-    private javax.swing.JLabel rpanelDestination9;
-    private javax.swing.JLabel rpanelPrice10;
-    private javax.swing.JLabel rpanelPrice11;
-    private javax.swing.JLabel rpanelPrice12;
-    private javax.swing.JLabel rpanelPrice7;
-    private javax.swing.JLabel rpanelPrice8;
-    private javax.swing.JLabel rpanelPrice9;
-    private javax.swing.JLabel rpanelReturn10;
-    private javax.swing.JLabel rpanelReturn11;
-    private javax.swing.JLabel rpanelReturn12;
-    private javax.swing.JLabel rpanelReturn7;
-    private javax.swing.JLabel rpanelReturn8;
-    private javax.swing.JLabel rpanelReturn9;
+    private javax.swing.JTextField retHour;
+    private javax.swing.JTextField retMinute;
+    private javax.swing.JLabel rpanelDepart1;
+    private javax.swing.JLabel rpanelDepart2;
+    private javax.swing.JLabel rpanelDepart3;
+    private javax.swing.JLabel rpanelDepart4;
+    private javax.swing.JLabel rpanelDepart5;
+    private javax.swing.JLabel rpanelDepart6;
+    private javax.swing.JLabel rpanelDestination1;
+    private javax.swing.JLabel rpanelDestination2;
+    private javax.swing.JLabel rpanelDestination3;
+    private javax.swing.JLabel rpanelDestination4;
+    private javax.swing.JLabel rpanelDestination5;
+    private javax.swing.JLabel rpanelDestination6;
+    private javax.swing.JLabel rpanelPrice1;
+    private javax.swing.JLabel rpanelPrice2;
+    private javax.swing.JLabel rpanelPrice3;
+    private javax.swing.JLabel rpanelPrice4;
+    private javax.swing.JLabel rpanelPrice5;
+    private javax.swing.JLabel rpanelPrice6;
+    private javax.swing.JLabel rpanelReturn1;
+    private javax.swing.JLabel rpanelReturn2;
+    private javax.swing.JLabel rpanelReturn3;
+    private javax.swing.JLabel rpanelReturn4;
+    private javax.swing.JLabel rpanelReturn5;
+    private javax.swing.JLabel rpanelReturn6;
     private javax.swing.JButton searchButton;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel searchResultsPanel;
