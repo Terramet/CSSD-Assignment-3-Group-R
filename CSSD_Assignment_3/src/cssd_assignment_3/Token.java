@@ -10,7 +10,7 @@ import java.util.Date;
 public class Token {
 
     
-    Token(int type, int id, int accID, TimeBandList validBands, Date expires) {
+    Token(int type, int id, String accID, TimeBandList validBands, Date expires) {
         tokenType = type;
         tokenID = id;
         accountID = accID;
@@ -27,7 +27,7 @@ public class Token {
         return tokenID;
     }
     
-    public int GetAccountID() {
+    public String GetAccountID() {
         return accountID;
     }
     
@@ -42,7 +42,7 @@ public class Token {
     
     private int tokenType;
     private int tokenID;
-    private int accountID;
+    private String accountID;
     private TimeBandList validTimeBands;
     private Date expiryDate;
 }

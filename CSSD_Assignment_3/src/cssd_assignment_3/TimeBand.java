@@ -8,10 +8,6 @@ package cssd_assignment_3;
 import java.io.Serializable;
 import java.time.*;
 
-/**
- *
- * @author Ascendant
- */
 public class TimeBand implements Serializable {
     private final int timeBandID;
     private final LocalTime timeStart;
@@ -35,5 +31,22 @@ public class TimeBand implements Serializable {
     
     public LocalTime getEnd(){
         return timeEnd;
+    }
+    
+    public int GetStartTimeInSeconds() {
+        int StartHour = getStart().getHour();
+        int StartMin = getStart().getMinute();
+        int StartSeconds =  getStart().getSecond();
+        
+        return StartHour * 60 * 60 + StartMin * 60 + StartSeconds;
+    }
+    
+    public int GetEndTimeInSeconds() {
+        int EndHour = getEnd().getHour();
+        int EndMin = getEnd().getMinute();
+        int EndSeconds =  getEnd().getSecond();
+        
+        return EndHour * 60 * 60 + EndMin * 60 + EndSeconds;
+      
     }
 }

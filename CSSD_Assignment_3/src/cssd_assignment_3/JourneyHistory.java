@@ -12,5 +12,10 @@ class JourneyHistory {
         }
         return null;
     }
+    
+    public void Add(Journey journey) {
+        journeys.add(journey);
+    }
+    
     private ArrayList<Journey> journeys; 
 }

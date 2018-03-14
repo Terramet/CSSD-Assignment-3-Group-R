@@ -3,9 +3,10 @@ package cssd_assignment_3;
 
 abstract class TokenReader {
 	
-        TokenReader(int readID, Location loc) {
+        TokenReader(int readID, Location loc, GateController gateControl) {
             readerID = readID;
             location = loc;
+            gateController = gateControl;
         }
     
 	public abstract void presentToken(Token token);
@@ -17,17 +18,18 @@ abstract class TokenReader {
 	private int readerID;
 	private int tokenID;
 	private Location location;
+        final GateController gateController;
 }
 
 class RFIDReader extends TokenReader {
     
-    RFIDReader(int readID, Location loc, int encryptKey) {
-        super(readID, loc);
+    RFIDReader(int readID, Location loc, int encryptKey, GateController gateControl) {
+        super(readID, loc, gateControl);
         encryptionKey = encryptKey;
     }
     
     public void presentToken(Token token) {
-        
+        gateController.passTokenID(token.GetTokenID());
     }
     
     private int encryptionKey;  
@@ -35,13 +37,13 @@ class RFIDReader extends TokenReader {
 
 class BarcodeTranslator extends TokenReader {
     
-    BarcodeTranslator(int readID, Location loc, int barNum) {
-        super(readID, loc);
+    BarcodeTranslator(int readID, Location loc, int barNum, GateController gateControl) {
+        super(readID, loc, gateControl);
         barcodeNum = barNum;
     }
     
     public void presentToken(Token token) {
-        
+        gateController.passTokenID(token.GetTokenID());
     }
     
     private int translateBarcode() {
@@ -53,13 +55,13 @@ class BarcodeTranslator extends TokenReader {
 
 class ManeticStripTranslator extends TokenReader {
     
-    ManeticStripTranslator(int readID, Location loc, int encodeType) {
-        super(readID, loc);
+    ManeticStripTranslator(int readID, Location loc, int encodeType, GateController gateControl) {
+        super(readID, loc, gateControl);
         encodingType = encodeType;
     }
     
-    public void presentToken(Token token) {
-
+    public void presentToken(Token token) { 
+        gateController.passTokenID(token.GetTokenID());
     }
    
     private int encodingType;

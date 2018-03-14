@@ -6,6 +6,7 @@
 package cssd_assignment_3;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,6 +21,10 @@ public class TimeBandList implements Serializable {
     Change from being a singleton to being jsut a list
     */
     private List<TimeBand> timeBands = null;
+    
+    public TimeBandList() {
+        timeBands = new ArrayList<>();
+    }
     
     public TimeBandList(List<TimeBand> list){
         timeBands = list;

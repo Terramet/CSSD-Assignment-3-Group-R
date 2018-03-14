@@ -1,6 +1,11 @@
 package cssd_assignment_3;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Period;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 abstract class Tariffs {
     
@@ -14,172 +19,150 @@ abstract class Tariffs {
         peakAllowed = hasPeak;
     }
     
-    public abstract double calculateRouteCost(Route route, Date start, Date ret);
+    public abstract double calculateRouteCost(PotentialJourney journey);
     
     public abstract double calculateJourneyCost(Journey journey);
     
-    public abstract boolean getTariffAvailablility(Journey journey);
+    public abstract boolean getTariffAvailability(PotentialJourney journey);
     
     public abstract double getTariffCost(double daySpend);
     
-    private int type;
-    private double cost;
+    public abstract boolean getTariffAvailability(ConsumerAccount account, Journey journey);
+    
+    protected int type;
+    protected double cost;
     private Date startDate;
     private Date endDate;
     private TimeBandList timePeriods;
-    private TimeBandList peakPeriods;
+    protected TimeBandList peakPeriods;
     private boolean peakAllowed;
-}
-
-class DurationPass extends Tariffs {
-    DurationPass(int type, double cost, Date start, Date expires, TimeBandList periods, TimeBandList peak, boolean hasPeak, int days) {
-        super(type, cost, start, expires, periods, peak, hasPeak);
-        this.days = days;
-        this.cost = cost;
-    }
-    
-    @Override
-    public double calculateRouteCost(Route route, Date start, Date ret) {
-        return 0;
-    }
-    
-    @Override
-    public double calculateJourneyCost(Journey journey) {
-        return 0;
-    }
-    
-    @Override
-    public boolean getTariffAvailablility(Journey journey) {
-        return false;
-    }
-    
-    @Override
-    public double getTariffCost(double daySpend) {
-        return 0;
-    }
-    private int days;
-    private double cost;
-}
-
-class OAPPass extends Tariffs {
-    OAPPass(int type, double cost, Date start, Date expires, TimeBandList periods, TimeBandList peak, boolean hasPeak, boolean isUsable) {
-        super(type, cost, start, expires, periods, peak, hasPeak);
-        this.isUsable = isUsable;
-    }
-    
-    @Override
-    public double calculateRouteCost(Route route, Date start, Date ret) {
-        return 0;
-    }
-    
-    @Override
-    public double calculateJourneyCost(Journey journey) {
-        return 0;
-    }
-    
-    @Override
-    public boolean getTariffAvailablility(Journey journey) {
-        return false;
-    }
-    
-    @Override
-    public double getTariffCost(double daySpend) {
-        return 0;
-    }
-    
-    private boolean isUsable;
 }
 
 class OffPeakFare extends Tariffs {
     OffPeakFare(int type, double cost, Date start, Date expires, TimeBandList periods, TimeBandList peak, boolean hasPeak, boolean peakAllowed) {
         super(type, cost, start, expires, periods, peak, hasPeak);
         this.peakAllowed = peakAllowed;
+        peakDiscount = 0.75;
     }   
+   
     
     @Override
-    public double calculateRouteCost(Route route, Date start, Date ret) {
-        return 0;
+    public double calculateRouteCost(PotentialJourney journey) {
+        double journeyCost = 0.0;
+        
+        if(!journey.CalculateDistance())
+            return journeyCost;
+        
+        journeyCost = journey.GetDistance() * super.cost;
+        
+        if (getTariffAvailability(journey))
+            journeyCost *= peakDiscount;
+        
+        return journeyCost;
     }
     
     @Override
     public double calculateJourneyCost(Journey journey) {
-        return 0;
+        
+        double discount = 1.0;
+        if(getTariffAvailability(new PotentialJourney(null, null, null, journey.GetStartDate(), journey.GetEndDate())));
+            discount = 0.75;
+            
+        return super.cost * journey.Distance() * discount;
     }
     
     @Override
-    public boolean getTariffAvailablility(Journey journey) {
+    public boolean getTariffAvailability(PotentialJourney journey) {
+        
+        return isTimeOffPeak(journey.GetStartDate());
+    }
+ 
+    private boolean isTimeOffPeak(Date startDate) {
+        Calendar cal = Calendar.getInstance();
+        
+        // get time values of startDate
+        cal.setTime(startDate);
+        
+        int startHour = cal.get(Calendar.HOUR_OF_DAY);
+        int startMinute = cal.get(Calendar.MINUTE);
+        
+        int startSeconds = startHour * 60 * 60 + startMinute * 60;
+        
+        List<TimeBand> times = super.peakPeriods.getTimeBandList();
+        
+        for (int ix = 0; ix != times.size(); ++ix) {
+            TimeBand offpeakTime = times.get(ix);
+
+            int opStartSeconds = offpeakTime.GetStartTimeInSeconds();
+            int opEndSeconds = offpeakTime.GetEndTimeInSeconds();          
+            
+            if ((startSeconds >= opStartSeconds) && (startSeconds <= opEndSeconds)) {
+                    return true;
+            }
+        }
         return false;
+    }
+    
+    @Override
+    public boolean getTariffAvailability(ConsumerAccount account, Journey journey) {
+        return getTariffAvailability(new PotentialJourney(null, null, null, journey.GetStartDate(), journey.GetEndDate()));
     }
     
     @Override
     public double getTariffCost(double daySpend) {
         return 0;
     }
+    
+    private TimeBandList offpeakTimes;
     
     private boolean peakAllowed;
+    private double peakDiscount;
 }
 
-class CreditBlock extends Tariffs {
-    CreditBlock(int type, double cost, Date start, Date expires, TimeBandList periods, TimeBandList peak, boolean hasPeak, int noCredits, double discountRatio) {
+class OAPFare extends Tariffs {
+        
+    OAPFare(int type, double cost, Date start, Date expires, TimeBandList periods, TimeBandList peak, boolean hasPeak) {
         super(type, cost, start, expires, periods, peak, hasPeak);
-        this.noCredits = noCredits;
-        this.discountRatio = discountRatio;
+        discount = 0.5;
+        requiredAge = 65;
     }
     
     @Override
-    public double calculateRouteCost(Route route, Date start, Date ret) {
-        return 0;
+    public double calculateRouteCost(PotentialJourney journey) {
+        return 0.0;
     }
     
     @Override
     public double calculateJourneyCost(Journey journey) {
-        return 0;
+        double discount = 0.5;
+            
+        return super.cost * journey.Distance() * discount;
     }
     
     @Override
-    public boolean getTariffAvailablility(Journey journey) {
+    public boolean getTariffAvailability(PotentialJourney journey) {
         return false;
     }
     
     @Override
     public double getTariffCost(double daySpend) {
-        return 0;
-    }
-    
-    // DOUBLE CHECK THIS SHIT.
-    private int getNoFreeCredits() {
-        return noCredits;
-    }
-    
-    private int noCredits;
-    private double discountRatio;
-}
-
-class DistanceFare extends Tariffs {
-    DistanceFare(int type, double cost, Date start, Date expires, TimeBandList periods, TimeBandList peak, boolean hasPeak, double priceKM) {
-        super(type, cost, start, expires, periods, peak, hasPeak);
-        pricePerKM = priceKM;
+        return 0.0;
     }
     
     @Override
-    public double calculateRouteCost(Route route, Date start, Date ret) {
+    public boolean getTariffAvailability(ConsumerAccount account, Journey journey) {
+        return calculateAge(account.DOB()) >= requiredAge;
+    }
+    
+    private int calculateAge(LocalDate DOB) {
+        LocalDate now = LocalDate.now();
+        if(DOB != null) {
+            return Period.between(DOB, now).getYears();
+        }
         return 0;
     }
     
-    @Override
-    public double calculateJourneyCost(Journey journey) {
-        return 0;
-    }
+    double discount;
+    double requiredAge;
     
-    @Override
-    public boolean getTariffAvailablility(Journey journey) {
-        return false;
-    }
-    
-    @Override
-    public double getTariffCost(double daySpend) {
-        return 0;
-    }
-    
-    private double pricePerKM;
 }

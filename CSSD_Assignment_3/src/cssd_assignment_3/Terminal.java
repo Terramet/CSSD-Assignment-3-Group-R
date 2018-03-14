@@ -20,6 +20,9 @@ public class Terminal extends javax.swing.JFrame {
      */
     public Terminal() {
         initComponents();
+        barcodeInvalidText.setVisible(false);
+        MagneticStipInvalidText.setVisible(false);
+        RFIDInvalidText.setVisible(false);
     }
 
     /**
@@ -42,13 +45,16 @@ public class Terminal extends javax.swing.JFrame {
         BardcodeBegin_Button = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        barcodeInvalidText = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         MagneticStripMethod = new javax.swing.JPanel();
         SwipeCardToBegin_Button = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        MagneticStipInvalidText = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
         RFIDMethod = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        RFIDInvalidText = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         Account = new javax.swing.JPanel();
         AccountTabs = new javax.swing.JTabbedPane();
         HomeTab = new javax.swing.JPanel();
@@ -140,7 +146,7 @@ public class Terminal extends javax.swing.JFrame {
         StartPanelLayout.setHorizontalGroup(
             StartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, StartPanelLayout.createSequentialGroup()
-                .addContainerGap(97, Short.MAX_VALUE)
+                .addContainerGap(130, Short.MAX_VALUE)
                 .addGroup(StartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(MagneticStripCard_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(TerminalIntroHeader_text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -159,10 +165,10 @@ public class Terminal extends javax.swing.JFrame {
                 .addComponent(ContactlessCard_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BardcodeCard_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        MainPanel.add(StartPanel, "card2");
+        MainPanel.add(StartPanel, "TopupStart");
 
         BardcodeBegin_Button.setText("BEGIN");
         BardcodeBegin_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -179,17 +185,24 @@ public class Terminal extends javax.swing.JFrame {
 
         jLabel1.setText("INPUT BARCODE TO BEGIN");
 
-        jLabel2.setBackground(new java.awt.Color(255, 178, 195));
-        jLabel2.setText("    INVALID BARCODE TRY AGAIN");
-        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        barcodeInvalidText.setBackground(new java.awt.Color(255, 178, 195));
+        barcodeInvalidText.setText("    INVALID BARCODE TRY AGAIN");
+        barcodeInvalidText.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        barcodeInvalidText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jButton3.setText("Back");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout BardCodeMethodLayout = new javax.swing.GroupLayout(BardCodeMethod);
         BardCodeMethod.setLayout(BardCodeMethodLayout);
         BardCodeMethodLayout.setHorizontalGroup(
             BardCodeMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BardCodeMethodLayout.createSequentialGroup()
-                .addContainerGap(108, Short.MAX_VALUE)
+                .addContainerGap(109, Short.MAX_VALUE)
                 .addGroup(BardCodeMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(BardCodeMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(BardcodeBegin_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,8 +210,13 @@ public class Terminal extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(121, 121, 121))
             .addGroup(BardCodeMethodLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(BardCodeMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BardCodeMethodLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(barcodeInvalidText, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BardCodeMethodLayout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         BardCodeMethodLayout.setVerticalGroup(
@@ -207,70 +225,97 @@ public class Terminal extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(barcodeInvalidText, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addComponent(BardcodeBegin_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         MainPanel.add(BardCodeMethod, "BarcodeMethod");
 
         SwipeCardToBegin_Button.setText("SWIPE CARD TO BEGIN");
 
-        jLabel3.setText("       ERROR INVALID CARD TRY AGAIN");
-        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        MagneticStipInvalidText.setText("       ERROR INVALID CARD TRY AGAIN");
+        MagneticStipInvalidText.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        jButton4.setText("Back");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout MagneticStripMethodLayout = new javax.swing.GroupLayout(MagneticStripMethod);
         MagneticStripMethod.setLayout(MagneticStripMethodLayout);
         MagneticStripMethodLayout.setHorizontalGroup(
             MagneticStripMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MagneticStripMethodLayout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(SwipeCardToBegin_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MagneticStripMethodLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76))
+                .addContainerGap(88, Short.MAX_VALUE)
+                .addGroup(MagneticStripMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MagneticStripMethodLayout.createSequentialGroup()
+                        .addGroup(MagneticStripMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(SwipeCardToBegin_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(MagneticStipInvalidText, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE))
+                        .addGap(76, 76, 76))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MagneticStripMethodLayout.createSequentialGroup()
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(110, 110, 110))))
         );
         MagneticStripMethodLayout.setVerticalGroup(
             MagneticStripMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MagneticStripMethodLayout.createSequentialGroup()
                 .addGap(74, 74, 74)
-                .addComponent(jLabel3)
+                .addComponent(MagneticStipInvalidText)
                 .addGap(18, 18, 18)
                 .addComponent(SwipeCardToBegin_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         MainPanel.add(MagneticStripMethod, "MagneticMethod");
 
         jButton1.setText("TAP CARD TO BEGIN");
 
-        jLabel4.setText("     ERROR INVALID CARD TRY AGAIN");
-        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        RFIDInvalidText.setText("     ERROR INVALID CARD TRY AGAIN");
+        RFIDInvalidText.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout RFIDMethodLayout = new javax.swing.GroupLayout(RFIDMethod);
         RFIDMethod.setLayout(RFIDMethodLayout);
         RFIDMethodLayout.setHorizontalGroup(
             RFIDMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RFIDMethodLayout.createSequentialGroup()
-                .addContainerGap(89, Short.MAX_VALUE)
+                .addContainerGap(90, Short.MAX_VALUE)
                 .addGroup(RFIDMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
+                    .addComponent(RFIDInvalidText, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
                 .addGap(87, 87, 87))
+            .addGroup(RFIDMethodLayout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         RFIDMethodLayout.setVerticalGroup(
             RFIDMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RFIDMethodLayout.createSequentialGroup()
                 .addGap(85, 85, 85)
-                .addComponent(jLabel4)
+                .addComponent(RFIDInvalidText)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         MainPanel.add(RFIDMethod, "RFIDMethod");
@@ -752,7 +797,6 @@ public class Terminal extends javax.swing.JFrame {
 
         JourneyHistoryTitleCardNo.setText("CARD #");
 
-        JourneyHistoryList.setBackground(new java.awt.Color(255, 255, 255));
         JourneyHistoryList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -925,9 +969,24 @@ public class Terminal extends javax.swing.JFrame {
     }//GEN-LAST:event_CashPaymentFinish_ButtonActionPerformed
 
     private void CashPaymentExit_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CashPaymentExit_ButtonActionPerformed
-        CardLayout card = (CardLayout)HomeTab.getLayout();
-        card.show(HomeTab, "HomeStart");   
+        CardLayout card = (CardLayout)MainPanel.getLayout();
+        card.show(MainPanel, "TopupStart");   
     }//GEN-LAST:event_CashPaymentExit_ButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        CardLayout card = (CardLayout)MainPanel.getLayout();
+        card.show(MainPanel, "TopupStart");   
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        CardLayout card = (CardLayout)MainPanel.getLayout();
+        card.show(MainPanel, "TopupStart");   
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        CardLayout card = (CardLayout)MainPanel.getLayout();
+        card.show(MainPanel, "TopupStart");  
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1016,14 +1075,20 @@ public class Terminal extends javax.swing.JFrame {
     private javax.swing.JPanel JourneyHistoryTab;
     private javax.swing.JLabel JourneyHistoryTitleCardNo;
     private javax.swing.JButton JourneyHistroyExit_Button;
+    private javax.swing.JLabel MagneticStipInvalidText;
     private javax.swing.JButton MagneticStripCard_Button;
     private javax.swing.JPanel MagneticStripMethod;
     private javax.swing.JPanel MainPanel;
+    private javax.swing.JLabel RFIDInvalidText;
     private javax.swing.JPanel RFIDMethod;
     private javax.swing.JPanel StartPanel;
     private javax.swing.JButton SwipeCardToBegin_Button;
     private javax.swing.JLabel TerminalIntroHeader_text;
+    private javax.swing.JLabel barcodeInvalidText;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1031,9 +1096,6 @@ public class Terminal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

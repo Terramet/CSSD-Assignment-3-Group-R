@@ -26,6 +26,10 @@ public class Gate {
         open = false;
     }
     
+    public Location getLocation() {
+        return location;
+    }
+    
     private int gateID;
     private boolean entry;
     private boolean open;
