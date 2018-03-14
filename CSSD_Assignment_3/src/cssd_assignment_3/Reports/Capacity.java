@@ -18,6 +18,7 @@ public class Capacity extends Report{
     private int daysVehicleAtCapacity;
     private int daysVehicleEmpty;
     
+    //it is possible to create one fo these reports but none of its fucntions are implemented because of time constraints
     public Capacity(int dVAC, int dVE,String name, int type, Date sD, Date eD, LocalTime sT, LocalTime eT, Route route, Vehicle v) {
         super(name, type, sD, eD, sT, eT, route, v);
         this.daysVehicleAtCapacity = dVAC;

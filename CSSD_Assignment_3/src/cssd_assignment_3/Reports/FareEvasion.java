@@ -23,6 +23,7 @@ public class FareEvasion extends Report {
         this.howManyCaught = hMC;
     }
     
+    //calculate how much money the recovered
     public float revenueRecovered(){
         return fine * this.howManyCaught;
     }
@@ -30,12 +31,14 @@ public class FareEvasion extends Report {
     public int getHMC(){
         return howManyCaught;
     }
+    
     //shouldn't this always work out to 0 because if they didnt catch them they dont know they lost anything
     //And if they did catch them then they were probably made to pay and fined?
     public float revenueLost(){ 
         return 0.00f;
     }
     
+    //for printing the report, format it nicely
     @Override
     public String toString(){
         return "ID: " + super.getName() 

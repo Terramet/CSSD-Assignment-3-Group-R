@@ -19,6 +19,7 @@ public class Incidents extends Report{
     private int noMinorAccidents;
     private int noSeriousAccidents;
     
+    //it is possible to create one fo these reports but none of its fucntions are implemented because of time constraints
     public Incidents(String name, int type, Date sD, Date eD, LocalTime sT, LocalTime eT, Route route, Vehicle v) {
         super(name, type, sD, eD, sT, eT, route, v);
     }

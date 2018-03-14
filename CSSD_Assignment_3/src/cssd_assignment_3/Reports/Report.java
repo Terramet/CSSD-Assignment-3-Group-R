@@ -38,36 +38,32 @@ public class Report implements Serializable{
         this.route = route;
         this.vehicle = v;
     }
-
-    Report() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
-    public boolean open() {
+    public boolean open() {     //I am not entirely sure, it was on the class diagram
         return true;
     }
     
-    public String getName() {
+    public String getName() {   //return reports name
         return this.name;
     }
     
-    public int getType() {
+    public int getType() {      //return reports type
         return this.type;
     }
     
-    public Date getStartDate(){
+    public Date getStartDate(){     //return startDate
         return this.startDate;
     }
     
-    public Date getEndDate(){
+    public Date getEndDate(){       //return endDate
         return this.endDate;
     }
     
-    public Route getRoute(){
+    public Route getRoute(){        //return travelled route
         return this.route;
     }
     
-    public Vehicle getVehicle(){
+    public Vehicle getVehicle(){        //return vehicle used on route
         return this.vehicle;
     }
     

@@ -17,6 +17,7 @@ import java.util.Date;
 public class FinancialReport extends Report {
     private double routeProfitLoss;
     
+    //it is possible to create one fo these reports but none of its fucntions are implemented because of time constraints
     public FinancialReport(double rPL,String name, int type, Date sD, Date eD, LocalTime sT, LocalTime eT, Route route, Vehicle v) {
         super(name, type, sD, eD, sT, eT, route, v);     
         this.routeProfitLoss = rPL;

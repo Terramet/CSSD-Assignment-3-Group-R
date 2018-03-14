@@ -26,6 +26,7 @@ public class ReportRegistry implements Serializable{
     private static ReportRegistry Registry = null;
     private List<Report> reports = null;
     
+    //used to create example reports for the system
     private static FareEvasion createReport(int dodged, String name, int type, int y, int m, int d, int y2, int m2, int d2, Route r, Vehicle v){
         Date sD = new GregorianCalendar(y, m, d).getTime();
         Date eD = new GregorianCalendar(y2, m2, d2).getTime();
@@ -34,11 +35,11 @@ public class ReportRegistry implements Serializable{
         return new FareEvasion(dodged,name, type, sD, eD, sT, eT, r, v);
     }
     
-    protected ReportRegistry(List<Report> list){
+    protected ReportRegistry(List<Report> list){    //protected for the user cant create one as this is a singleton
         reports = list;
     }
     
-    public static ReportRegistry getRegistry() {
+    public static ReportRegistry getRegistry() {    //get the registry
         if(Registry == null) {
             try {
                 ObjectInputStream inRegistry = new ObjectInputStream(new FileInputStream("ReportRegistry.ser"));
@@ -48,7 +49,7 @@ public class ReportRegistry implements Serializable{
             } catch (IOException e) {
                 System.out.println("Error: " + e);
             }
-                if(Registry == null) {
+                if(Registry == null) {      //if the registry doesnt already exist, create some example reports
                     List<Report> list =  new ArrayList<>();
                     RouteRegistry rReg = RouteRegistry.getRegistry();
                     Route route1 = rReg.getRoute("1");
@@ -64,7 +65,7 @@ public class ReportRegistry implements Serializable{
         return Registry;
     }
 
-    public void saveRegistry() {
+    public void saveRegistry() {        //save this back to file
         try {
             ObjectOutputStream outRegistry = new ObjectOutputStream(new FileOutputStream("ReportRegistry.ser"));
             outRegistry.writeObject(this);
@@ -73,15 +74,15 @@ public class ReportRegistry implements Serializable{
         }
     }
     
-    public void add(Report r) {
+    public void add(Report r) {         //add a new report
         reports.add(r);
     }
     
-    public List<Report> getReportList() {
+    public List<Report> getReportList() {       //return the list of reports, used for displying all reports
         return reports;
     }
     
-    public Report getReport(int type, Date from, Date to) {
+    public Report getReport(int type, Date from, Date to) {     //find report based on type and dates
         Iterator<Report> itr = reports.iterator();
         while(itr.hasNext()) {
             Report r = itr.next();
