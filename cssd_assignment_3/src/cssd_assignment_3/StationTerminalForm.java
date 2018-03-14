@@ -1790,6 +1790,8 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 cashDepartureDay.setText(bookingDepartureDate.getText());
                 cashReturnDay.setText(bookingReturnDate.getText());
                 cashPrice.setText("£" + dec.format(travelCost)); // pass forward the (potentialy reduced) price
+                paymentDepartureDate.setText(bookingDepartureDate.getText());
+                paymentReturnDate.setText(bookingReturnDate.getText());
                 cl.show(mainPanel, "cash"); // navigate to the cash checkout
                 couponInvalidPanel.setVisible(false); // hide the error message for if the panel is shown again
             } else if (radioCard.isSelected()){
@@ -1797,6 +1799,8 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 cardDepartureDay.setText(bookingDepartureDate.getText());
                 cardReturnDay.setText(bookingReturnDate.getText());
                 cardPrice.setText("£" + dec.format(travelCost)); // pass forward the (potentialy reduced) price
+                paymentDepartureDate.setText(bookingDepartureDate.getText());
+                paymentReturnDate.setText(bookingReturnDate.getText());
                 cl.show(mainPanel, "card");// navigate to the card checkout
                 couponInvalidPanel.setVisible(false);
             }
@@ -1925,6 +1929,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 JFrame frame = new JFrame();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 JOptionPane.showMessageDialog(frame, "Refunded £" + (credits - travelCost) + " in change", "Change", JOptionPane.PLAIN_MESSAGE);
+                credits = 0;
             }
             CardLayout cl = (CardLayout)(mainPanel.getLayout());
             cl.show(mainPanel, "paySucc");
@@ -1941,6 +1946,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 JFrame frame = new JFrame();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 JOptionPane.showMessageDialog(frame, "Refunded £" + (credits - travelCost) + " in change", "Change", JOptionPane.PLAIN_MESSAGE);
+                credits = 0;
             }
             CardLayout cl = (CardLayout)(mainPanel.getLayout());
             cl.show(mainPanel, "paySucc");
@@ -1958,6 +1964,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 DecimalFormat dec = new DecimalFormat("#0.00");
                 JOptionPane.showMessageDialog(frame, "Refunded " + dec.format(credits - travelCost) + " in change", "Change", JOptionPane.PLAIN_MESSAGE);
+                credits = 0;
             }
             CardLayout cl = (CardLayout)(mainPanel.getLayout());
             cl.show(mainPanel, "paySucc");
@@ -1965,7 +1972,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cashOnePoundActionPerformed
 
     private void cashFiftyPenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashFiftyPenceActionPerformed
-        enterCash(1);
+        enterCash(0.5);
         cashInserted.setText(Double.toString(credits));
         if (credits >= travelCost)
         {
@@ -1975,6 +1982,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 DecimalFormat dec = new DecimalFormat("#0.00");
                 JOptionPane.showMessageDialog(frame, "Refunded " + dec.format(credits - travelCost) + " in change", "Change", JOptionPane.PLAIN_MESSAGE);
+                credits = 0;
             }
             CardLayout cl = (CardLayout)(mainPanel.getLayout());
             cl.show(mainPanel, "paySucc");
