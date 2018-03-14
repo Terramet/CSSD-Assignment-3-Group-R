@@ -12,8 +12,12 @@ import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
@@ -38,6 +42,33 @@ public class AdminGUI extends javax.swing.JFrame {
 
     
     TTRouteList routeList = new TTRouteList();
+    
+    private void loadRouteList()
+    {
+        try {
+            FileInputStream fileIn = new FileInputStream("/routelist.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            routeList = (TTRouteList) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+            return;
+        }
+        Vector times = new Vector();
+        for (int timeDue : routeList.getTimes()) {
+            DecimalFormat myFormatter = new DecimalFormat("0000");
+            String output = myFormatter.format(timeDue);
+            times.add(output);
+        }
+        lstJourneyList.setListData(times);
+        lstJourneyList.repaint();
+    }
+    
     static EmployeeUserInterface EUI = null;
     /**
      * Creates new form AdminGUI
@@ -46,6 +77,7 @@ public class AdminGUI extends javax.swing.JFrame {
     public AdminGUI(EmployeeUserInterface EUIp) {
         initComponents();
         EUI = EUIp;
+        loadRouteList();
         listAccounts.setListData(EUI.getAccountList().toArray());
         if(!EUI.getActiveIsAdmin()) {
             tabsHomePage.setEnabledAt(1, false);
@@ -1138,6 +1170,16 @@ public class AdminGUI extends javax.swing.JFrame {
         lstJourneyList.setListData(times);
         lstJourneyList.repaint();
         JOptionPane.showMessageDialog(null, "Journey added successfully.");
+        try {
+            FileOutputStream fileOut =
+            new FileOutputStream("/routelist.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(routeList);
+            out.close();
+            fileOut.close();
+         } catch (IOException i) {
+            i.printStackTrace();
+        }
     }//GEN-LAST:event_btnAddJourneyActionPerformed
 
     private void btnRemoveJourneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveJourneyActionPerformed
@@ -1157,6 +1199,16 @@ public class AdminGUI extends javax.swing.JFrame {
             lstJourneyList.setListData(times);
             lstJourneyList.repaint();
             JOptionPane.showMessageDialog(null, "Journey removed successfully.");
+            try {
+                FileOutputStream fileOut =
+                new FileOutputStream("/routelist.ser");
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(routeList);
+                out.close();
+                fileOut.close();
+            } catch (IOException i) {
+                i.printStackTrace();
+            }
         }
     }//GEN-LAST:event_btnRemoveJourneyActionPerformed
 

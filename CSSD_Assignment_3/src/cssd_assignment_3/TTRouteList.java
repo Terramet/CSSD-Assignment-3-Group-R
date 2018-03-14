@@ -5,6 +5,7 @@
  */
 package cssd_assignment_3;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author Mark
  */
-public class TTRouteList {
+public class TTRouteList implements Serializable{
     private List<TTRoute> routes;
     
     public TTRouteList()
@@ -32,6 +33,16 @@ public class TTRouteList {
         for(TTRoute route : routes)
         {
             times.add(route.timeDue);
+        }
+        return times;
+    }
+    
+    public List<String> getTermini()
+    {
+        List<String> times = new ArrayList();
+        for(TTRoute route : routes)
+        {
+            times.add(route.terminus);
         }
         return times;
     }

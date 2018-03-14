@@ -7,6 +7,9 @@ package cssd_assignment_3;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,8 +17,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,6 +36,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
     // added from POS, we've only implemented one type of ConsumerUserInterface.
     private final String machineID = "0";
+    private TTRouteList routeList = new TTRouteList();
     private final Location location = new Location("Sheffield","1",0,0);
     
     // refund a users cash.
@@ -209,15 +215,15 @@ public class StationTerminalForm extends javax.swing.JFrame {
         duePanel = new javax.swing.JPanel();
         jLabel51 = new javax.swing.JLabel();
         exampleViewButton = new javax.swing.JButton();
-        destinationScrollPane = new javax.swing.JScrollPane();
-        destinationTextPane = new javax.swing.JTextPane();
-        platformScrollPane = new javax.swing.JScrollPane();
-        platformTextPane = new javax.swing.JTextPane();
-        dueScrollPane = new javax.swing.JScrollPane();
-        dueTextPane = new javax.swing.JTextPane();
-        expectedScrollPane = new javax.swing.JScrollPane();
-        expectedTextPane = new javax.swing.JTextPane();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstExpectedList = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstDueList = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstPlatformList = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        lstDestinationList = new javax.swing.JList<>();
         homePanel = new javax.swing.JPanel();
         jScrollDestinations = new javax.swing.JScrollPane();
         jListDestinations = new javax.swing.JList();
@@ -696,7 +702,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
             .addGroup(searchPanelLayout.createSequentialGroup()
                 .addGap(124, 124, 124)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addGap(183, 183, 183))
             .addGroup(searchPanelLayout.createSequentialGroup()
@@ -754,7 +760,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                     .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(depHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(depMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jRadioOneWay)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioReturn)
@@ -862,7 +868,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                             .addComponent(couponTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(couponInvalidPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, confirmBookingPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(bookingAdvance)
@@ -889,7 +895,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addComponent(radioCash)
                 .addGap(18, 18, 18)
                 .addComponent(radioCard)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(confirmBookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, confirmBookingPanelLayout.createSequentialGroup()
                         .addComponent(jLabel17)
@@ -1167,17 +1173,17 @@ public class StationTerminalForm extends javax.swing.JFrame {
         platformPanel.setLayout(platformPanelLayout);
         platformPanelLayout.setHorizontalGroup(
             platformPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, platformPanelLayout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
+            .addGroup(platformPanelLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
                 .addComponent(jLabel47)
-                .addGap(47, 47, 47))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         platformPanelLayout.setVerticalGroup(
             platformPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, platformPanelLayout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addComponent(jLabel47)
-                .addGap(41, 41, 41))
+                .addGap(35, 35, 35))
         );
 
         jLabel48.setText("Destination");
@@ -1186,17 +1192,17 @@ public class StationTerminalForm extends javax.swing.JFrame {
         destinationPanel.setLayout(destinationPanelLayout);
         destinationPanelLayout.setHorizontalGroup(
             destinationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(destinationPanelLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, destinationPanelLayout.createSequentialGroup()
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addComponent(jLabel48)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
         destinationPanelLayout.setVerticalGroup(
             destinationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(destinationPanelLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, destinationPanelLayout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addComponent(jLabel48)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
         );
 
         jLabel49.setText("Expected");
@@ -1205,17 +1211,17 @@ public class StationTerminalForm extends javax.swing.JFrame {
         expecedPanel.setLayout(expecedPanelLayout);
         expecedPanelLayout.setHorizontalGroup(
             expecedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(expecedPanelLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, expecedPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel49)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
         expecedPanelLayout.setVerticalGroup(
             expecedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, expecedPanelLayout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
+                .addContainerGap(48, Short.MAX_VALUE)
                 .addComponent(jLabel49)
-                .addGap(40, 40, 40))
+                .addGap(38, 38, 38))
         );
 
         jLabel50.setText("View Tickets");
@@ -1227,7 +1233,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
             .addGroup(viewTicketsPanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel50)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         viewTicketsPanelLayout.setVerticalGroup(
             viewTicketsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1245,51 +1251,74 @@ public class StationTerminalForm extends javax.swing.JFrame {
         duePanelLayout.setHorizontalGroup(
             duePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(duePanelLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel51)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         duePanelLayout.setVerticalGroup(
             duePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(duePanelLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, duePanelLayout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addComponent(jLabel51)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
         );
 
         exampleViewButton.setText("Go To Tickets");
 
-        destinationScrollPane.setViewportView(destinationTextPane);
-
-        platformScrollPane.setViewportView(platformTextPane);
-
-        dueScrollPane.setViewportView(dueTextPane);
-
-        expectedScrollPane.setViewportView(expectedTextPane);
-
         jButton1.setText("Checkout Selected Route");
+
+        lstExpectedList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(lstExpectedList);
+
+        lstDueList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(lstDueList);
+
+        lstPlatformList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(lstPlatformList);
+
+        lstDestinationList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(lstDestinationList);
 
         javax.swing.GroupLayout timetablePanelLayout = new javax.swing.GroupLayout(timetablePanel);
         timetablePanel.setLayout(timetablePanelLayout);
         timetablePanelLayout.setHorizontalGroup(
             timetablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(timetablePanelLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
                 .addGroup(timetablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(destinationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(destinationScrollPane))
+                    .addComponent(destinationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(timetablePanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(timetablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(platformPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(platformScrollPane))
+                    .addComponent(jScrollPane3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(timetablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(duePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dueScrollPane))
+                    .addComponent(jScrollPane2)
+                    .addComponent(duePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(timetablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(expecedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(expectedScrollPane))
+                    .addGroup(timetablePanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(timetablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(viewTicketsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1312,13 +1341,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
                         .addComponent(exampleViewButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 349, Short.MAX_VALUE))
                     .addGroup(timetablePanelLayout.createSequentialGroup()
                         .addGroup(timetablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(destinationScrollPane)
-                            .addComponent(platformScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                            .addComponent(dueScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                            .addComponent(expectedScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane3)
+                            .addComponent(jScrollPane4))
                         .addContainerGap())))
         );
 
@@ -1377,9 +1406,9 @@ public class StationTerminalForm extends javax.swing.JFrame {
                             .addGroup(homePanelLayout.createSequentialGroup()
                                 .addGap(30, 30, 30)
                                 .addComponent(jLabel3)
-                                .addGap(0, 35, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(confirmDestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -1452,7 +1481,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
         paymentSuccesfulPanelLayout.setHorizontalGroup(
             paymentSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentSuccesfulPanelLayout.createSequentialGroup()
-                .addContainerGap(195, Short.MAX_VALUE)
+                .addContainerGap(156, Short.MAX_VALUE)
                 .addGroup(paymentSuccesfulPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paymentSuccesfulPanelLayout.createSequentialGroup()
                         .addComponent(paymentDepartureDate)
@@ -1482,7 +1511,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(140, 140, 140)
                 .addComponent(printTicketButton)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         mainPanel.add(paymentSuccesfulPanel, "paySucc");
@@ -1634,9 +1663,50 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
     private void timetableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timetableButtonActionPerformed
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
+        loadRouteList();
+        Vector times = new Vector();
+        for (int timeDue : routeList.getTimes()) {
+            DecimalFormat myFormatter = new DecimalFormat("0000");
+            String output = myFormatter.format(timeDue);
+            times.add(output);
+        }
+        Vector termini = new Vector();
+        for(String terminus : routeList.getTermini()) {
+            termini.add(terminus);
+        }
+        Vector platforms = new Vector();
+        Random rand = new Random();
+        for(int i = 0; i < times.size(); i++) {
+            platforms.add(rand.nextInt(8) + 1);
+        }
+        lstDestinationList.setListData(termini);
+        lstPlatformList.setListData(platforms);
+        lstDueList.setListData(times);
+        lstExpectedList.setListData(times);
+        lstDestinationList.repaint();
+        lstPlatformList.repaint();
+        lstDueList.repaint();
+        lstExpectedList.repaint();
         cl.show(mainPanel, "timetable");
     }//GEN-LAST:event_timetableButtonActionPerformed
 
+    private void loadRouteList()
+    {
+        try {
+            FileInputStream fileIn = new FileInputStream("/routelist.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            routeList = (TTRouteList) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+            return;
+        }
+    }
     private void loadLangButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadLangButtonActionPerformed
         String newLang = null;
         if (jRadioEnglish.isSelected()){
@@ -2195,15 +2265,9 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JTextField depMinute;
     private javax.swing.JLabel destinationLabel;
     private javax.swing.JPanel destinationPanel;
-    private javax.swing.JScrollPane destinationScrollPane;
-    private javax.swing.JTextPane destinationTextPane;
     private javax.swing.JPanel duePanel;
-    private javax.swing.JScrollPane dueScrollPane;
-    private javax.swing.JTextPane dueTextPane;
     private javax.swing.JButton exampleViewButton;
     private javax.swing.JPanel expecedPanel;
-    private javax.swing.JScrollPane expectedScrollPane;
-    private javax.swing.JTextPane expectedTextPane;
     private javax.swing.JPanel homeButtonPanel;
     private javax.swing.JLabel homeLable14;
     private javax.swing.JPanel homePanel;
@@ -2246,10 +2310,18 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioReturn;
     private org.jdesktop.swingx.JXDatePicker jReturnDate;
     private javax.swing.JScrollPane jScrollDestinations;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollVia;
     private javax.swing.JButton langaugeButton;
     private javax.swing.JPanel languagePanel;
     private javax.swing.JButton loadLangButton;
+    private javax.swing.JList<String> lstDestinationList;
+    private javax.swing.JList<String> lstDueList;
+    private javax.swing.JList<String> lstExpectedList;
+    private javax.swing.JList<String> lstPlatformList;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel optionPanel;
     private javax.swing.JLabel paymentDepartureDate;
@@ -2257,8 +2329,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JLabel paymentStation;
     private javax.swing.JPanel paymentSuccesfulPanel;
     private javax.swing.JPanel platformPanel;
-    private javax.swing.JScrollPane platformScrollPane;
-    private javax.swing.JTextPane platformTextPane;
     private javax.swing.JButton printTicketButton;
     private javax.swing.JRadioButton radioCard;
     private javax.swing.JRadioButton radioCash;

@@ -1,12 +1,12 @@
 package cssd_assignment_3;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 /*
  * @author Mark
  */
-public class TTRoute {
+public class TTRoute implements Serializable{
     public int timeDue;
     List<String> stops;
     String terminus;
