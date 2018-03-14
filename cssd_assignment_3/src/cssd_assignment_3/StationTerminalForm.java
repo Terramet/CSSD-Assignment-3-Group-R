@@ -2094,15 +2094,15 @@ public class StationTerminalForm extends javax.swing.JFrame {
                     depDates.get(i).setText("Depart: " + dep);
                     retDates.get(i).setText(cardTicketType.getText()); // set text on the results screen
                 }
-                //ArrayList<Double> costs = fares.getRouteCosts(journs); // get the costs
-                ArrayList<Double> costs = new ArrayList<>();
-                double[] cs = {1,2,3,4,5,6};
-                costs.add(cs[0]);
-                costs.add(cs[1]);
-                costs.add(cs[2]);
-                costs.add(cs[3]);
-                costs.add(cs[4]);
-                costs.add(cs[5]);
+                ArrayList<Double> costs = fares.getRouteCosts(journs); // get the costs
+                //ArrayList<Double> costs = new ArrayList<>();
+                //double[] cs = {1,2,3,4,5,6};
+                //costs.add(cs[0]);
+                //costs.add(cs[1]);
+                //costs.add(cs[2]);
+                //costs.add(cs[3]);
+                //costs.add(cs[4]);
+                //costs.add(cs[5]);
                 
                 for (int i = 0; i < 6; i++){
                     if (costs.get(i) != null) // if it's a valid journey
