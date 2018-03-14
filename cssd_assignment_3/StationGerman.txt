@@ -1,8 +1,8 @@
-"Zuhause"
-"Sprache"
-"Zeitplan"
-"Verfügbare Routen:"
-"Stoppt bei:
-"Willkommen in Sheffield Bahnhof"
-"Bitte wählen Sie einen Halt"
-"Ziel aussuchen"
+Zuhause
+Sprache
+Zeitplan
+Verfugbare Routen:
+Stoppt bei:
+Willkommen in Sheffield Bahnhof
+Bitte wahlen Sie einen Halt
+Ziel aussuchen

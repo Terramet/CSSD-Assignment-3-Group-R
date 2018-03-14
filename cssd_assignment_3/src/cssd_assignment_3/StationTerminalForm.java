@@ -7,6 +7,10 @@ package cssd_assignment_3;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +20,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -222,13 +228,13 @@ public class StationTerminalForm extends javax.swing.JFrame {
         homePanel = new javax.swing.JPanel();
         jScrollDestinations = new javax.swing.JScrollPane();
         jListDestinations = new javax.swing.JList();
-        jLabel20 = new javax.swing.JLabel();
-        confirmDestButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        homeAvailRoutes = new javax.swing.JLabel();
+        homeSelectDestination = new javax.swing.JButton();
+        homeStopsAt = new javax.swing.JLabel();
         jScrollVia = new javax.swing.JScrollPane();
         jListVia = new javax.swing.JList();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        homeSheff1 = new javax.swing.JLabel();
+        homeSheff2 = new javax.swing.JLabel();
         paymentSuccesfulPanel = new javax.swing.JPanel();
         paymentReturnDate = new javax.swing.JLabel();
         paymentStation = new javax.swing.JLabel();
@@ -237,9 +243,9 @@ public class StationTerminalForm extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         homeButtonPanel = new javax.swing.JPanel();
-        homeLable14 = new javax.swing.JLabel();
+        homeLabel = new javax.swing.JLabel();
         optionPanel = new javax.swing.JPanel();
-        langaugeButton = new javax.swing.JButton();
+        languageButton = new javax.swing.JButton();
         timetableButton = new javax.swing.JButton();
         timePanel = new javax.swing.JPanel();
         timeLabel = new javax.swing.JLabel();
@@ -1340,16 +1346,16 @@ public class StationTerminalForm extends javax.swing.JFrame {
         });
         jScrollDestinations.setViewportView(jListDestinations);
 
-        jLabel20.setText("Available Routes");
+        homeAvailRoutes.setText("Available Routes");
 
-        confirmDestButton.setText("Select Destination");
-        confirmDestButton.addActionListener(new java.awt.event.ActionListener() {
+        homeSelectDestination.setText("Select Destination");
+        homeSelectDestination.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmDestButtonActionPerformed(evt);
+                homeSelectDestinationActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Stops At:");
+        homeStopsAt.setText("Stops At:");
 
         jListVia.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -1358,9 +1364,9 @@ public class StationTerminalForm extends javax.swing.JFrame {
         });
         jScrollVia.setViewportView(jListVia);
 
-        jLabel3.setText("Welcome to Sheffield Train Station");
+        homeSheff1.setText("Welcome to Sheffield Train Station");
 
-        jLabel5.setText("Please select a stop");
+        homeSheff2.setText("Please select a stop");
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
@@ -1370,42 +1376,40 @@ public class StationTerminalForm extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollDestinations, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
+                    .addComponent(homeAvailRoutes))
                 .addGap(35, 35, 35)
                 .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(homePanelLayout.createSequentialGroup()
                         .addComponent(jScrollVia, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
                         .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(homeSelectDestination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(homePanelLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel3)
-                                .addGap(0, 39, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                                 .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(confirmDestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(homeSheff1)
+                                    .addComponent(homeSheff2))
+                                .addGap(0, 35, Short.MAX_VALUE))))
                     .addGroup(homePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(homeStopsAt)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePanelLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel1))
+                    .addComponent(homeAvailRoutes)
+                    .addComponent(homeStopsAt))
                 .addGap(18, 18, 18)
                 .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(jLabel3)
+                        .addComponent(homeSheff1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
+                        .addComponent(homeSheff2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(confirmDestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(homeSelectDestination, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollDestinations, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                     .addComponent(jScrollVia))
                 .addContainerGap())
@@ -1497,8 +1501,8 @@ public class StationTerminalForm extends javax.swing.JFrame {
             }
         });
 
-        homeLable14.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        homeLable14.setText("Home");
+        homeLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        homeLabel.setText("Home");
 
         javax.swing.GroupLayout homeButtonPanelLayout = new javax.swing.GroupLayout(homeButtonPanel);
         homeButtonPanel.setLayout(homeButtonPanelLayout);
@@ -1506,23 +1510,23 @@ public class StationTerminalForm extends javax.swing.JFrame {
             homeButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeButtonPanelLayout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(homeLable14)
+                .addComponent(homeLabel)
                 .addGap(28, 28, 28))
         );
         homeButtonPanelLayout.setVerticalGroup(
             homeButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeButtonPanelLayout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(homeLable14)
+                .addComponent(homeLabel)
                 .addGap(28, 28, 28))
         );
 
         optionPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        langaugeButton.setText("Language");
-        langaugeButton.addActionListener(new java.awt.event.ActionListener() {
+        languageButton.setText("Language");
+        languageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                langaugeButtonActionPerformed(evt);
+                languageButtonActionPerformed(evt);
             }
         });
 
@@ -1540,7 +1544,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
             .addGroup(optionPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(optionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(langaugeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                    .addComponent(languageButton, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                     .addComponent(timetableButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1548,7 +1552,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
             optionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(optionPanelLayout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addComponent(langaugeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(languageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
                 .addComponent(timetableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1628,10 +1632,10 @@ public class StationTerminalForm extends javax.swing.JFrame {
         jListDestinations.setListData(routes.toArray());
     }//GEN-LAST:event_homeButtonPanelMouseClicked
 
-    private void langaugeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langaugeButtonActionPerformed
+    private void languageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageButtonActionPerformed
         CardLayout cl = (CardLayout)(mainPanel.getLayout()); // navigate to language panel
         cl.show(mainPanel, "language");
-    }//GEN-LAST:event_langaugeButtonActionPerformed
+    }//GEN-LAST:event_languageButtonActionPerformed
 
     private void timetableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timetableButtonActionPerformed
         CardLayout cl = (CardLayout)(mainPanel.getLayout());// navigate to timetable panel
@@ -1648,7 +1652,11 @@ public class StationTerminalForm extends javax.swing.JFrame {
             newLang = "German";
         }
         if (newLang != null){
-        loadLanguageFile(newLang); // if it found a language to change to, change to it
+            try {
+                loadLanguageFile(newLang); // if it found a language to change to, change to it
+            } catch (IOException ex) {
+                Logger.getLogger(StationTerminalForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         CardLayout cl = (CardLayout)(mainPanel.getLayout()); // go back home
         cl.show(mainPanel, "home");
@@ -1816,7 +1824,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cardConfirmButtonActionPerformed
 
-    private void confirmDestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmDestButtonActionPerformed
+    private void homeSelectDestinationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeSelectDestinationActionPerformed
         if(jListVia.getSelectedValue() != null){
         Location newDestination = (Location)jListVia.getSelectedValue();
         routeToUse = (Route)jListDestinations.getSelectedValue();
@@ -1853,7 +1861,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, "search");
         }
-    }//GEN-LAST:event_confirmDestButtonActionPerformed
+    }//GEN-LAST:event_homeSelectDestinationActionPerformed
 
     private void jRadioReturnStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioReturnStateChanged
         if(jRadioReturn.isSelected()){
@@ -1973,11 +1981,47 @@ public class StationTerminalForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cashFiftyPenceActionPerformed
     
-    public void loadLanguageFile(String lang){
+    public void loadLanguageFile(String lang) throws IOException{
     language = lang;
+    String line = null;
+    String fileName = "Station" + language + ".txt";
+    try {
+    FileReader fileReader = new FileReader(fileName);
+        // Home Button
+        try (BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+            line = bufferedReader.readLine();
+            // Home Button
+            homeLabel.setText(line);
+            line = bufferedReader.readLine();
+            // language button
+            languageButton.setText(line);
+            line = bufferedReader.readLine();
+            // timetable button
+            timetableButton.setText(line);
+            line = bufferedReader.readLine();
+            // "Available Routes"
+            homeAvailRoutes.setText(line);
+            line = bufferedReader.readLine();
+            // "Stops at:"
+            homeStopsAt.setText(line);
+            line = bufferedReader.readLine();
+            // welcome message
+            homeSheff1.setText(line);
+            line = bufferedReader.readLine();
+            // select a stop
+            homeSheff2.setText(line);
+            line = bufferedReader.readLine();
+            // Select destination button
+            homeSelectDestination.setText(line);
+        }
+    
     JFrame frame = new JFrame("Language Changed");
-    JOptionPane.showMessageDialog(frame,"Let's pretend the language is now " + language + ", okay?");
-    frame.setVisible(true);
+    JOptionPane.showMessageDialog(frame,"Language is now " + language + ", okay?");
+      } catch(FileNotFoundException ex) {
+            System.out.println(
+                "Unable to open file '" + 
+                fileName + "'");                
+        }
     }
     
     public void displayTimeTables(RouteRegistry routes){
@@ -2201,7 +2245,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JLabel cashTicketType;
     private javax.swing.JButton cashTwoPounds;
     private javax.swing.JPanel confirmBookingPanel;
-    private javax.swing.JButton confirmDestButton;
     private javax.swing.JLabel confirmTicketType;
     private javax.swing.JPanel couponInvalidPanel;
     private javax.swing.JTextField couponTextField;
@@ -2218,12 +2261,16 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JPanel expecedPanel;
     private javax.swing.JScrollPane expectedScrollPane;
     private javax.swing.JTextPane expectedTextPane;
+    private javax.swing.JLabel homeAvailRoutes;
     private javax.swing.JPanel homeButtonPanel;
-    private javax.swing.JLabel homeLable14;
+    private javax.swing.JLabel homeLabel;
     private javax.swing.JPanel homePanel;
+    private javax.swing.JButton homeSelectDestination;
+    private javax.swing.JLabel homeSheff1;
+    private javax.swing.JLabel homeSheff2;
+    private javax.swing.JLabel homeStopsAt;
     private javax.swing.JButton jButton1;
     private org.jdesktop.swingx.JXDatePicker jDepartureDate;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
@@ -2232,9 +2279,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
@@ -2245,7 +2290,6 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JList jListDestinations;
@@ -2261,7 +2305,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker jReturnDate;
     private javax.swing.JScrollPane jScrollDestinations;
     private javax.swing.JScrollPane jScrollVia;
-    private javax.swing.JButton langaugeButton;
+    private javax.swing.JButton languageButton;
     private javax.swing.JPanel languagePanel;
     private javax.swing.JButton loadLangButton;
     private javax.swing.JPanel mainPanel;
