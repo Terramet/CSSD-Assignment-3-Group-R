@@ -7,7 +7,6 @@ package cssd_assignment_3;
 
 import cssd_assignment_3.Reports.FareEvasion;
 import cssd_assignment_3.Reports.Report;
-import cssd_assignment_3.Reports.ReportRegistry;
 import java.awt.Desktop;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
@@ -17,6 +16,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -24,6 +28,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.*;
 
 /**
  *
@@ -31,6 +36,8 @@ import javax.swing.JTextField;
  */
 public class AdminGUI extends javax.swing.JFrame {
 
+    
+    TTRouteList routeList = new TTRouteList();
     static EmployeeUserInterface EUI = null;
     /**
      * Creates new form AdminGUI
@@ -149,6 +156,17 @@ public class AdminGUI extends javax.swing.JFrame {
         lblFromFareEvasion = new javax.swing.JLabel();
         lblToFareEvasion = new javax.swing.JLabel();
         dpToFareEvasion = new org.jdesktop.swingx.JXDatePicker();
+        pnlTimetabling = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstJourneyList = new javax.swing.JList<>();
+        lblJourneys = new javax.swing.JLabel();
+        lblJourney = new javax.swing.JLabel();
+        lblStations = new javax.swing.JLabel();
+        btnLoadJourneys = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstStationsServed = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,7 +184,7 @@ public class AdminGUI extends javax.swing.JFrame {
         pnlNewsLayout.setHorizontalGroup(
             pnlNewsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNewsLayout.createSequentialGroup()
-                .addContainerGap(349, Short.MAX_VALUE)
+                .addContainerGap(366, Short.MAX_VALUE)
                 .addComponent(btnLogout)
                 .addContainerGap())
         );
@@ -210,7 +228,7 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addGroup(pnlAccountLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(lblCurrentAccounts)))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         pnlAccountLayout.setVerticalGroup(
             pnlAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,7 +313,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addComponent(lblToMaintenance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dpToMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         pnlMaintenanceLayout.setVerticalGroup(
             pnlMaintenanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,7 +406,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addComponent(lblToCapacity)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dpToCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         pnlCapacityLayout.setVerticalGroup(
             pnlCapacityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,7 +477,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addComponent(lblToFinance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dpToFinance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         pnlFinanceLayout.setVerticalGroup(
             pnlFinanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -532,17 +550,18 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addGroup(pnlIncidentsHomeLayout.createSequentialGroup()
                         .addGap(142, 142, 142)
                         .addComponent(btnPrintIncidentsReport, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         pnlIncidentsHomeLayout.setVerticalGroup(
             pnlIncidentsHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlIncidentsHomeLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(pnlIncidentsHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dpFromIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlIncidentsHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dpToIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFromIncidents)
-                    .addComponent(lblToIncidents))
+                    .addGroup(pnlIncidentsHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dpFromIncidents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblFromIncidents)
+                        .addComponent(lblToIncidents)))
                 .addGap(18, 18, 18)
                 .addComponent(lblUnsociableReports)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -582,19 +601,16 @@ public class AdminGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDriversReportLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlDriversReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblSpecificDriversReport)
                     .addGroup(pnlDriversReportLayout.createSequentialGroup()
-                        .addGroup(pnlDriversReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSpecificDriversReport)
-                            .addGroup(pnlDriversReportLayout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addComponent(lblDriversName)))
-                        .addGap(88, 88, 88))
+                        .addGap(57, 57, 57)
+                        .addComponent(lblDriversName))
                     .addGroup(pnlDriversReportLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(pnlDriversReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtDriversName)
-                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(88, 88, 88))
         );
         pnlDriversReportLayout.setVerticalGroup(
             pnlDriversReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -645,7 +661,7 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addGroup(pnlHistoryLayout.createSequentialGroup()
                         .addGap(123, 123, 123)
                         .addComponent(lblDriverName)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         pnlHistoryLayout.setVerticalGroup(
             pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -726,7 +742,7 @@ public class AdminGUI extends javax.swing.JFrame {
                             .addComponent(lblNumEvadeCaught)
                             .addComponent(lblRevenueRecovered)
                             .addComponent(lblRevenueLost))))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFareEvasionLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblFromFareEvasion)
@@ -779,6 +795,93 @@ public class AdminGUI extends javax.swing.JFrame {
 
         tabsHomePage.addTab("Reports", pnlReports);
 
+        lstJourneyList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Journey 1", "Journey 2", "Journey 3", "Journey 4", "Journey 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        lstJourneyList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstJourneyList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstJourneyListValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lstJourneyList);
+
+        lblJourneys.setText("Today's Journeys");
+
+        lblJourney.setText("Journey");
+
+        lblStations.setText("Stations Served");
+
+        btnLoadJourneys.setText("Load Journeys");
+        btnLoadJourneys.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadJourneysActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Add Journey");
+
+        jButton2.setText("Remove Journey");
+
+        lstStationsServed.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Station 1", "Station 2", "Station 3", "Station 4", "Station 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(lstStationsServed);
+
+        javax.swing.GroupLayout pnlTimetablingLayout = new javax.swing.GroupLayout(pnlTimetabling);
+        pnlTimetabling.setLayout(pnlTimetablingLayout);
+        pnlTimetablingLayout.setHorizontalGroup(
+            pnlTimetablingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTimetablingLayout.createSequentialGroup()
+                .addGroup(pnlTimetablingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTimetablingLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(lblJourneys))
+                    .addGroup(pnlTimetablingLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlTimetablingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLoadJourneys)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)))
+                    .addGroup(pnlTimetablingLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(lblJourney)
+                        .addGap(86, 86, 86)
+                        .addComponent(lblStations)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlTimetablingLayout.setVerticalGroup(
+            pnlTimetablingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTimetablingLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblJourneys)
+                .addGap(9, 9, 9)
+                .addGroup(pnlTimetablingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblJourney)
+                    .addComponent(lblStations))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTimetablingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                    .addGroup(pnlTimetablingLayout.createSequentialGroup()
+                        .addComponent(btnLoadJourneys)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2))
+                    .addComponent(jScrollPane3))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        tabsHomePage.addTab("Timetabling", pnlTimetabling);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -793,10 +896,15 @@ public class AdminGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPrintCapacityReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintCapacityReportActionPerformed
+    private void dpToFareEvasionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpToFareEvasionActionPerformed
         // TODO add your handling code here:
-        printButtonError();
-    }//GEN-LAST:event_btnPrintCapacityReportActionPerformed
+        getFareEvasionReport();
+    }//GEN-LAST:event_dpToFareEvasionActionPerformed
+
+    private void dpFromFareEvasionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpFromFareEvasionActionPerformed
+        // TODO add your handling code here:
+        getFareEvasionReport();
+    }//GEN-LAST:event_dpFromFareEvasionActionPerformed
 
     private void btnPrintFareEvasionReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintFareEvasionReportActionPerformed
         // TODO add your handling code here:
@@ -831,6 +939,43 @@ public class AdminGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPrintFareEvasionReportActionPerformed
 
+    private void btnPrintDriverReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintDriverReportActionPerformed
+        // TODO add your handling code here:
+        printButtonError();
+    }//GEN-LAST:event_btnPrintDriverReportActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        pnlIncidents.removeAll();
+        pnlIncidents.add(pnlHistory);
+        pnlIncidents.repaint();
+        pnlIncidents.revalidate();
+        lblDriverName.setText(txtDriversName.getText() + " - Accident History");
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnGetDriversReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetDriversReportActionPerformed
+        // TODO add your handling code here:
+        pnlIncidents.removeAll();
+        pnlIncidents.add(pnlDriversReport);
+        pnlIncidents.repaint();
+        pnlIncidents.revalidate();
+    }//GEN-LAST:event_btnGetDriversReportActionPerformed
+
+    private void btnPrintFinanceReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintFinanceReportActionPerformed
+        // TODO add your handling code here:
+        printButtonError();
+    }//GEN-LAST:event_btnPrintFinanceReportActionPerformed
+
+    private void btnPrintCapacityReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintCapacityReportActionPerformed
+        // TODO add your handling code here:
+        printButtonError();
+    }//GEN-LAST:event_btnPrintCapacityReportActionPerformed
+
+    private void btnPrintMaintenanceReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintMaintenanceReportActionPerformed
+        // TODO add your handling code here:
+        printButtonError();
+    }//GEN-LAST:event_btnPrintMaintenanceReportActionPerformed
+
     private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUserActionPerformed
         // TODO add your handling code here:
         JTextField username = new JTextField();
@@ -844,18 +989,17 @@ public class AdminGUI extends javax.swing.JFrame {
         myPanel.add(password);
         myPanel.add(new JLabel("Security Level:"));
         myPanel.add(securityLevel);
-        
-        
-        int result = JOptionPane.showConfirmDialog(null, myPanel, 
-               "Please Enter the User Details", JOptionPane.OK_CANCEL_OPTION);
+
+        int result = JOptionPane.showConfirmDialog(null, myPanel,
+            "Please Enter the User Details", JOptionPane.OK_CANCEL_OPTION);
         if(result != JOptionPane.OK_CANCEL_OPTION) {
             String pass = new String(password.getPassword());
             if(username.getText().equals(""))
-                JOptionPane.showMessageDialog(null, "Please enter a username");
+            JOptionPane.showMessageDialog(null, "Please enter a username");
             else if(pass.equals(""))
-                JOptionPane.showMessageDialog(null, "Please enter a password");
+            JOptionPane.showMessageDialog(null, "Please enter a password");
             else if(securityLevel.getText().equals(""))
-                JOptionPane.showMessageDialog(null, "Please enter a security level");
+            JOptionPane.showMessageDialog(null, "Please enter a security level");
             else {
                 Employee newEmployee = new Employee(username.getText(), pass, Integer.parseInt(securityLevel.getText()));
                 EUI.addUser(newEmployee);
@@ -864,20 +1008,6 @@ public class AdminGUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnAddUserActionPerformed
-
-    private void printButtonError() {
-        JOptionPane.showMessageDialog(null, "Sorry only FareEvasion reports have been implemented", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    
-    private void dpFromFareEvasionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpFromFareEvasionActionPerformed
-        // TODO add your handling code here:
-        getFareEvasionReport();
-    }//GEN-LAST:event_dpFromFareEvasionActionPerformed
-
-    private void dpToFareEvasionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpToFareEvasionActionPerformed
-        // TODO add your handling code here:
-        getFareEvasionReport();
-    }//GEN-LAST:event_dpToFareEvasionActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
@@ -889,38 +1019,74 @@ public class AdminGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-    private void btnPrintMaintenanceReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintMaintenanceReportActionPerformed
+    private void btnLoadJourneysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadJourneysActionPerformed
         // TODO add your handling code here:
-        printButtonError();
-    }//GEN-LAST:event_btnPrintMaintenanceReportActionPerformed
+        final JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            try {
+                Scanner input = new Scanner(file);
+                TTRoute activeRoute;
+                int time = 0;
+                List<String> stops = new ArrayList();
+                String terminus;
+                while (input.hasNextLine()) {
+                    if(input.hasNextInt())
+                    {
+                        time = Integer.parseInt(input.nextLine());
+                    }
+                    else
+                    {
+                        String temp = input.nextLine();
+                        if(temp.contains("*") == true)
+                        {
+                            terminus = temp.substring(1);
+                            activeRoute = new TTRoute(time, stops, terminus);
+                            routeList.add(activeRoute);
+                            time = 0;
+                            stops = new ArrayList();
+                        }
+                        else
+                        {
+                            stops.add(temp);
+                        }
+                    }
+                }
+                Vector times = new Vector();
+                for (int timeDue : routeList.getTimes()) {
+                    DecimalFormat myFormatter = new DecimalFormat("0000");
+                    String output = myFormatter.format(timeDue);
+                    times.add(output);
+                }
+                lstJourneyList.setListData(times);
+                lstJourneyList.repaint();
+                JOptionPane.showMessageDialog(null, "File loaded successfully.");
+            }
+            catch(FileNotFoundException e) {
+                JOptionPane.showMessageDialog(null, "File failed to load.");
+            }
+        }
+    }//GEN-LAST:event_btnLoadJourneysActionPerformed
 
-    private void btnPrintFinanceReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintFinanceReportActionPerformed
-        // TODO add your handling code here:
-        printButtonError();
-    }//GEN-LAST:event_btnPrintFinanceReportActionPerformed
+    private void lstJourneyListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstJourneyListValueChanged
+        String temp = lstJourneyList.getSelectedValue();
+        List<String> stops = routeList.getRoutesByTime(temp);
+        String terminus = "*" + routeList.getTerminusByTime(temp);
+        Vector stations = new Vector();
+        for(String station : stops)
+        {
+            stations.add(station);
+        }
+        stations.add(terminus);
+        lstStationsServed.setListData(stations);
+        
+    }//GEN-LAST:event_lstJourneyListValueChanged
 
-    private void btnPrintDriverReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintDriverReportActionPerformed
-        // TODO add your handling code here:
-        printButtonError();
-    }//GEN-LAST:event_btnPrintDriverReportActionPerformed
-
-    private void btnGetDriversReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetDriversReportActionPerformed
-        // TODO add your handling code here:
-        pnlIncidents.removeAll();
-        pnlIncidents.add(pnlDriversReport);
-        pnlIncidents.repaint();
-        pnlIncidents.revalidate();
-    }//GEN-LAST:event_btnGetDriversReportActionPerformed
-
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-        pnlIncidents.removeAll();
-        pnlIncidents.add(pnlHistory);
-        pnlIncidents.repaint();
-        pnlIncidents.revalidate();
-        lblDriverName.setText(txtDriversName.getText() + " - Accident History");
-    }//GEN-LAST:event_btnSearchActionPerformed
-    
+    private void printButtonError() {
+        JOptionPane.showMessageDialog(null, "Sorry only FareEvasion reports have been implemented", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+        
     private void getFareEvasionReport(){
         txtNumberOfEvadersCaught.setText("#");
         txtRevenueRecovered.setText("£");
@@ -975,6 +1141,7 @@ public class AdminGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnGetDriversReport;
+    private javax.swing.JButton btnLoadJourneys;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPrintCapacityReport;
     private javax.swing.JButton btnPrintDriverReport;
@@ -993,6 +1160,10 @@ public class AdminGUI extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker dpToFinance;
     private org.jdesktop.swingx.JXDatePicker dpToIncidents;
     private org.jdesktop.swingx.JXDatePicker dpToMaintenance;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblBreakdownCosts;
     private javax.swing.JLabel lblCheapestVehicles;
     private javax.swing.JLabel lblCurrentAccounts;
@@ -1006,6 +1177,8 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblFromIncidents;
     private javax.swing.JLabel lblFromMaintenance;
     private javax.swing.JLabel lblIncidentReports;
+    private javax.swing.JLabel lblJourney;
+    private javax.swing.JLabel lblJourneys;
     private javax.swing.JLabel lblMaintenanceCosts;
     private javax.swing.JLabel lblMostExpensiveVehicles;
     private javax.swing.JLabel lblNumEvadeCaught;
@@ -1016,6 +1189,7 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblRevenueLost;
     private javax.swing.JLabel lblRevenueRecovered;
     private javax.swing.JLabel lblSpecificDriversReport;
+    private javax.swing.JLabel lblStations;
     private javax.swing.JLabel lblToCapacity;
     private javax.swing.JLabel lblToFareEvasion;
     private javax.swing.JLabel lblToFinance;
@@ -1023,6 +1197,8 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblToMaintenance;
     private javax.swing.JLabel lblUnsociableReports;
     private javax.swing.JList listAccounts;
+    private javax.swing.JList<String> lstJourneyList;
+    private javax.swing.JList<String> lstStationsServed;
     private javax.swing.JOptionPane optAddUser;
     private javax.swing.JPanel pnlAccount;
     private javax.swing.JPanel pnlCapacity;
@@ -1035,6 +1211,7 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JPanel pnlMaintenance;
     private javax.swing.JPanel pnlNews;
     private javax.swing.JPanel pnlReports;
+    private javax.swing.JPanel pnlTimetabling;
     private javax.swing.JScrollPane scrAccounts;
     private javax.swing.JScrollPane scrlHistory;
     private javax.swing.JTabbedPane tabsHomePage;
