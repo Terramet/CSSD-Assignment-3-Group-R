@@ -163,8 +163,8 @@ public class AdminGUI extends javax.swing.JFrame {
         lblJourney = new javax.swing.JLabel();
         lblStations = new javax.swing.JLabel();
         btnLoadJourneys = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAddJourney = new javax.swing.JButton();
+        btnRemoveJourney = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         lstStationsServed = new javax.swing.JList<>();
 
@@ -821,9 +821,19 @@ public class AdminGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Add Journey");
+        btnAddJourney.setText("Add Journey");
+        btnAddJourney.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddJourneyActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Remove Journey");
+        btnRemoveJourney.setText("Remove Journey");
+        btnRemoveJourney.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveJourneyActionPerformed(evt);
+            }
+        });
 
         lstStationsServed.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Station 1", "Station 2", "Station 3", "Station 4", "Station 5" };
@@ -849,8 +859,8 @@ public class AdminGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(pnlTimetablingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnLoadJourneys)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)))
+                            .addComponent(btnAddJourney)
+                            .addComponent(btnRemoveJourney)))
                     .addGroup(pnlTimetablingLayout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(lblJourney)
@@ -873,9 +883,9 @@ public class AdminGUI extends javax.swing.JFrame {
                     .addGroup(pnlTimetablingLayout.createSequentialGroup()
                         .addComponent(btnLoadJourneys)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(btnAddJourney)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2))
+                        .addComponent(btnRemoveJourney))
                     .addComponent(jScrollPane3))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
@@ -1071,17 +1081,84 @@ public class AdminGUI extends javax.swing.JFrame {
 
     private void lstJourneyListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstJourneyListValueChanged
         String temp = lstJourneyList.getSelectedValue();
-        List<String> stops = routeList.getRoutesByTime(temp);
-        String terminus = "*" + routeList.getTerminusByTime(temp);
         Vector stations = new Vector();
-        for(String station : stops)
+        if(temp != null)
         {
-            stations.add(station);
+            List<String> stops = routeList.getStopsByTime(temp);
+            String terminus = "*" + routeList.getTerminusByTime(temp);
+            for(String station : stops)
+            {
+                stations.add(station);
+            }
+            stations.add(terminus);
         }
-        stations.add(terminus);
         lstStationsServed.setListData(stations);
         
     }//GEN-LAST:event_lstJourneyListValueChanged
+
+    private void btnAddJourneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJourneyActionPerformed
+        // TODO add your handling code here:
+        String time = (String)JOptionPane.showInputDialog(
+                    null,
+                    "Please enter the due time:",
+                    "Add Journey",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    null);
+        List<String> stops = new ArrayList();
+        String stop = "";
+        String terminus = "";
+        while(stop.contains("*") == false)
+        {
+            stop = (String)JOptionPane.showInputDialog(
+                    null,
+                    "Please enter the stopping points:"
+                    + "Prepend the terminus with *",
+                    "Add Journey",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    null);
+            if(stop.contains("*") == true)
+                terminus = stop.substring(1);
+            else
+                stops.add(stop);
+        }
+        int timeInt = Integer.parseInt(time);
+        TTRoute newRoute = new TTRoute(timeInt, stops, terminus);
+        routeList.add(newRoute);
+        routeList.sort();
+        Vector times = new Vector();
+        for (int timeDue : routeList.getTimes()) {
+            DecimalFormat myFormatter = new DecimalFormat("0000");
+            String output = myFormatter.format(timeDue);
+            times.add(output);
+        }
+        lstJourneyList.setListData(times);
+        lstJourneyList.repaint();
+        JOptionPane.showMessageDialog(null, "Journey added successfully.");
+    }//GEN-LAST:event_btnAddJourneyActionPerformed
+
+    private void btnRemoveJourneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveJourneyActionPerformed
+        // TODO add your handling code here:
+        String temp = lstJourneyList.getSelectedValue();
+        if(temp == null)
+            JOptionPane.showMessageDialog(null, "Error: No journey selected!");
+        else
+        {
+            routeList.removeRouteByTime(temp);
+            Vector times = new Vector();
+            for (int timeDue : routeList.getTimes()) {
+                DecimalFormat myFormatter = new DecimalFormat("0000");
+                String output = myFormatter.format(timeDue);
+                times.add(output);
+            }
+            lstJourneyList.setListData(times);
+            lstJourneyList.repaint();
+            JOptionPane.showMessageDialog(null, "Journey removed successfully.");
+        }
+    }//GEN-LAST:event_btnRemoveJourneyActionPerformed
 
     private void printButtonError() {
         JOptionPane.showMessageDialog(null, "Sorry only FareEvasion reports have been implemented", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1139,6 +1216,7 @@ public class AdminGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddJourney;
     private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnGetDriversReport;
     private javax.swing.JButton btnLoadJourneys;
@@ -1149,6 +1227,7 @@ public class AdminGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnPrintFinanceReport;
     private javax.swing.JButton btnPrintIncidentsReport;
     private javax.swing.JButton btnPrintMaintenanceReport;
+    private javax.swing.JButton btnRemoveJourney;
     private javax.swing.JButton btnSearch;
     private org.jdesktop.swingx.JXDatePicker dpFromCapacity;
     private org.jdesktop.swingx.JXDatePicker dpFromFareEvasion;
@@ -1160,8 +1239,6 @@ public class AdminGUI extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker dpToFinance;
     private org.jdesktop.swingx.JXDatePicker dpToIncidents;
     private org.jdesktop.swingx.JXDatePicker dpToMaintenance;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblBreakdownCosts;

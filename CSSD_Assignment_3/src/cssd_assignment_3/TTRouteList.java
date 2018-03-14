@@ -6,6 +6,7 @@
 package cssd_assignment_3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class TTRouteList {
         return times;
     }
     
-    public List<String> getRoutesByTime(String time)
+    public List<String> getStopsByTime(String time)
     {
         int temp = Integer.parseInt(time);
         TTRoute tempRoute = null;
@@ -57,5 +58,20 @@ public class TTRouteList {
                 return routes.get(i).getTerminus();
         }
         return "";
+    }
+    
+    public void removeRouteByTime(String time)
+    {
+        int temp = Integer.parseInt(time);
+        for(int i = 0; i < routes.size(); i++)
+        {
+            if(temp == routes.get(i).timeDue)
+                routes.remove(routes.get(i));
+        }
+    }
+    
+    public void sort()
+    {
+        Collections.sort(routes, (TTRoute r1, TTRoute r2) -> r1.timeDue-r2.timeDue);
     }
 }
