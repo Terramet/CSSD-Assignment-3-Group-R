@@ -40,6 +40,7 @@ class FaresStructures {
         
         opFareTariff = new OffPeakFare(0, 0.125, startDate, endDate, onPeakBands, offPeakBands, false, true);
         
+        m_tariffs = new TariffRegistry(); 
         m_tariffs.add(opFareTariff);
         
         oapFareTariff = new OAPFare(1, 0.075, startDate, endDate, onPeakBands, offPeakBands, true);
