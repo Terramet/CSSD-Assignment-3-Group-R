@@ -1830,9 +1830,9 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
     private void homeSelectDestinationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeSelectDestinationActionPerformed
         if(jListVia.getSelectedValue() != null){
-        Location newDestination = (Location)jListVia.getSelectedValue();
+        destination = (Location)jListVia.getSelectedValue();
         routeToUse = (Route)jListDestinations.getSelectedValue();
-        String destName = newDestination.getName();
+        String destName = destination.getName();
         String locName = location.getName();
         destinationLabel.setText(locName + " - " + destName);
         bookingStation.setText(locName + " - " + destName);
