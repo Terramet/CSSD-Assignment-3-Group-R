@@ -21,7 +21,7 @@ public class PotentialJourney {
     private int seekBeginLocation() {
         List<Location> locations = GetRoute().getDestinations().getLocationList();
         for(int ix = 0; ix != locations.size(); ++ix) {
-            if (locations.get(ix) == beginLoc)
+            if (locations.get(ix).getName().compareTo(beginLoc.getName()) == 0)
                 return ix;
         }
         return locations.size();
@@ -30,7 +30,7 @@ public class PotentialJourney {
     private int seekEndLocation() {
         List<Location> locations = GetRoute().getDestinations().getLocationList();
         for(int ix = 0; ix != locations.size(); ++ix) {
-            if (locations.get(ix) == endLoc)
+            if (locations.get(ix).getName().compareTo(endLoc.getName()) == 0)
                 return ix;
         }
         return locations.size();
