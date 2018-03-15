@@ -43,7 +43,7 @@ public class AdminGUI extends javax.swing.JFrame {
     
     TTRouteList routeList = new TTRouteList();
     
-    private void loadRouteList()
+    private void loadRouteList()  //Function for deserializing the saved timetable on program startup
     {
         try {
             FileInputStream fileIn = new FileInputStream("/routelist.ser");
@@ -59,6 +59,8 @@ public class AdminGUI extends javax.swing.JFrame {
             c.printStackTrace();
             return;
         }
+        
+        //Prepopulates the timetable display for the Timetables tab in the AdminGUI.
         Vector times = new Vector();
         for (int timeDue : routeList.getTimes()) {
             DecimalFormat myFormatter = new DecimalFormat("0000");
@@ -77,7 +79,7 @@ public class AdminGUI extends javax.swing.JFrame {
     public AdminGUI(EmployeeUserInterface EUIp) {
         initComponents();
         EUI = EUIp;
-        loadRouteList();
+        loadRouteList(); //Call to prepare the saved, serialized route list
         listAccounts.setListData(EUI.getAccountList().toArray());
         if(!EUI.getActiveIsAdmin()) {
             tabsHomePage.setEnabledAt(1, false);
@@ -1063,10 +1065,12 @@ public class AdminGUI extends javax.swing.JFrame {
 
     private void btnLoadJourneysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadJourneysActionPerformed
         // TODO add your handling code here:
+        //First: FileChooser to allow to load a txt file of data
         final JFileChooser fc = new JFileChooser();
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
+            //Parser for the saved text files if using this option
             try {
                 Scanner input = new Scanner(file);
                 TTRoute activeRoute;
@@ -1076,10 +1080,14 @@ public class AdminGUI extends javax.swing.JFrame {
                 while (input.hasNextLine()) {
                     if(input.hasNextInt())
                     {
+                        //Convert the String time to an int.
                         time = Integer.parseInt(input.nextLine());
                     }
                     else
                     {
+                        //Terminus of route is marked in the txt files with a '*'
+                        //so program knows it can stop building that route when
+                        //it finds the terminus.
                         String temp = input.nextLine();
                         if(temp.contains("*") == true)
                         {
@@ -1095,6 +1103,7 @@ public class AdminGUI extends javax.swing.JFrame {
                         }
                     }
                 }
+                //Paints the updated list to the GUI
                 Vector times = new Vector();
                 for (int timeDue : routeList.getTimes()) {
                     DecimalFormat myFormatter = new DecimalFormat("0000");
@@ -1105,6 +1114,7 @@ public class AdminGUI extends javax.swing.JFrame {
                 lstJourneyList.repaint();
                 JOptionPane.showMessageDialog(null, "File loaded successfully.");
             }
+            //Checks for failure to load.
             catch(FileNotFoundException e) {
                 JOptionPane.showMessageDialog(null, "File failed to load.");
             }
@@ -1112,24 +1122,31 @@ public class AdminGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoadJourneysActionPerformed
 
     private void lstJourneyListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstJourneyListValueChanged
+        //Brings up the list of stops, including the terminus, for a given journey.
         String temp = lstJourneyList.getSelectedValue();
         Vector stations = new Vector();
+        //Checks a value is actually selected, as removing a route deselects
+        //and fires this event
         if(temp != null)
         {
             List<String> stops = routeList.getStopsByTime(temp);
             String terminus = "*" + routeList.getTerminusByTime(temp);
+            //Builds up a list fot the second list panel
             for(String station : stops)
             {
                 stations.add(station);
             }
             stations.add(terminus);
         }
+        //Paints the second list panel with the loaded data.
         lstStationsServed.setListData(stations);
         
     }//GEN-LAST:event_lstJourneyListValueChanged
 
     private void btnAddJourneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJourneyActionPerformed
         // TODO add your handling code here:
+        
+        //Allows admin to add in a new journey manually.
         String time = (String)JOptionPane.showInputDialog(
                     null,
                     "Please enter the due time:",
@@ -1158,6 +1175,8 @@ public class AdminGUI extends javax.swing.JFrame {
                 stops.add(stop);
         }
         int timeInt = Integer.parseInt(time);
+        //Adds the new route to the list, sorts the list in order of time due, 
+        //repaints the first list, and re-serializes to keep the backup up to date.
         TTRoute newRoute = new TTRoute(timeInt, stops, terminus);
         routeList.add(newRoute);
         routeList.sort();
@@ -1184,12 +1203,15 @@ public class AdminGUI extends javax.swing.JFrame {
 
     private void btnRemoveJourneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveJourneyActionPerformed
         // TODO add your handling code here:
+        //Remove a route manually
         String temp = lstJourneyList.getSelectedValue();
         if(temp == null)
             JOptionPane.showMessageDialog(null, "Error: No journey selected!");
         else
         {
             routeList.removeRouteByTime(temp);
+            //Adds the new route to the list, sorts the list in order of time due, 
+            //repaints the first list, and re-serializes to keep the backup up to date.
             Vector times = new Vector();
             for (int timeDue : routeList.getTimes()) {
                 DecimalFormat myFormatter = new DecimalFormat("0000");

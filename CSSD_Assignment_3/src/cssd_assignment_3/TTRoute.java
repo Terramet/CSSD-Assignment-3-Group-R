@@ -1,3 +1,7 @@
+/*
+*  Class for a timetabled route
+*  Features some getters and a collection for the parameters of a route.
+*/
 package cssd_assignment_3;
 
 import java.io.Serializable;

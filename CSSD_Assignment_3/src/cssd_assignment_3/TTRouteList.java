@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Customised collection class for the timetabled routes
+ * Features getters to retrieve specific pieces of data about multiple
+ * routes at once, for population of lists, as well as serving as a wrapper for 
+ * adding, removing and sorting the list of routes.
  */
 package cssd_assignment_3;
 

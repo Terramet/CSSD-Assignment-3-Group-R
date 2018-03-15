@@ -36,7 +36,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
     // added from POS, we've only implemented one type of ConsumerUserInterface.
     private final String machineID = "0";
-    private TTRouteList routeList = new TTRouteList();
+    private TTRouteList routeList = new TTRouteList(); 
     private final Location location = new Location("Sheffield","1",0,0);
     
     // refund a users cash.
@@ -1663,7 +1663,9 @@ public class StationTerminalForm extends javax.swing.JFrame {
 
     private void timetableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timetableButtonActionPerformed
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
-        loadRouteList();
+        loadRouteList(); //Load the list created from the AdminGUI
+        //Set up the lists for the panels on the timetable page
+        //Platform has been randomised to simulate a busy train station.
         Vector times = new Vector();
         for (int timeDue : routeList.getTimes()) {
             DecimalFormat myFormatter = new DecimalFormat("0000");
@@ -1679,6 +1681,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
         for(int i = 0; i < times.size(); i++) {
             platforms.add(rand.nextInt(8) + 1);
         }
+        //Paint the lists
         lstDestinationList.setListData(termini);
         lstPlatformList.setListData(platforms);
         lstDueList.setListData(times);
@@ -1690,6 +1693,7 @@ public class StationTerminalForm extends javax.swing.JFrame {
         cl.show(mainPanel, "timetable");
     }//GEN-LAST:event_timetableButtonActionPerformed
 
+    //Function to deserialize the route list.
     private void loadRouteList()
     {
         try {
